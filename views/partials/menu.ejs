@@ -1,0 +1,27 @@
+<header>
+    <nav class="navbar">
+
+        <a href="/pages/Index.html">
+            <div class="titulo-container">
+              <img src="../static/Img/Logo.png" alt="Logo Da Campanha" id="logoimg">
+              <div class="tit">Campanha</div>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="/"><input type="button" value="Home" id=""></a></li>
+            <li><a href="/sobre"><input type="button" value="Sobre" id=""></a></li>
+            <li><a href="/localizacao"><input type="button" value="Localizacao" id=""></a></li>
+            <li><a href="/equipe"><input type="button" value="Equipe" id=""></a></li>
+            <li><a href="/doacoes_doar"><input type="button" value="Doações/Doar" id=""></a></li>
+            <% if(!req.session.loggedin) { %>
+                <li><a href="/login"><input type="button" value="Login" id=""></a></li>
+            <% } else { %>
+                <li><a href="/logout"><input type="button" value="logout" id=""></a></li>
+                <li><a href="/dashboard"><input type="button" value="Dashboard"></a></li>
+                <li><a href="/post_create"><input type="button" value="Postagem"></a></li>
+            <% } %>
+        </ul>
+    </nav>
+    
+</header>
