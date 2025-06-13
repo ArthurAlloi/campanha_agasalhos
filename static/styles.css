@@ -443,3 +443,49 @@ button {
 button:hover {
   background-color: #8e44ad;
 }
+
+.form-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 20px;
+  background-color: #222; /* fundo escuro */
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+  text-align: center;
+}
+
+.form-title {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.doacao-form label {
+  display: block;
+  color: #00ccff;
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.doacao-form select,
+.doacao-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+.doacao-form button {
+  background-color: #9b59b6;
+  color: white;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.doacao-form button:hover {
+  background-color: #8e44ad;
+}

@@ -1,0 +1,40 @@
+<html lang="pt-br">
+
+<%- include("../partials/head"); %>
+
+<body>
+  <%- include("../partials/menu"); %>
+
+  <div class="form-container">
+    <h1 class="form-title">Realizar Doação</h1>
+
+    <form action="/realizardoacao" method="POST">
+      <label for="turma">Turma:</label>
+      <select name="turma" required>
+        <% turmas.forEach(turma => { %>
+          <option value="<%= turma.sigla %>">
+            <%= turma.sigla %> - <%= turma.docente %>
+          </option>
+        <% }) %>
+      </select>
+
+      <label for="item">Item:</label>
+      <select name="item" id="item" required>
+        <option value="" disabled selected>Selecione o item</option>
+        <% roupas.forEach((roupa) => { %>
+          <option value="<%= roupa.id %>"><%= roupa.descricao %> - <%= roupa.pontos %> ponto(s)</option>
+        <% }); %>
+      </select>
+
+      <label for="quantidade">Quantidade:</label>
+      <select name="quantidade" id="quantidade" required>
+        <option value="" disabled selected>Selecione a quantidade</option>
+        <% for(let i = 1; i <= 10; i++) { %>
+          <option value="<%= i %>"><%= i %></option>
+        <% } %>
+      </select>
+
+      <button type="submit">Doar</button>
+    </form>
+  </div>
+</body>
