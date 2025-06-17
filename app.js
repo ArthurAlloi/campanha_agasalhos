@@ -1,226 +1,146 @@
 const express = require('express');
 const session = require('express-session');
 const sqlite3 = require('sqlite3');
+const path = require('path');
 
 const app = express();
 const PORT = 8000;
 
-// Conexão com banco de usuários
-const db = new sqlite3.Database("adm.db");
-db.serialize(() => {
-  db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
-
-  db.get("SELECT * FROM users WHERE username = ?", ['admin'], (err, row) => {
-    if (err) {
-      console.error("Erro ao verificar admin:", err);
-    } else if (!row) {
-      db.run("INSERT INTO users (username, password) VALUES (?, ?)", ['admin', 'adm123'], (err) => {
-        if (err) {
-          console.error("Erro ao inserir admin:", err);
-        } else {
-          console.log("Usuário admin criado com sucesso!");
-        }
-      });
-    } else {
-      console.log("Usuário admin já autorizado");
-    }
-  });
-});
-
-// Conexão com banco de pontuação
-const dbpontuacao = new sqlite3.Database("pontuacaoroupas.db");
-dbpontuacao.serialize(() => {
-  dbpontuacao.run("CREATE TABLE IF NOT EXISTS roupa (id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT, pontos INTEGER)", (err) => {
-    if (err) {
-      console.error("Erro ao criar tabela de pontuação:", err);
-      return;
-    }
-
-    console.log("Tabela de pontuação criada ou já existe.");
-
-    dbpontuacao.get("SELECT COUNT(*) as total FROM roupa", (err, row) => {
-      if (err) {
-        console.error("Erro ao contar registros:", err);
-        return;
-      }
-
-      if (row.total === 0) {
-        const roupas = [
-          { descricao: "Roupas comuns usadas", pontos: 1 },
-          { descricao: "Roupas de frio usadas", pontos: 2 },
-          { descricao: "Roupas novas embaladas com etiqueta", pontos: 3 },
-          { descricao: "Roupas de cama de inverno usadas", pontos: 10 },
-          { descricao: "Roupas de cama de inverno novas", pontos: 20 },
-        ];
-
-        const stmt = dbpontuacao.prepare("INSERT INTO roupa (descricao, pontos) VALUES (?, ?)");
-        roupas.forEach((item) => {
-          stmt.run(item.descricao, item.pontos, (err) => {
-            if (err) {
-              console.error(`Erro ao inserir "${item.descricao}":`, err);
-            }
-          });
-        });
-        stmt.finalize();
-      } else {
-        console.log("Dados já existentes na tabela. Nenhuma inserção feita.");
-      }
-    });
-  });
-});
-
-// Conexão com banco de turmas
-const dbturmas = new sqlite3.Database("turmas.db");
-dbturmas.serialize(() => {
-  dbturmas.run(`CREATE TABLE IF NOT EXISTS turma (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    sigla TEXT NOT NULL,
-    docente TEXT NOT NULL
-  )`, (err) => {
-    if (err) {
-      console.error("Erro ao criar tabela de turmas:", err);
-    } else {
-      console.log("Tabela de turmas criada ou já existe.");
-
-      // Inserir turmas se estiver vazio
-      dbturmas.get("SELECT COUNT(*) as total FROM turma", (err, row) => {
-        if (err) {
-          console.error("Erro ao contar turmas:", err);
-          return;
-        }
-
-        if (row.total === 0) {
-          const turmas = [
-            { sigla: "INF1A", docente: "Profa. Ana" },
-            { sigla: "ADM2B", docente: "Prof. João" },
-            { sigla: "TST3C", docente: "Profa. Carla" }
-          ];
-
-          const stmt = dbturmas.prepare("INSERT INTO turma (sigla, docente) VALUES (?, ?)");
-          turmas.forEach((turma) => {
-            stmt.run(turma.sigla, turma.docente, (err) => {
-              if (err) {
-                console.error(`Erro ao inserir turma ${turma.sigla}:`, err);
-              }
-            });
-          });
-          stmt.finalize(() => {
-            console.log("Turmas adicionadas ao banco.");
-          });
-        } else {
-          console.log("Turmas já existentes no banco.");
-        }
-      });
-    }
-  });
-});
-
-// Sessão
-app.use(session({
-  secret: "banguela",
-  resave: false,
-  saveUninitialized: true,
-}));
-
-// Arquivos estáticos
-app.use("/static", express.static(__dirname + '/static'));
-
-// Parser
+// Configurações básicas
 app.use(express.urlencoded({ extended: true }));
-
-// Motor de visualização
+app.use(session({ secret: 'banguela', resave: false, saveUninitialized: true }));
+app.use("/static", express.static(path.join(__dirname, "static")));
 app.set('view engine', 'ejs');
 
-// Rotas
-app.get("/", (req, res) => {
-  res.render("pages/index", { título: "Index", req: req });
+// ─────────────────────── Banco de Usuários ───────────────────────
+const db = new sqlite3.Database("adm.db");
+db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
+db.get("SELECT * FROM users WHERE username = 'admin'", function(err, row) {
+  if (!row) {
+    db.run("INSERT INTO users (username, password) VALUES ('admin', 'adm123')");
+  }
 });
 
-app.get("/sobre", (req, res) => {
-  res.render("pages/sobre", { título: "Sobre", req: req });
+// ─────────────────────── Banco de Roupas ───────────────────────
+const dbRoupas = new sqlite3.Database("pontuacaoroupas.db");
+dbRoupas.run("CREATE TABLE IF NOT EXISTS roupa (id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT, pontos INTEGER)");
+dbRoupas.get("SELECT COUNT(*) as total FROM roupa", function(err, row) {
+  if (row.total === 0) {
+    dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas comuns usadas', 1)");
+    dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas de frio usadas', 2)");
+    dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas novas embaladas com etiqueta', 3)");
+    dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas de cama de inverno usadas', 10)");
+    dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas de cama de inverno novas', 20)");
+  }
 });
 
-app.get("/localizacao", (req, res) => {
-  res.render("pages/localizacao", { título: "Localização", req: req });
+// ─────────────────────── Banco de Turmas ───────────────────────
+const dbTurmas = new sqlite3.Database("turmas.db");
+dbTurmas.run("CREATE TABLE IF NOT EXISTS turma (id INTEGER PRIMARY KEY AUTOINCREMENT, sigla TEXT, docente TEXT)");
+dbTurmas.get("SELECT COUNT(*) as total FROM turma", function(err, row) {
+  if (row.total === 0) {
+    dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M14', 'WILLIAM')");
+    dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M3A', 'FABIO')");
+    dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M3B', 'EPAMINONDAS')");
+    // Adicione as demais manualmente se quiser
+  }
 });
 
-app.get("/realizardoacao", (req, res) => {
-  dbpontuacao.all("SELECT * FROM roupa", (err, roupas) => {
-    if (err) {
-      console.error("Erro ao buscar roupas:", err);
-      return res.send("Erro ao carregar roupas.");
-    }
+// ─────────────────────── Banco de Arrecadação ───────────────────────
+const dbArrecadacao = new sqlite3.Database("arrecadacao.db");
+dbArrecadacao.run("CREATE TABLE IF NOT EXISTS ARRECADACAO (id INTEGER PRIMARY KEY AUTOINCREMENT, turma TEXT, item TEXT, quantidade INTEGER, pontos INTEGER, data TEXT)");
 
-    dbturmas.all("SELECT * FROM turma", (err, turmas) => {
-      if (err) {
-        console.error("Erro ao buscar turmas:", err);
-        return res.send("Erro ao carregar turmas.");
-      }
+// ─────────────────────── Roteamento ───────────────────────
 
-      res.render("pages/realizardoacao", {
-        título: "Realizar Doação",
-        req: req,
-        roupas: roupas,
-        turmas: turmas
-      });
-    });
-  });
+// Página inicial
+app.get("/", function(req, res) {
+  res.render("pages/index", { título: "Index", req });
 });
 
-app.get("/equipe", (req, res) => {
-  res.render("pages/equipe", { título: "Equipe", req: req });
+// Login
+app.get("/login", function(req, res) {
+  res.render("pages/login", { título: "Login", req, erro: null });
 });
 
-app.get("/login", (req, res) => {
-  res.render("pages/login", { título: "Login", req: req, erro: null });
-});
-
-app.post("/login", (req, res) => {
+app.post("/login", function(req, res) {
   const { username, password } = req.body;
-
-  db.get("SELECT * FROM users WHERE username = ? AND password = ?", [username, password], (err, row) => {
-    if (err) {
-      return res.send("Erro no banco de dados.");
-    }
-
+  db.get("SELECT * FROM users WHERE username = ? AND password = ?", [username, password], function(err, row) {
     if (row) {
       req.session.user = row;
-      console.log("Login bem-sucedido:", row.username);
-      return res.redirect("/doacoes_doar");
+      res.redirect("/doacoes_doar");
     } else {
-      return res.render("pages/login", {
-        título: "Login",
-        req: req,
-        erro: "Usuário ou senha inválidos"
-      });
+      res.render("pages/login", { título: "Login", req, erro: "Usuário ou senha inválidos" });
     }
   });
 });
 
-app.get("/logout", (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error("Erro ao fazer logout:", err);
-      return res.send("Erro ao sair");
-    }
+app.get("/logout", function(req, res) {
+  req.session.destroy(function() {
     res.redirect("/");
   });
 });
 
-// Rota protegida
-app.get("/doacoes_doar", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect('/login');
-  }
-  res.render("pages/doacoes_doar", { título: "Doações", req: req });
+// Página de doações
+app.get("/doacoes_doar", function(req, res) {
+  if (!req.session.user) return res.redirect("/login");
+  res.render("pages/doacoes_doar", { título: "Doações", req });
 });
 
-// Rota 404
-app.use((req, res) => {
-  res.status(404).render('pages/fail', { título: "HTTP ERROR 404 - PAGE NOT FOUND", req: req, msg: "404" });
+// Página do formulário de doação
+app.get("/realizardoacao", function(req, res) {
+  dbRoupas.all("SELECT * FROM roupa", function(err, roupas) {
+    dbTurmas.all("SELECT * FROM turma", function(err, turmas) {
+      res.render("pages/realizardoacao", { título: "Realizar Doação", req, roupas, turmas });
+    });
+  });
+});
+
+// Processar doação
+app.post("/realizardoacao", function(req, res) {
+  const { turma, item, quantidade } = req.body;
+  const qtd = parseInt(quantidade);
+  const mapaPontos = {
+    "Roupas comuns usadas": 1,
+    "Roupas de frio usadas": 2,
+    "Roupas novas embaladas com etiqueta": 3,
+    "Roupas de cama de inverno usadas": 10,
+    "Roupas de cama de inverno novas": 20
+  };
+  const pontos = (mapaPontos[item] || 0) * qtd;
+  const data = new Date().toISOString().split('T')[0];
+
+  dbArrecadacao.run("INSERT INTO ARRECADACAO (turma, item, quantidade, pontos, data) VALUES (?, ?, ?, ?, ?)",
+    [turma, item, qtd, pontos, data], function(err) {
+      res.redirect("/tabela");
+    });
+});
+
+// Exibir tabela de doações
+app.get("/tabela", function(req, res) {
+  dbArrecadacao.all("SELECT * FROM ARRECADACAO", function(err, rows) {
+    const mapaPontos = {
+      "Roupas comuns usadas": 1,
+      "Roupas de frio usadas": 2,
+      "Roupas novas embaladas com etiqueta": 3,
+      "Roupas de cama de inverno usadas": 10,
+      "Roupas de cama de inverno novas": 20
+    };
+    const doacoes = rows.map(row => {
+      return {
+        ...row,
+        pontosUnitarios: mapaPontos[row.item] || 0
+      };
+    });
+    res.render("pages/tabela", { título: "Tabela de Doações", req, doacoes });
+  });
+});
+
+// Página 404
+app.use(function(req, res) {
+  res.status(404).render("pages/fail", { título: "Página não encontrada", req, msg: "404" });
 });
 
 // Inicia o servidor
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta: ${PORT}`);
+app.listen(PORT, function() {
+  console.log("Servidor rodando em http://localhost:" + PORT);
 });

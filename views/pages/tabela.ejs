@@ -1,0 +1,31 @@
+<%- include("../partials/head"); %>
+<%- include("../partials/menu"); %>
+
+<div class="tabela-container">
+  <h1>Tabela de Doações</h1>
+
+  <table class="tabela-doacoes">
+    <thead>
+      <tr>
+        <th>Turma</th>
+        <th>Item Doado</th>
+        <th>Quantidade</th>
+        <th>Pontos por Unidade</th>
+        <th>Pontos Totais</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% doacoes.forEach(doacao => { %>
+        <tr>
+          <td><%= doacao.turma %></td>
+          <td><%= doacao.item %></td>
+          <td><%= doacao.quantidade %></td>
+          <td><%= doacao.pontosUnitarios %></td>
+          <td><%= doacao.pontos %></td>
+          <td><%= doacao.data %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
