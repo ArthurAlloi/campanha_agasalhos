@@ -39,7 +39,7 @@
       <% if (paginaAtual > 1) { %> <!-- Se não está na primeira página, permite voltar -->
         <a class="paginacao-btn" href="/tabela?pagina=<%= paginaAtual - 1 %>">← Anterior</a>
       <% } else { %> <!-- Se estiver na primeira página, desativa o botão -->
-        <span class="paginacao-btn disabled">← Anterior</span>
+        <span class="paginacao-btn disabled"></span>
       <% } %>
 
       <span class="pagina-info">Página <%= paginaAtual %> de <%= totalPaginas %></span> <!-- Mostra o número da página atual -->
@@ -47,13 +47,14 @@
       <% if (paginaAtual < totalPaginas) { %> <!-- Se não está na última página, permite avançar -->
         <a class="paginacao-btn" href="/tabela?pagina=<%= paginaAtual + 1 %>">Próxima →</a>
       <% } else { %> <!-- Se estiver na última página, desativa o botão -->
-        <span class="paginacao-btn disabled">Próxima →</span>
+        <span class="paginacao-btn disabled"></span>
       <% } %>
     </div>
 
     <div class="botao-ranking"> <!-- Botão que leva ao ranking de turmas -->
-      <a href="/ranking" class="ranking-btn">Ver Ranking</a>
+      <a href="/ranking" class="ranking-btn"><button type="submit" id="btnrank">Ver Ranking</button></a>
     </div>
+
   </div>
 
   <!-- Botão Voltar -->

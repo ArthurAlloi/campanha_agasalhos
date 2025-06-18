@@ -352,6 +352,7 @@ h3{
   margin-bottom: 20px;
 }
 
+
 .doar {
   display: flex;
   justify-content: center;
@@ -535,6 +536,26 @@ button:hover {
   box-shadow: 0 0 80px #ffae00;
 }
 
+#btnrank{
+  width: 20%;
+  padding: 12px;
+  margin-top: 25px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #ffd000;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: 1s;
+}
+
+#btnrank:hover {
+  background-color: #ffd000;
+  box-shadow: 0 0 40px #ffae00;
+  box-shadow: 0 0 80px #ffae00;
+}
+
 .tabela-container {
   width: 85%;
   margin: 100px;
@@ -582,4 +603,16 @@ button:hover {
 
 .tabela-doacoes td {
   color: #f0f0f0;
+}
+
+.paginacao{
+  margin-top: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: #f4fdaf;
+  font-weight: bolder;
+}
+
+.paginacao-btn{
+  color: #09fcfc;
 }
