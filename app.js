@@ -57,6 +57,18 @@ app.get("/", function(req, res) {
   res.render("pages/index", { título: "Index", req });
 });
 
+app.get("/sobre", function(req, res) {
+  res.render("pages/sobre", { título: "Sobre", req });
+});
+
+app.get("/localizacao", function(req, res) {
+  res.render("pages/localizacao", { título: "Localizacao", req });
+});
+
+app.get("/equipe", function(req, res) {
+  res.render("pages/equipe", { título: "Equipe", req });
+});
+
 // Login
 app.get("/login", function(req, res) {
   res.render("pages/login", { título: "Login", req, erro: null });
