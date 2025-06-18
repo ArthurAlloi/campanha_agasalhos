@@ -618,6 +618,11 @@ button:hover {
   text-decoration: underline;
 }
 
+#turma{
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
 /*MEDIA QUERY (RESPONSIVIDADES)*/
 
 /* ========== RESPONSIVIDADE ========== */
