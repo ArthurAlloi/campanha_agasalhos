@@ -400,7 +400,7 @@ h5{
 
 h6{
   margin-bottom: 10px;
-  font-size: 60px;
+  font-size: 80px;
   font-weight: bolder;
   color: #fbffb9;
   text-shadow: 0 0 20px #678ead;
@@ -615,4 +615,9 @@ button:hover {
 
 .paginacao-btn{
   color: #09fcfc;
+  text-decoration: underline;
 }
+
+/*MEDIA QUERY (RESPONSIVIDADES)*/
+
+/* ========== RESPONSIVIDADE ========== */
