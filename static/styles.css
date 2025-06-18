@@ -356,7 +356,7 @@ h3{
   display: flex;
   justify-content: center;
   margin-top: 50px; 
-  gap: 200px;
+  gap: 170px;
   margin-bottom: 20px;
 }
 
@@ -418,13 +418,13 @@ input[type="password"]:hover {
   margin: 100px auto;
   text-align: center;
   border-radius: 20px;
-  text-align: center;
   padding: 30px;
 }
 
 .caixa-login h2 {
   margin-bottom: 10px;
-  color: #ff2c55;
+  color: #78fecf;
+  text-shadow: 0 0 10px #00d0ff;
   font-size: 40px;
 }
 
@@ -485,9 +485,10 @@ form {
 
 .doacao-container h1 {
   text-align: center;
-  color: #00d0ff;
+  color: #78fecf;
+  text-shadow: 0 0 10px #00d0ff;
+  font-size: 2rem;
   margin-bottom: 30px;
-  font-size: 24px;
 }
 
 #quantidade{
@@ -546,9 +547,10 @@ button:hover {
 
 .tabela-container h1 {
   text-align: center;
-  color: #00d0ff;
-  font-size: 28px;
-  margin-bottom: 20px;
+  color: #78fecf;
+  text-shadow: 0 0 10px #00d0ff;
+  font-size: 3rem;
+  margin-bottom: 25px;
 }
 
 .tabela-doacoes {
