@@ -408,23 +408,23 @@ h6{
 input[type="text"]:hover,
 input[type="password"]:hover {
     border: 2px solid #01baef;
-    background-color: #ffffffaa;
+    background-color: #5b5a5aaa;
+    color: #fff;
 }
 
 .caixa-login {
-  background-color: #1e1e1e;
+  background-color: #333;
   max-width: 500px;
   margin: 100px auto;
   text-align: center;
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
   text-align: center;
   padding: 30px;
 }
 
 .caixa-login h2 {
   margin-bottom: 10px;
-  color: #9b59b6;
+  color: #ff2c55;
   font-size: 40px;
 }
 
@@ -446,13 +446,15 @@ form {
 }
 
 .input-form{
+  text-shadow: none;
   padding: 10px;
   border-radius: 8px;
-  border: none;
+  border: 2px solid #00d0ff;
+  box-shadow: 0 0 10px #00d0ff;
   outline: none;
   font-size: 1rem;
-  background-color: #fff;
-  color: #000;
+  background-color: transparent;
+  color: #6a6a6a;
 }
 
 .form-container {
@@ -493,10 +495,11 @@ form {
 }
 
 label {
+  text-align: left;
   display: block;
   margin-top: 15px;
   font-weight: bold;
-  color: #00d0ff;
+  color: #7cdedc;
   font-size: 22px;
 }
 
@@ -526,7 +529,7 @@ button {
 }
 
 button:hover {
-  background-color: #bd9f3b;
+  background-color: #ffd000;
   box-shadow: 0 0 40px #ffae00;
   box-shadow: 0 0 80px #ffae00;
 }
