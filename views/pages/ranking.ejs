@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../partials/head"); %>
+<%- include("../partials/menu"); %>
+
+<body>
+
+  <div class="ranking-container">
+    <h1>Ranking de Doações por Turma</h1>
+
+    <table class="tabela-ranking">
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Turma</th>
+          <th>Total de Doações</th>
+          <th>Pontuação Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% ranking.forEach((turma, index) => { %>
+          <tr>
+            <td><%= index + 1 %>º</td>
+            <td><%= turma.turma %></td>
+            <td><%= turma.totalDoacoes %></td>
+            <td><%= turma.totalPontos %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <div class="voltar">
+      <a href="/tabela">
+        <img src="https://cdn-icons-png.flaticon.com/512/5935/5935366.png" alt="Voltar" id="img-v">
+      </a>
+    </div>
+  </div>
+
+  <%- include("../partials/footer"); %>
+
+</body>
+</html>

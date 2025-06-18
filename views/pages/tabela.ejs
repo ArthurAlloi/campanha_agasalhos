@@ -1,47 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br"> <!-- Define o idioma da página como português do Brasil -->
 
-<%- include("../partials/head"); %>
-<%- include("../partials/menu"); %>
+<%- include("../partials/head"); %> <!-- Inclui o cabeçalho HTML comum (meta tags, links de estilo, etc.) -->
+<%- include("../partials/menu"); %> <!-- Inclui o menu de navegação padrão do site -->
 
 <body>
 
-<div class="tabela-container">
-  <h1>Tabela de Doações</h1>
+  <div class="tabela-container"> <!-- Container principal da tabela -->
+    <h1>Tabela de Doações</h1> <!-- Título principal da página -->
 
-  <table class="tabela-doacoes">
-    <thead>
-      <tr>
-        <th>Turma</th>
-        <th>Item Doado</th>
-        <th>Quantidade</th>
-        <th>Pontos por Unidade</th>
-        <th>Pontos Totais</th>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% doacoes.forEach(doacao => { %>
-        <tr>
-          <td><%= doacao.turma %></td>
-          <td><%= doacao.item %></td>
-          <td><%= doacao.quantidade %></td>
-          <td><%= doacao.pontosUnitarios %></td>
-          <td><%= doacao.pontos %></td>
-          <td><%= doacao.data %></td>
+    <table class="tabela-doacoes"> <!-- Início da tabela -->
+      <thead>
+        <tr> <!-- Linha do cabeçalho da tabela -->
+          <th>Turma</th> <!-- Coluna da turma -->
+          <th>Item Doado</th> <!-- Coluna do item doado -->
+          <th>Quantidade</th> <!-- Coluna da quantidade de itens -->
+          <th>Pontos por Unidade</th> <!-- Coluna dos pontos por item -->
+          <th>Pontos Totais</th> <!-- Coluna dos pontos totais -->
+          <th>Data</th> <!-- Coluna da data da doação -->
         </tr>
-      <% }) %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% doacoes.forEach(doacao => { %> <!-- Percorre cada doação recebida do servidor -->
+          <tr> <!-- Nova linha da tabela para cada doação -->
+            <td><%= doacao.turma %></td> <!-- Mostra a turma da doação -->
+            <td><%= doacao.item %></td> <!-- Mostra o nome do item doado -->
+            <td><%= doacao.quantidade %></td> <!-- Mostra a quantidade doada -->
+            <td><%= doacao.pontosUnitarios %></td> <!-- Mostra os pontos por unidade -->
+            <td><%= doacao.pontos %></td> <!-- Mostra os pontos totais (quantidade * pontos por unidade) -->
+            <td><%= doacao.data %></td> <!-- Mostra a data da doação -->
+          </tr>
+        <% }) %>
+      </tbody>
+    </table> <!-- Fim da tabela -->
 
-</div>
+    <!-- Paginação -->
+    <div class="paginacao"> <!-- Container para os botões de paginação -->
+      <% if (paginaAtual > 1) { %> <!-- Se não está na primeira página, permite voltar -->
+        <a class="paginacao-btn" href="/tabela?pagina=<%= paginaAtual - 1 %>">← Anterior</a>
+      <% } else { %> <!-- Se estiver na primeira página, desativa o botão -->
+        <span class="paginacao-btn disabled">← Anterior</span>
+      <% } %>
 
-<div class="voltar">
-  <a href="/doacoes_doar"><img src="https://cdn-icons-png.flaticon.com/512/5935/5935366.png" 
-    alt="Voltar" id="img-v"></a>
-</div>
+      <span class="pagina-info">Página <%= paginaAtual %> de <%= totalPaginas %></span> <!-- Mostra o número da página atual -->
 
-<%- include("../partials/footer"); %> 
+      <% if (paginaAtual < totalPaginas) { %> <!-- Se não está na última página, permite avançar -->
+        <a class="paginacao-btn" href="/tabela?pagina=<%= paginaAtual + 1 %>">Próxima →</a>
+      <% } else { %> <!-- Se estiver na última página, desativa o botão -->
+        <span class="paginacao-btn disabled">Próxima →</span>
+      <% } %>
+    </div>
+
+    <div class="botao-ranking"> <!-- Botão que leva ao ranking de turmas -->
+      <a href="/ranking" class="ranking-btn">Ver Ranking</a>
+    </div>
+  </div>
+
+  <!-- Botão Voltar -->
+  <div class="voltar"> <!-- Container do botão de voltar -->
+    <a href="/doacoes_doar"> <!-- Link que redireciona para a página de doações -->
+      <img src="https://cdn-icons-png.flaticon.com/512/5935/5935366.png" alt="Voltar" id="img-v"> <!-- Ícone do botão -->
+    </a>
+  </div>
+
+  <%- include("../partials/footer"); %> <!-- Inclui o rodapé padrão do site -->
 
 </body>
 </html>

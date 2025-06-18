@@ -129,25 +129,57 @@ app.post("/realizardoacao", function(req, res) {
     });
 });
 
-// Exibir tabela de doações
-app.get("/tabela", function(req, res) {
-  dbArrecadacao.all("SELECT * FROM ARRECADACAO", function(err, rows) {
-    const mapaPontos = {
-      "Roupas comuns usadas": 1,
-      "Roupas de frio usadas": 2,
-      "Roupas novas embaladas com etiqueta": 3,
-      "Roupas de cama de inverno usadas": 10,
-      "Roupas de cama de inverno novas": 20
-    };
-    const doacoes = rows.map(row => {
-      return {
-        ...row,
-        pontosUnitarios: mapaPontos[row.item] || 0
-      };
+app.get("/ranking", function(req, res) {
+  dbArrecadacao.all(`
+    SELECT turma, SUM(pontos) AS totalPontos, COUNT(*) AS totalDoacoes
+    FROM ARRECADACAO
+    GROUP BY turma
+    ORDER BY totalPontos DESC
+  `, function(err, ranking) {
+    res.render("pages/ranking", {
+      título: "Ranking de Doações",
+      req,
+      ranking
     });
-    res.render("pages/tabela", { título: "Tabela de Doações", req, doacoes });
   });
 });
+
+
+// Exibir tabela de doações
+app.get("/tabela", function(req, res) {
+  const pagina = parseInt(req.query.pagina) || 1;
+  const porPagina = 10;
+  const offset = (pagina - 1) * porPagina;
+
+  const mapaPontos = {
+    "Roupas comuns usadas": 1,
+    "Roupas de frio usadas": 2,
+    "Roupas novas embaladas com etiqueta": 3,
+    "Roupas de cama de inverno usadas": 10,
+    "Roupas de cama de inverno novas": 20
+  };
+
+  dbArrecadacao.all("SELECT * FROM ARRECADACAO LIMIT ? OFFSET ?", [porPagina, offset], function(err, rows) {
+    dbArrecadacao.get("SELECT COUNT(*) as total FROM ARRECADACAO", function(err, result) {
+      const totalRegistros = result.total;
+      const totalPaginas = Math.ceil(totalRegistros / porPagina);
+
+      const doacoes = rows.map(row => ({
+        ...row,
+        pontosUnitarios: mapaPontos[row.item] || 0
+      }));
+
+      res.render("pages/tabela", {
+        título: "Tabela de Doações",
+        req,
+        doacoes,
+        paginaAtual: pagina,
+        totalPaginas
+      });
+    });
+  });
+});
+
 
 //ERROR Página Não Encontrada
 app.use('/{*erro}', (req, res) => {
