@@ -9,6 +9,18 @@
   <div class="tabela-container"> <!-- Container principal da tabela -->
     <h1>Tabela de Doações</h1> <!-- Título principal da página -->
 
+<form method="get" action="/tabela" class="filtro-form">
+  <label for="turma">Filtrar por turma:</label>
+  <select name="turma" id="turma" onchange="this.form.submit()">
+    <option value="">Todas</option>
+    <% turmas.forEach(t => { %>
+      <option value="<%= t.sigla %>" <%= turmaSelecionada === t.sigla ? 'selected' : '' %>><%= t.sigla %></option>
+    <% }) %>
+  </select>
+</form>
+
+
+
     <table class="tabela-doacoes"> <!-- Início da tabela -->
       <thead>
         <tr> <!-- Linha do cabeçalho da tabela -->
