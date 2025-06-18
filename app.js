@@ -94,12 +94,13 @@ app.get("/logout", function(req, res) {
 
 // Página de doações
 app.get("/doacoes_doar", function(req, res) {
-  if (!req.session.user) return res.redirect("/login"); //GENIAL, se não estiver logado voltar para pag login
+//GENIAL, se não estiver logado voltar para pag login
   res.render("pages/doacoes_doar", { título: "Doações", req });
 });
 
 // Página do formulário de doação
 app.get("/realizardoacao", function(req, res) {
+  if (!req.session.user) return res.redirect("/login");
   dbRoupas.all("SELECT * FROM roupa", function(err, roupas) {
     dbTurmas.all("SELECT * FROM turma", function(err, turmas) {
       res.render("pages/realizardoacao", { título: "Realizar Doação", req, roupas, turmas });
@@ -109,6 +110,7 @@ app.get("/realizardoacao", function(req, res) {
 
 // Processar doação
 app.post("/realizardoacao", function(req, res) {
+  if (!req.session.user) return res.redirect("/login");
   const { turma, item, quantidade } = req.body;
   const qtd = parseInt(quantidade);
   const mapaPontos = {
@@ -147,12 +149,14 @@ app.get("/tabela", function(req, res) {
   });
 });
 
-// Página 404
-app.use(function(req, res) {
-  res.status(404).render("pages/fail", { título: "Página não encontrada", req, msg: "404" });
+//ERROR Página Não Encontrada
+app.use('/{*erro}', (req, res) => {
+  console.log("GET /fail")
+  res.status(404).render('pages/fail', { título: "HTTP ERROR 404 - PAGE NOT FOUND", req: req, msg: "404" });
 });
 
-// Inicia o servidor
-app.listen(PORT, function() {
-  console.log("Servidor rodando em http://localhost:" + PORT);
+//Inicia o Servidor
+app.listen(PORT, () => {
+  console.log(`Servidor Sendo Executado na Porta: ${PORT}`);
+  console.log(__dirname + '//static');
 });

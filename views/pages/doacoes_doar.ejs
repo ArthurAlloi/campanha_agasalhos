@@ -18,10 +18,12 @@
           <h3>Exibir Tabela de Doações</h3>
         </article>
           
-        <article>
-          <a href="/realizardoacao"> <img src="../static/Img/doar.jpg" alt="Doar" id="img-j"> </a>
-          <h3>Página para Doar<h3>
-        </article>
+        <% if (req.session.user) { %>
+          <article>
+            <a href="/realizardoacao"> <img src="../static/Img/doar.jpg" alt="Doar" id="img-j"> </a>
+            <h3>Página para Doar<h3>
+          </article>
+        <% } %>
 
       </section>
     </main>

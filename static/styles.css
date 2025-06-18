@@ -54,7 +54,7 @@ main{
   min-height: 100%;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(0.2);
+  filter: brightness(0.3);
 }
 
 /*aaaaaaaaaaaaaa*/
@@ -116,6 +116,7 @@ input{
   font-family: monospace;
   font-size: 20px;
   color: #ffffff;
+  text-shadow: 0 0 10px #98d9eb;
   border: 0;
   border-radius: 12px;
   background-color: transparent;
@@ -185,8 +186,8 @@ a{
 #btnLog{
   background-color: #ffc800;
   color: black;
-  padding: 8px;
-  font-size: 20px;
+  padding: 12px;
+  font-size: 24px;
   font-weight: bolder;
   text-transform: uppercase;
   border: 0 solid;
@@ -200,8 +201,8 @@ a{
   background-color: #ff9b0e;
   border: 1px solid #ff9b0e;
   box-shadow: 0 0 100px #ff9b0e;
-  padding: 12px;
-  font-size: 24px;
+  padding: 16px;
+  font-size: 28px;
 }
 
 .sobre{
@@ -336,11 +337,27 @@ h3{
   transition: 0.7s;
 }
 
+#img-f{
+  margin-top: -80px;
+  margin-bottom: 30px;
+  width: 50%;
+  height: 50%;
+}
+
+#img-v{
+  width: 7%;
+  height: 7%;
+  transform: translateX(110%);
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
 .doar {
   display: flex;
   justify-content: center;
-  margin-top: 40px; 
+  margin-top: 50px; 
   gap: 200px;
+  margin-bottom: 20px;
 }
 
 .doar article h3 {
@@ -365,6 +382,7 @@ Nesse caso, como o <img> está dentro do <a> e o <h3> está logo depois do <a>, 
 }
 
 h4{
+  margin-top: 100px;
   font-size: 50px;
   text-shadow: 0 0 20px #ff9b0e; text-shadow: 0 0 30px #ffc800;
   font-weight: bolder;
@@ -374,6 +392,14 @@ h4{
 
 h5{
   font-size: 22px;
+  font-weight: bolder;
+  color: #fbffb9;
+  text-shadow: 0 0 20px #678ead;
+}
+
+h6{
+  margin-bottom: 10px;
+  font-size: 60px;
   font-weight: bolder;
   color: #fbffb9;
   text-shadow: 0 0 20px #678ead;
@@ -552,4 +578,3 @@ button:hover {
 .tabela-doacoes td {
   color: #f0f0f0;
 }
-

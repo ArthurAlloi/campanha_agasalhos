@@ -13,11 +13,16 @@
         <li><a href="/sobre"><input type="button" value="Sobre"></a></li>
         <li><a href="/localizacao"><input type="button" value="Localização"></a></li>
         <li><a href="/equipe"><input type="button" value="Equipe"></a></li>
+        <li><a href="/doacoes_doar"><input type="button" <% if (!req.session.user){ %> 
+            value="Doações"
+        <% } else { %>
+            value="Doações/Doar"
+        <% } %> >
+        </a></li>
 
         <% if (!req.session.user) { %>
             <li><a href="/login"><input type="button" value="Login"></a></li>
         <% } else { %>
-            <li><a href="/doacoes_doar"><input type="button" value="Doações/Doar"></a></li>
             <li><a href="/logout"><input type="button" value="Logout"></a></li>
         <% } %>
 
