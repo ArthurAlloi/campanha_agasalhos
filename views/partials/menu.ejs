@@ -8,20 +8,20 @@
             </div>
         </a>
 
-        <ul class="nav-links">
-    <li><a href="/"><input type="button" value="Home"></a></li>
-    <li><a href="/sobre"><input type="button" value="Sobre"></a></li>
-    <li><a href="/localizacao"><input type="button" value="Localização"></a></li>
-    <li><a href="/equipe"><input type="button" value="Equipe"></a></li>
-    <li><a href="/doacoes_doar"><input type="button" value="Doações/Doar"></a></li>
+    <ul class="nav-links">
+        <li><a href="/"><input type="button" value="Home"></a></li>
+        <li><a href="/sobre"><input type="button" value="Sobre"></a></li>
+        <li><a href="/localizacao"><input type="button" value="Localização"></a></li>
+        <li><a href="/equipe"><input type="button" value="Equipe"></a></li>
 
-    <% if (!req.session.user) { %>
-        <li><a href="/login"><input type="button" value="Login"></a></li>
-    <% } else { %>
-        <li><a href="/logout"><input type="button" value="Logout"></a></li>
-       
-    <% } %>
-</ul>
+        <% if (!req.session.user) { %>
+            <li><a href="/login"><input type="button" value="Login"></a></li>
+        <% } else { %>
+            <li><a href="/doacoes_doar"><input type="button" value="Doações/Doar"></a></li>
+            <li><a href="/logout"><input type="button" value="Logout"></a></li>
+        <% } %>
+
+    </ul>
 
     </nav>
     

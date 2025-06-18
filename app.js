@@ -94,7 +94,7 @@ app.get("/logout", function(req, res) {
 
 // Página de doações
 app.get("/doacoes_doar", function(req, res) {
-  if (!req.session.user) return res.redirect("/login");
+  if (!req.session.user) return res.redirect("/login"); //GENIAL, se não estiver logado voltar para pag login
   res.render("pages/doacoes_doar", { título: "Doações", req });
 });
 

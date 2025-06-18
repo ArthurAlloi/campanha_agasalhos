@@ -29,18 +29,21 @@ footer {
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
   padding: 20px 10px;
-  text-align: center;
-  font-size: 0.9rem;
+  text-align: center;;
 }
 
-footer p{
-  font-size: 17px;
+footer h2{
+  font-size: 18px;
 }
 
 main{
   align-content: center; 
   flex: 1;
   text-align: center;
+}
+
+.especi{
+  display: inline;
 }
 
 #bg-video{
@@ -51,8 +54,35 @@ main{
   min-height: 100%;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(0.5);
+  filter: brightness(0.2);
 }
+
+/*aaaaaaaaaaaaaa*/
+
+
+/*aaaaaaaaaaaaaa*/
+.tit {
+  font-size: 38px;
+  font-weight: bold;
+
+  background: linear-gradient(90deg, #ffffff, #09fcfc);
+  background-size: 200% 200%;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientText 5s ease-in-out infinite;
+  text-transform: uppercase;
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 200% 200%; }
+  75% { background-position: 50% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 .navbar{
   display: flex;
@@ -61,11 +91,37 @@ main{
   font-weight: bolder;
 }
 
-.tit{
-  font-size: 35px;
-  color: #ffc800;
-  text-transform: uppercase;
-  text-align: center;
+.nav-links{
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a{
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
+  transition: 1s;
+}
+  
+.nav-links a:hover{
+  color: #fff;
+  background-color: #01baef;
+  border-radius: 12px;
+  padding: 7px;
+  box-shadow: 0 0 20px #01baef;
+}
+
+input{
+  font-family: monospace;
+  font-size: 20px;
+  color: #ffffff;
+  border: 0;
+  border-radius: 12px;
+  background-color: transparent;
+  padding: 3px;
+  margin-bottom: 15px;
+  transition: 0.6s;
 }
 
 a{
@@ -109,28 +165,6 @@ a{
   }
 }
 
-
-.nav-links{
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a{
-  font-size: 18px;
-  text-decoration: none;
-  color: #fff;
-  transition: 1s;
-}
-  
-.nav-links a:hover{
-  color: #fff;
-  background-color: #01baef;
-  border-radius: 12px;
-  padding: 7px;
-  box-shadow: 0 0 20px #01baef;
-}
-
 .content h1{
   font-size: 4rem;
   letter-spacing: 5px;
@@ -150,6 +184,7 @@ a{
 
 #btnLog{
   background-color: #ffc800;
+  color: black;
   padding: 8px;
   font-size: 20px;
   font-weight: bolder;
@@ -165,8 +200,8 @@ a{
   background-color: #ff9b0e;
   border: 1px solid #ff9b0e;
   box-shadow: 0 0 100px #ff9b0e;
-  padding: 9px;
-  font-size: 21px;
+  padding: 12px;
+  font-size: 24px;
 }
 
 .sobre{
@@ -264,28 +299,6 @@ a{
   box-shadow: 0 0 50px #3e3e32;
 }
 
-input{
-  font-size: 20px;
-  background-color: #98d9eb;
-  border: 1px solid #261f18;
-  padding: 3px;
-  margin-bottom: 15px;
-  color: black;
-  transition: 0.6s;
-}
-
-input:hover{
-  background-color: #7689d7;
-  color: antiquewhite;
-}
-
-label{
-  font-size: 25px;
-  font-weight: bolder;
-  color: #1baed7;
-  margin-left: 10px;
-}
-
 h3{
   font-size: 30px;
   font-weight: bolder;
@@ -316,22 +329,39 @@ h3{
   font-weight: normal;
 }
 
-#img-j{
+#img-j {
   width: 300px;
   height: 300px;
   border-radius: 360px;
   transition: 0.7s;
 }
 
-#img-j:hover{
+.doar {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px; 
+  gap: 200px;
+}
+
+.doar article h3 {
+  transition: 1.3s;
+}
+
+.doar article #img-j:hover{
   width: 350px;
   height: 350px;
 }
 
-.doar {
-  align-content: center;
-  padding-top: 100px; 
-  text-align: center;
+/* UAuu */
+/*Para que o <h3> mude de cor quando a imagem for "hoverada", você precisa usar o seletor de irmão no CSS, 
+como o + (irmão adjacente) ou ~ (irmão geral).
+
+Nesse caso, como o <img> está dentro do <a> e o <h3> está logo depois do <a>, você pode usar a:hover + h3*/
+.doar article a:hover + h3 {
+  color: #00d0ff;
+  text-shadow: 0 0 20px #00d0ff;
+  transition: 0.7s;
+  font-size: 35px;
 }
 
 h4{
@@ -349,34 +379,10 @@ h5{
   text-shadow: 0 0 20px #678ead;
 }
 
-
-
-
-  
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    outline: none;
-    transition: 0.3s ease;
-}
-  
-input[type="email"]:focus,
-input[type="password"]:focus {
+input[type="text"]:hover,
+input[type="password"]:hover {
     border: 2px solid #01baef;
     background-color: #ffffffaa;
-}
-  
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .caixa-login {
@@ -413,12 +419,6 @@ form {
   gap: 15px;
 }
 
-label {
-  text-align: left;
-  font-weight: bold;
-  color: #00d4ff;
-}
-
 .input-form{
   padding: 10px;
   border-radius: 8px;
@@ -429,26 +429,11 @@ label {
   color: #000;
 }
 
-button {
-  background-color: #9b59b6;
-  color: #fff;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background-color: #8e44ad;
-}
-
 .form-container {
   max-width: 400px;
   margin: 80px auto;
   padding: 20px;
-  background-color: #222; /* fundo escuro */
+  background-color: #222; 
   border-radius: 10px;
   box-shadow: 0 0 10px #000;
   text-align: center;
@@ -461,8 +446,9 @@ button:hover {
 }
 
 .doacao-container {
-  width: 500px;
-  margin: 40px auto;
+  width: 40%;
+  margin: 100px 0px 0px 400px;
+  margin-bottom: 60px;
   background-color: #1e1e1e;
   padding: 30px;
   border-radius: 15px;
@@ -476,12 +462,16 @@ button:hover {
   font-size: 24px;
 }
 
+#quantidade{
+  color: black;
+}
+
 label {
   display: block;
   margin-top: 15px;
   font-weight: bold;
   color: #00d0ff;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 select,
@@ -496,28 +486,33 @@ input[type="number"] {
 }
 
 button {
-  width: 100%;
+  width: 30%;
   padding: 12px;
   margin-top: 25px;
-  background-color: #a350d1;
+  background-color: transparent;
   color: white;
-  border: none;
+  border: 1px solid #ffd000;
   border-radius: 10px;
   font-size: 18px;
+  font-weight: bolder;
   cursor: pointer;
+  transition: 1s;
 }
 
 button:hover {
-  background-color: #8e3bbd;
+  background-color: #bd9f3b;
+  box-shadow: 0 0 40px #ffae00;
+  box-shadow: 0 0 80px #ffae00;
 }
 
 .tabela-container {
-  width: 90%;
-  margin: 40px auto;
+  width: 85%;
+  margin: 100px;
+  margin-bottom: 60px;
   background-color: #1e1e1e;
-  padding: 30px;
+  padding: 20px;
   border-radius: 15px;
-  border: 1px solid #333;
+  border: 1px solid #076164;
 }
 
 .tabela-container h1 {
