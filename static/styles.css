@@ -95,6 +95,11 @@ main{
   list-style: none;
   display: flex;
   gap: 20px;
+  transform: translateY(5px);
+}
+
+ul li a input{
+  cursor: pointer;
 }
 
 .nav-links a{
@@ -234,18 +239,6 @@ a{
 .sobre article #ahi{
   color: #fdd692;
   font-weight: bolder;
-}
-
-.imagem{
-  margin-top: 30px;
-  margin-bottom: 20px;
-}
-
-#img-s{
-  width: 300px;
-  width: 300px;
-  border-radius: 10px;
-  margin-bottom: 20px;
 }
 
 .img-maps{
