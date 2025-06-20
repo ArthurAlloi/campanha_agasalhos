@@ -33,7 +33,7 @@ footer {
 }
 
 footer h2{
-  font-size: 18px;
+  font-size: 1.2rem;
 }
 
 main{
@@ -61,28 +61,6 @@ main{
 
 
 /*aaaaaaaaaaaaaa*/
-.tit {
-  font-size: 38px;
-  font-weight: bold;
-
-  background: linear-gradient(90deg, #ffffff, #09fcfc);
-  background-size: 200% 200%;
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: gradientText 5s ease-in-out infinite;
-  text-transform: uppercase;
-}
-
-@keyframes gradientText {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 50% 100%; }
-  50% { background-position: 200% 200%; }
-  75% { background-position: 50% 100%; }
-  100% { background-position: 0% 50%; }
-}
-
 
 .navbar{
   display: flex;
@@ -107,12 +85,12 @@ ul li a input{
   text-decoration: none;
   color: #fff;
   transition: 1s;
+  border-radius: 12px;
 }
   
 .nav-links a:hover{
   color: #fff;
   background-color: #01baef;
-  border-radius: 12px;
   padding: 7px;
   box-shadow: 0 0 20px #01baef;
 }
@@ -134,34 +112,79 @@ a{
   text-decoration: none;
 }
 
-#logoimg{
-  height: 55px;
-  width: 55px;
-  animation: rodaroda linear 1.2s;
-}
-
-@keyframes gira {
-0%, 100%{
-  transform: translateY(0) rotateX(0);
-}
-25%{
-  transform: translateY(-20px);
-}
-50%{
-  transform: translateY(0) rotateX(0);
-  }
-75%{
-  transform: translateY(-20px);
-}
-}
-  
 .titulo-container{
   display: flex;
-  align-items: center;
-  gap: 10px; 
+  align-items: center; 
   cursor: pointer;
 }
 
+.titulo-container:hover #logoimg{
+  animation: gira 0.65s linear both;
+}
+
+.doar article a:hover + h3 {
+  color: #00d0ff;
+  text-shadow: 0 0 20px #00d0ff;
+  transition: 0.7s;
+  font-size: 35px;
+}
+
+.tit {
+  transform: translateX(70px);
+  font-size: 38px;
+  font-weight: bold;
+
+  background: linear-gradient(90deg, #ffffff, #09fcfc);
+  background-size: 200% 200%;
+
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientText 5s ease-in-out infinite;
+  text-transform: uppercase;
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 200% 200%; }
+  75% { background-position: 50% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+#logoimg{
+  height: 55px;
+  width: 55px;
+  animation: rotate-scale 1s linear both /*DELAY*/;
+             /*gira 1s linear;*/
+  transition: 1.2s;
+  position: absolute;
+}
+
+@keyframes rotate-scale{
+  0% {
+    transform: scale(1) rotate3d(1, 1, 0, 0deg);
+  }
+  50% {
+    transform: scale(0.5) rotate3d(1, 1, 0, -180deg);
+  }
+  100% {
+    transform: scale(1) rotate3d(1, 1, 0, -360deg);
+  }
+}
+
+@keyframes gira{
+  0% {
+    transform: scale(1) rotateZ(0);
+  }
+  50% {
+    transform: scale(1.8) rotateZ(180deg);
+  }
+  100%{ 
+    transform: scale(1) rotateZ(360deg);
+  }
+}
+  
 @keyframes rodaroda {
   from {
     transform: rotate(0deg);
@@ -199,7 +222,7 @@ a{
   border-radius: 8px;
   cursor: pointer;
   transition: 1s;
-  animation: gira 5s infinite ease-in-out;
+  animation: /*dream*/ 5s infinite ease-in-out;
 }
 
 #btnLog:hover{
@@ -245,6 +268,11 @@ a{
   width: auto;
   height: 400px;
   box-shadow: 0 0 10px #fff;
+}
+
+#img-s{
+  width: 40%;
+  height: 40%;
 }
 
 .img-c{
@@ -415,6 +443,10 @@ input[type="password"]:hover {
   padding: 30px;
 }
 
+.caixa-login:hover{
+  animation: shadow-drop 0.5s linear forwards;
+}
+
 .caixa-login h2 {
   margin-bottom: 10px;
   color: #78fecf;
@@ -422,6 +454,17 @@ input[type="password"]:hover {
   font-size: 40px;
 }
 
+@keyframes shadow-drop {
+  0% {
+    box-shadow: 0 0 0 #71848a;
+  }
+  50% {
+    box-shadow: 0 0 20px #71848a;
+  }
+  100%{
+    box-shadow: 0 0 0 #71848a;
+  }
+}
 
 .avatar {
   margin-top: 10px;
@@ -619,3 +662,7 @@ button:hover {
 /*MEDIA QUERY (RESPONSIVIDADES)*/
 
 /* ========== RESPONSIVIDADE ========== */
+
+
+/*TESTANDO BIBLIOTECA KEY FRAMES*/
+/*TESTAR OPACITY*/
