@@ -5,7 +5,10 @@
   }
   
 body{
-  background:linear-gradient(45deg, #333, #261f18);
+  background-image: url(/*TESTAR*/);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*background:linear-gradient(45deg, #333, #261f18);*/
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -81,14 +84,13 @@ ul li a input{
 }
 
 .nav-links a{
-  font-size: 18px;
   text-decoration: none;
   color: #fff;
   transition: 1s;
-  border-radius: 12px;
 }
   
 .nav-links a:hover{
+  border-radius: 12px;
   color: #fff;
   background-color: #01baef;
   padding: 7px;
@@ -97,7 +99,7 @@ ul li a input{
 
 input{
   font-family: monospace;
-  font-size: 20px;
+  font-size: 1.5rem;
   color: #ffffff;
   text-shadow: 0 0 10px #98d9eb;
   border: 0;
@@ -116,22 +118,15 @@ a{
   display: flex;
   align-items: center; 
   cursor: pointer;
+  gap: 10px;
 }
 
 .titulo-container:hover #logoimg{
   animation: gira 0.65s linear both;
 }
 
-.doar article a:hover + h3 {
-  color: #00d0ff;
-  text-shadow: 0 0 20px #00d0ff;
-  transition: 0.7s;
-  font-size: 35px;
-}
-
 .tit {
-  transform: translateX(70px);
-  font-size: 38px;
+  font-size: 2.3rem;
   font-weight: bold;
 
   background: linear-gradient(90deg, #ffffff, #09fcfc);
@@ -153,12 +148,10 @@ a{
 }
 
 #logoimg{
-  height: 55px;
-  width: 55px;
+  height: 13%;
+  width: 13%;
   animation: rotate-scale 1s linear both /*DELAY*/;
-             /*gira 1s linear;*/
   transition: 1.2s;
-  position: absolute;
 }
 
 @keyframes rotate-scale{
@@ -281,16 +274,16 @@ a{
 }
 
 .img-equipe{
-  width: 600px;
-  height: 370px;
+  width: 70%;
+  height: 70%;
   margin-bottom: 10px;
   box-shadow: 0 0 20px #ff9b0e; box-shadow: 0 0 25px #ff9b0e;
   transition: 1s;
 }
 
 .img-equipe:hover{
-  width: 620px;
-  height: 390px;
+  width: 80%;
+  height: 80%;
   box-shadow: 0 0 20px #01baef; box-shadow: 0 0 25px #01baef;
 }
 
@@ -322,7 +315,7 @@ a{
 }
 
 h3{
-  font-size: 30px;
+  font-size: 2.4rem;
   font-weight: bolder;
   color: #6c09bd;
   margin-bottom: 15px;
@@ -351,11 +344,27 @@ h3{
   font-weight: normal;
 }
 
-#img-j {
-  width: 300px;
-  height: 300px;
+#img-j{
+  width: 310px;
   border-radius: 360px;
   transition: 0.7s;
+}
+
+#img-j:hover{
+  width: 350px;
+}
+
+/* UAuu */
+/*Para que o <h3> mude de cor quando a imagem for "hoverada", você precisa usar o seletor de irmão no CSS, 
+como o + (irmão adjacente) ou ~ (irmão geral).
+
+Nesse caso, como o <img> está dentro do <a> e o <h3> está logo depois do <a>, você pode usar a:hover + h3*/
+
+.doar article a:hover + h3 {
+  color: #00d0ff;
+  text-shadow: 0 0 20px #00d0ff;
+  transition: 0.7s;
+  font-size: 2.6rem;
 }
 
 #img-f{
@@ -373,7 +382,6 @@ h3{
   margin-bottom: 20px;
 }
 
-
 .doar {
   display: flex;
   justify-content: center;
@@ -384,23 +392,6 @@ h3{
 
 .doar article h3 {
   transition: 1.3s;
-}
-
-.doar article #img-j:hover{
-  width: 350px;
-  height: 350px;
-}
-
-/* UAuu */
-/*Para que o <h3> mude de cor quando a imagem for "hoverada", você precisa usar o seletor de irmão no CSS, 
-como o + (irmão adjacente) ou ~ (irmão geral).
-
-Nesse caso, como o <img> está dentro do <a> e o <h3> está logo depois do <a>, você pode usar a:hover + h3*/
-.doar article a:hover + h3 {
-  color: #00d0ff;
-  text-shadow: 0 0 20px #00d0ff;
-  transition: 0.7s;
-  font-size: 35px;
 }
 
 h4{
@@ -447,13 +438,6 @@ input[type="password"]:hover {
   animation: shadow-drop 0.5s linear forwards;
 }
 
-.caixa-login h2 {
-  margin-bottom: 10px;
-  color: #78fecf;
-  text-shadow: 0 0 10px #00d0ff;
-  font-size: 40px;
-}
-
 @keyframes shadow-drop {
   0% {
     box-shadow: 0 0 0 #71848a;
@@ -464,6 +448,36 @@ input[type="password"]:hover {
   100%{
     box-shadow: 0 0 0 #71848a;
   }
+}
+
+.caixa-login h2 {
+  animation: textando 0.7s linear both;;
+  margin-bottom: 10px;
+  color: #78fecf;
+  text-shadow: 0 0 10px #00d0ff;
+  font-size: 40px;
+}
+
+@keyframes textando {
+  0% {
+    letter-spacing: 0.7rem;
+    filter: blur(6px);
+    opacity: 0;
+  }
+  100% {            
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+label {
+
+  text-align: left;
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #7cdedc;
+  font-size: 22px;
 }
 
 .avatar {
@@ -530,15 +544,6 @@ form {
 
 #quantidade{
   color: black;
-}
-
-label {
-  text-align: left;
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #7cdedc;
-  font-size: 22px;
 }
 
 select,
@@ -662,6 +667,136 @@ button:hover {
 /*MEDIA QUERY (RESPONSIVIDADES)*/
 
 /* ========== RESPONSIVIDADE ========== */
+/*Celular comum*/
+@media (min-width: 481px) and (max-width: 768px) {
+  header {
+    padding: 7px 17px;
+  }
+
+  input{
+    font-size: 1rem;
+    padding: 2px;
+  }
+
+  .navbar a .nav-links{
+    
+  }
+
+  .titulo-container{
+    gap: 0;
+  }
+
+  .nav-links{
+    gap: 12px;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a{
+    
+  }
+
+  .tit {
+    transform: translateX(10px);
+  }
+
+  .sobre {
+    padding: 80px 10px;
+  }
+
+  .content h1 {
+    font-size: 2.5rem;
+  }
+
+  .content p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  .doar {
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .doacao-container {
+    width: 80%;
+    margin: 80px auto;
+  }
+
+  .tabela-container {
+    width: 95%;
+    margin: 60px auto;
+  }
+
+  .img-login,
+  #img-j,
+  .avatar {
+    width: 140px;
+    height: 140px;
+  }
+
+  .form-container,
+  .caixa-login {
+    width: 90%;
+    margin: 60px auto;
+  }
+
+  #img-f {
+    width: 90%;
+    height: auto;
+  }
+
+  #img-v {
+    width: 20%;
+    height: auto;
+    transform: none;
+    margin: 10px auto;
+    display: block;
+  }
+
+  #img-j{
+  width: 210px;
+  border-radius: 360px;
+  transition: 0.7s;
+  }
+
+  #img-j:hover{
+    width: 250px;
+  }
+}
+
+/*Tela grande PC*/
+@media (min-width: 1200px) {
+  .sobre {
+    max-width: 1000px;
+  }
+
+  .doar {
+    gap: 220px;
+  }
+
+  .content h1 {
+    font-size: 4.5rem;
+  }
+
+  .content p {
+    font-size: 1.3rem;
+    max-width: 800px;
+  }
+
+  .doacao-container {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tabela-container {
+    width: 75%;
+  }
+}
 
 
 /*TESTANDO BIBLIOTECA KEY FRAMES*/
