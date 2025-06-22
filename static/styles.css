@@ -755,12 +755,6 @@ button:hover {
     height: 140px;
   }
 
-  .form-container,
-  .caixa-login {
-    width: 90%;
-    margin: 60px auto;
-  }
-
   #img-f {
     width: 90%;
     height: auto;
@@ -820,3 +814,50 @@ button:hover {
 /*TESTAR OPACITY*/
 /*ANIMAÇÃO DO TITULO DA PAGINA "CAMPANHA"*/
 /*CONTEINERS NOS TEXTOS "VAI MELHORAR VISIBILIDADE E DEIXAR MAIS BONITO"*/
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.menu-toggle .bar {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  border-radius: 3px;
+  transition: 0.4s;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+
+.menu-toggle {
+  display: flex;
+}
+
+.nav-links {
+  position: absolute;
+  top: 65px;
+  right: 0;
+  width: 25%;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.7);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  z-index: 999;
+  padding-left: 0;
+}
+
+.nav-links.active {
+  max-height: 500px;
+  padding: 20px 0;
+}
+
+.nav-links li {
+  margin: 2px 0;
+  text-align: center;
+}
+}
