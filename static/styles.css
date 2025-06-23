@@ -132,6 +132,7 @@ a{
 .tit {
   font-size: 2.3rem;
   font-weight: bold;
+  letter-spacing: 5px;
 
   background: linear-gradient(90deg, #ffffff, #09fcfc);
   background-size: 200% 200%;
@@ -195,7 +196,6 @@ a{
   font-size: 4rem;
   letter-spacing: 5px;
 }
-
 .letra{
   color: aqua;
 }
@@ -431,6 +431,7 @@ h6{
   font-weight: bolder;
   color: #fbffb9;
   text-shadow: 0 0 20px #678ead;
+  letter-spacing: 10px;
 }
 
 input[type="text"]:hover,
@@ -673,6 +674,10 @@ button:hover {
 
 .paginacao-btn{
   color: #09fcfc;
+  transition: 1s;
+}
+
+.paginacao-btn:hover{
   text-decoration: underline;
 }
 
