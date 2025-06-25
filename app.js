@@ -58,28 +58,34 @@ dbArrecadacao.run("CREATE TABLE IF NOT EXISTS ARRECADACAO (id INTEGER PRIMARY KE
 
 // Página inicial
 app.get("/", function(req, res) {
+  console.log("/Home GET");
   res.render("pages/index", { título: "Index", req });
 });
 
 // Páginas fixas
 app.get("/sobre", function(req, res) {
+  console.log("/Sobre GET");
   res.render("pages/sobre", { título: "Sobre", req });
 });
 
 app.get("/localizacao", function(req, res) {
+  console.log("/Localizacao GET");
   res.render("pages/localizacao", { título: "Localizacao", req });
 });
 
 app.get("/equipe", function(req, res) {
+  console.log("/Equipe GET");
   res.render("pages/equipe", { título: "Equipe", req });
 });
 
 // Login - GET exibe o formulário, POST valida o usuário
 app.get("/login", function(req, res) {
+  console.log("/Login GET");
   res.render("pages/login", { título: "Login", req, erro: null });
 });
 
 app.post("/login", function(req, res) {
+  console.log("/Login POST");
   const { username, password } = req.body;
   db.get("SELECT * FROM users WHERE username = ? AND password = ?", [username, password], function(err, row) {
     if (row) {
@@ -93,6 +99,7 @@ app.post("/login", function(req, res) {
 
 // Logout - encerra sessão
 app.get("/logout", function(req, res) {
+  console.log("/Logout GET");
   req.session.destroy(function() {
     res.redirect("/");
   });
@@ -100,11 +107,13 @@ app.get("/logout", function(req, res) {
 
 // Página de doações (acessível somente se estiver logado)
 app.get("/doacoes_doar", function(req, res) {
+  console.log("/Doacoes_Doar GET");
   res.render("pages/doacoes_doar", { título: "Doações", req });
 });
 
 // Página para realizar uma doação
 app.get("/realizardoacao", function(req, res) {
+  console.log("/Realizardoacao GET");
   if (!req.session.user) return res.redirect("/login");
   dbRoupas.all("SELECT * FROM roupa", function(err, roupas) {
     dbTurmas.all("SELECT * FROM turma", function(err, turmas) {
@@ -115,6 +124,7 @@ app.get("/realizardoacao", function(req, res) {
 
 // Rota POST para processar a doação
 app.post("/realizardoacao", function(req, res) {
+  console.log("/Realizardoacao POST");
   if (!req.session.user) return res.redirect("/login");
   const { turma, item, quantidade } = req.body;
   const qtd = parseInt(quantidade);
@@ -136,6 +146,7 @@ app.post("/realizardoacao", function(req, res) {
 
 // Página de ranking das turmas
 app.get("/ranking", function(req, res) {
+  console.log("/Ranking GET");
   dbArrecadacao.all(`
     SELECT turma, SUM(pontos) AS totalPontos, COUNT(*) AS totalDoacoes
     FROM ARRECADACAO
@@ -152,6 +163,7 @@ app.get("/ranking", function(req, res) {
 
 // Página com a tabela de doações, com filtro e paginação
 app.get("/tabela", (req, res) => {
+  console.log("/Tabela GET");
   const pagina = parseInt(req.query.pagina) || 1;
   const porPagina = 10;
   const offset = (pagina - 1) * porPagina;
