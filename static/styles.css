@@ -6,12 +6,12 @@
   
 body{
   background: center center;
-  background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5181c7f5-4300-4d23-a0d1-d0cc2a40214b/d8zr5ry-f91c39f2-460b-4a3b-919b-9de34c5ea0c5.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUxODFjN2Y1LTQzMDAtNGQyMy1hMGQxLWQwY2MyYTQwMjE0YlwvZDh6cjVyeS1mOTFjMzlmMi00NjBiLTRhM2ItOTE5Yi05ZGUzNGM1ZWEwYzUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.gu5a6EK133pxrNnKaII1IVIglm1y2h2YHECDtdWmca8);
+  background-image: url();
 
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover center center;
   
-  /*background: linear-gradient(135deg,rgba(8, 1, 77, 1) 0%, rgba(1, 0, 26, 1) 100%);*/
+  background: linear-gradient(135deg,rgba(8, 1, 77, 1) 0%, rgba(1, 0, 26, 1) 100%);
   
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 10px 50px;
+  padding: 0px 30px;
   background: rgba(0, 0, 0, 0.4);
   z-index: 1000;
 }
@@ -92,14 +92,6 @@ ul li a input{
   color: #fff;
   transition: 1s;
 }
-  
-.nav-links a:hover{
-  border-radius: 12px;
-  color: #fff;
-  background-color: #01baef;
-  padding: 7px;
-  box-shadow: 0 0 20px #01baef;
-}
 
 input{
   font-family: monospace;
@@ -112,6 +104,10 @@ input{
   padding: 3px;
   margin-bottom: 15px;
   transition: 0.6s;
+}
+
+input:hover{
+  color: #8ce2f5;
 }
 
 a{
@@ -251,11 +247,6 @@ a{
   margin-bottom: 1.5rem;
 }
 
-.sobre article #dif{
-  color: #ffc800;
-  font-weight: bolder;
-}
-
 .sobre article #ahi{
   color: #fdd692;
   font-weight: bolder;
@@ -300,25 +291,6 @@ a{
   width: 80%;
   height: 80%;
   box-shadow: 0 0 20px #01baef; box-shadow: 0 0 25px #01baef;
-}
-
-.sobre article #nos{
-  font-size: 22px;
-  color: #fff;
-  text-shadow: 0 0 5px #01baef;
-  transition: 1s;
-}
-
-.sobre article #nos:hover{
-  font-size: 30px;
-  color: #01baef;
-  font-weight: bolder;
-}
-
-.sobre article #tata{
-  font-size: 30px;
-  color: #ffc800;
-  font-weight: bolder;
 }
 
 .img-login{
