@@ -1,40 +1,53 @@
 <header>
-  <nav class="navbar">
-    <a href="/">
-      <div class="titulo-container">
-        <img src="../static/Img/Logo.png" alt="Logo Da Campanha" id="logoimg" />
-        <div class="tit">IDEARIUM</div>
-      </div>
-    </a>
-
-    <!-- Botão do menu hamburguer (mobile) -->
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </div>
-
-    <ul class="nav-links">
-      <li id="menu_links"><a href="/" value="Home">HOME</a></li>
-      <li id="menu_links"><a href="/sobre" value="Sobre">SOBRE</a></li>
-      <li id="menu_links"><a href="/localizacao" value="Localização">LOCALIZAÇÃO</a></li>
-      <li id="menu_links"><a href="/doacoes_doar"
-            <% if (!req.session.user) { %>
-              value="Doações"
-            <% } else { %>
-              value="Doações/Doar"
-            <% } %>
-          >
-          DOAÇÕES
-          </a>
-      </li>
+  <nav class="navbar"> 
+    <div class="components-menu">
       
-      <% if (!req.session.user) { %>
-        <li id="menu_links"><a href="/login" value="Login">LOGIN</a></li>
-      <% } else { %>
-        <li id="menu_links"><a href="/logout" value="Logout">LOGOUT</a></li>
-      <% } %>
-    
-    </ul>
+      <div class="components-menu-logo">
+        <a href="/">
+          <div class="titulo-container">
+            <img src="../static/Img/Logo.png" alt="Logo Da Campanha" id="logoimg" />
+            <div class="tit">IDEARIUM</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="components-menu-center">
+        <ul class="nav-links">
+          <li><a href="/" value="Home">HOME</a></li>
+          <li><a href="/sobre" value="Sobre">SOBRE</a></li>
+          <li><a href="/localizacao" value="Localização">LOCALIZAÇÃO</a></li>
+          <li>
+            <a href="/doacoes_doar"
+              <% if (!req.session.user) { %>
+                value="Doações"
+              <% } else { %>
+                value="Doações/Doar"
+              <% } %>
+              >
+              DOAÇÕES
+              </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="components-menu-right">
+        <ul>
+          <% if (!req.session.user) { %>
+            <li><a href="/login" value="Login">LOGIN</a></li>
+          <% } else { %>
+            <li><a href="/logout" value="Logout">LOGOUT</a></li>
+          <% } %>
+        </ul>
+      </div>
+
+      <!-- Botão do menu hamburguer (mobile) -->
+      <div class="components-menu-toggle" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+
+    </div>   
   </nav>
 </header>

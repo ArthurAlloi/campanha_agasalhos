@@ -10,24 +10,26 @@ body{
 
   background-repeat: no-repeat;
   background-size: cover center center;
-  
-  background: linear-gradient(135deg, #06222d, #092530 , #242e32);
-  
+
+  /*Dark Theme*/
+  background-color: #eff6e0;
+  /*Light Theme*/
+
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
   margin: 0;
 }
 
-header{
+#bg-video{
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 4px 30px;
-  background: rgba(0, 0, 0, 0.3); /*Transparência*/
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.3);
 }
 
 footer{
@@ -48,119 +50,34 @@ main{
   text-align: center;
 }
 
+.sobre h2{
+  font-size: 30px;
+  transform: translateX(100px);
+  color: #2e0550;
+}
+
+.fundo-personalizado{
+  background-image: url('/static/img/back_row.png'); /* Substitua pelo caminho da sua imagem */
+    background-size: cover; /* Faz a imagem cobrir todo o elemento */
+    min-height: 100vh; /* Define a altura mínima para ocupar a tela inteira */
+    width: 100%; /* Faz o elemento ocupar toda a largura */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+    background-position: center; /* Centraliza a imagem */
+    color: white; /* Cor do texto para melhor visibilidade sobre a imagem */
+    padding: 20px; /* Adiciona um espaçamento interno */
+}
+
 .especi{
   display: inline;
-}
-
-#bg-video{
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.3);
-}
-
-/*aaaaaaaaaaaaaa*/
-
-
-/*aaaaaaaaaaaaaa*/
-
-.navbar{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-links{
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-li a{
-  cursor: pointer;
-}
-
-.nav-links a{
-  /*Definir Font-family*/
-  text-decoration: none;
-  color: #b0b0b0;
-  transition: 0.4s;
-}
-
-.nav-links a:hover{
-  color: #eff6e0;
-}
-
-input:hover{
-  color: #8ce2f5;
-}
-
-a{
-  text-decoration: none;
-}
-
-.titulo-container{
-  display: flex;
-  align-items: center; 
-  cursor: pointer;
-  gap: 10px;
-}
-
-.titulo-container:hover #logoimg{
-  animation: gira 0.65s linear both;
-}
-
-.tit {
-  font-size: 2.3rem;
-  font-weight: bold;
-  letter-spacing: 5px;
-
-  background: linear-gradient(90deg, #ffffff, #09fcfc);
-  background-size: 200% 200%;
-
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: gradientText 5s ease-in-out infinite;
-  text-transform: uppercase;
-}
-
-@keyframes gradientText {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 50% 100%; }
-  50% { background-position: 200% 200%; }
-  75% { background-position: 50% 100%; }
-  100% { background-position: 0% 50%; }
-}
-
-#logoimg{
-  height: 13%;
-  width: 13%;
-  transition: 1.2s;
-}
-
-@keyframes gira{
-  0% {
-    transform: scale(1) rotateZ(0);
-  }
-  50% {
-    transform: scale(1.8) rotateZ(180deg);
-  }
-  100%{ 
-    transform: scale(1) rotateZ(360deg);
-  }
 }
 
 .content h1{
   font-size: 4rem;
   letter-spacing: 5px;
 }
+
 .letra{
-  color: aqua;
+  color: #548bde;
 }
 
 .content p{
@@ -169,27 +86,6 @@ a{
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-}
-
-#btnLog{
-  background-color: #ffc800;
-  color: black;
-  padding: 12px;
-  font-size: 24px;
-  font-weight: bolder;
-  text-transform: uppercase;
-  border: 0 solid;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 1s;
-  animation: /*dream*/ 5s infinite ease-in-out;
-}
-
-#btnLog:hover{
-  background-color: #ff9b0e;
-  border: 1px solid #ff9b0e;
-  box-shadow: 0 0 100px #ff9b0e;
-  scale: calc(1.3);
 }
 
 .sobre{
@@ -395,10 +291,10 @@ h5{
 
 h6{
   margin-bottom: 10px;
-  font-size: 80px;
+  font-size: 140px;
   font-weight: bolder;
-  color: #fbffb9;
-  text-shadow: 0 0 20px #678ead;
+  color: #313131;
+  text-shadow: 0 0 20px #ffffff;
   letter-spacing: 10px;
 }
 
@@ -654,8 +550,6 @@ button:hover {
   margin-bottom: 20px;
 }
 
-/*MEDIA QUERY (RESPONSIVIDADES)*/
-
 /* ========== RESPONSIVIDADE ========== */
 /*Celular comum*/
 @media (min-width: 481px) and (max-width: 768px) {
@@ -666,10 +560,6 @@ button:hover {
   input{
     font-size: 1rem;
     padding: 2px;
-  }
-
-  .navbar a .nav-links{
-    
   }
 
   .titulo-container{
@@ -781,12 +671,6 @@ button:hover {
     width: 75%;
   }
 }
-
-
-/*TESTANDO BIBLIOTECA KEY FRAMES*/
-/*TESTAR OPACITY*/
-/*ANIMAÇÃO DO TITULO DA PAGINA "CAMPANHA"*/
-/*CONTEINERS NOS TEXTOS "VAI MELHORAR VISIBILIDADE E DEIXAR MAIS BONITO"*/
 
 .menu-toggle {
   display: none;
