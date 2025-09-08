@@ -189,8 +189,7 @@ a{
   background-color: #ff9b0e;
   border: 1px solid #ff9b0e;
   box-shadow: 0 0 100px #ff9b0e;
-  padding: 16px;
-  font-size: 28px;
+  scale: calc(1.3);
 }
 
 .sobre{
