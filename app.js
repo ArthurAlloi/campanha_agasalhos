@@ -8,19 +8,19 @@ const app = express(); // Inicialização do aplicativo Express
 const PORT = 8000; // Porta em que o servidor irá rodar
 
 // Configurações básicas do servidor
-app.use(express.urlencoded({ extended: true })); // Permite receber dados de formulários via POST
-app.use(session({ secret: 'banguela', resave: false, saveUninitialized: true })); // Configuração da sessão
-app.use("/static", express.static(path.join(__dirname, "static"))); // Pasta de arquivos estáticos
-app.set('view engine', 'ejs'); // Define a engine de views como EJS
+app.use(express.urlencoded({ extended: true })); 
+app.use(session({ secret: 'banguela', resave: false, saveUninitialized: true })); 
+app.use("/static", express.static(path.join(__dirname, "static"))); 
+app.set('view engine', 'ejs'); 
 
 // ─────────────────────── Banco de Usuários ───────────────────────
-const db = new sqlite3.Database("adm.db"); // Cria ou abre o banco de usuários
-// Cria a tabela de usuários se não existir
-db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
-// Insere o admin padrão, se ele não existir
-db.get("SELECT * FROM users WHERE username = 'admin'", function(err, row) {
+const db = new sqlite3.Database("adm.db");
+db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, cpf TEXT UNIQUE, password TEXT)");
+
+// Garante que exista um admin padrão
+db.get("SELECT * FROM users WHERE cpf = '00000000000'", function(err, row) {
   if (!row) {
-    db.run("INSERT INTO users (username, password) VALUES ('admin', 'adm123')");
+    db.run("INSERT INTO users (cpf, password) VALUES ('00000000000', 'adm123')");
   }
 });
 
@@ -29,7 +29,6 @@ const dbRoupas = new sqlite3.Database("pontuacaoroupas.db");
 dbRoupas.run("CREATE TABLE IF NOT EXISTS roupa (id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT, pontos INTEGER)");
 dbRoupas.get("SELECT COUNT(*) as total FROM roupa", function(err, row) {
   if (row.total === 0) {
-    // Insere os tipos de roupas e seus pontos
     dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas comuns usadas', 1)");
     dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas de frio usadas', 2)");
     dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas novas embaladas com etiqueta', 3)");
@@ -43,7 +42,6 @@ const dbTurmas = new sqlite3.Database("turmas.db");
 dbTurmas.run("CREATE TABLE IF NOT EXISTS turma (id INTEGER PRIMARY KEY AUTOINCREMENT, sigla TEXT, docente TEXT)");
 dbTurmas.get("SELECT COUNT(*) as total FROM turma", function(err, row) {
   if (row.total === 0) {
-    // Insere turmas padrão
     dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M14', 'WILLIAM')");
     dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M3A', 'FABIO')");
     dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M3B', 'EPAMINONDAS')");
@@ -74,31 +72,72 @@ app.get("/equipe", function(req, res) {
   res.render("pages/equipe", { título: "Equipe", req });
 });
 
+app.get("/cadastro", function(req, res) {
+  res.render("pages/cadastro", { título: "Cadastro", req });
+});
+
+
 // Login - GET exibe o formulário, POST valida o usuário
 app.get("/login", function(req, res) {
   res.render("pages/login", { título: "Login", req, erro: null });
 });
 
 app.post("/login", function(req, res) {
-  const { username, password } = req.body;
-  db.get("SELECT * FROM users WHERE username = ? AND password = ?", [username, password], function(err, row) {
+  const { cpf, password } = req.body;
+  db.get("SELECT * FROM users WHERE cpf = ? AND password = ?", [cpf, password], function(err, row) {
     if (row) {
       req.session.user = row;
       res.redirect("/doacoes_doar");
     } else {
-      res.render("pages/login", { título: "Login", req, erro: "Usuário ou senha inválidos" });
+      res.render("pages/login", { título: "Login", req, erro: "CPF ou senha inválidos" });
     }
   });
 });
 
-// Logout - encerra sessão
+// Logout
 app.get("/logout", function(req, res) {
   req.session.destroy(function() {
     res.redirect("/");
   });
 });
 
-// Página de doações (acessível somente se estiver logado)
+// ─────────────────────── CRUD de Usuários ───────────────────────
+
+// Listar usuários
+app.get("/usuarios", (req, res) => {
+  if (!req.session.user) return res.redirect("/login");
+  db.all("SELECT * FROM users", (err, users) => {
+    res.render("pages/usuarios", { título: "Usuários", req, users });
+  });
+});
+
+// Criar usuário
+app.post("/usuarios/criar", (req, res) => {
+  if (!req.session.user) return res.redirect("/login");
+  const { cpf, password } = req.body;
+  db.run("INSERT INTO users (cpf, password) VALUES (?, ?)", [cpf, password], function(err) {
+    res.redirect("/usuarios");
+  });
+});
+
+// Editar usuário
+app.post("/usuarios/editar/:id", (req, res) => {
+  if (!req.session.user) return res.redirect("/login");
+  const { cpf, password } = req.body;
+  db.run("UPDATE users SET cpf = ?, password = ? WHERE id = ?", [cpf, password, req.params.id], function(err) {
+    res.redirect("/usuarios");
+  });
+});
+
+// Deletar usuário
+app.post("/usuarios/deletar/:id", (req, res) => {
+  if (!req.session.user) return res.redirect("/login");
+  db.run("DELETE FROM users WHERE id = ?", [req.params.id], function(err) {
+    res.redirect("/usuarios");
+  });
+});
+
+// ─────────────────────── Doações ───────────────────────
 app.get("/doacoes_doar", function(req, res) {
   res.render("pages/doacoes_doar", { título: "Doações", req });
 });
@@ -134,7 +173,7 @@ app.post("/realizardoacao", function(req, res) {
     });
 });
 
-// Página de ranking das turmas
+// ─────────────────────── Ranking e Tabela ───────────────────────
 app.get("/ranking", function(req, res) {
   dbArrecadacao.all(`
     SELECT turma, SUM(pontos) AS totalPontos, COUNT(*) AS totalDoacoes
@@ -142,28 +181,15 @@ app.get("/ranking", function(req, res) {
     GROUP BY turma
     ORDER BY totalPontos DESC
   `, function(err, ranking) {
-    res.render("pages/ranking", {
-      título: "Ranking de Doações",
-      req,
-      ranking
-    });
+    res.render("pages/ranking", { título: "Ranking de Doações", req, ranking });
   });
 });
 
-// Página com a tabela de doações, com filtro e paginação
 app.get("/tabela", (req, res) => {
   const pagina = parseInt(req.query.pagina) || 1;
   const porPagina = 10;
   const offset = (pagina - 1) * porPagina;
   const turmaSelecionada = req.query.turma || "";
-
-  const mapaPontos = {
-    "Roupas comuns usadas": 1,
-    "Roupas de frio usadas": 2,
-    "Roupas novas embaladas com etiqueta": 3,
-    "Roupas de cama de inverno usadas": 10,
-    "Roupas de cama de inverno novas": 20
-  };
 
   let query = "SELECT * FROM ARRECADACAO";
   let countQuery = "SELECT COUNT(*) as total FROM ARRECADACAO";
@@ -183,16 +209,11 @@ app.get("/tabela", (req, res) => {
       const totalRegistros = result.total;
       const totalPaginas = Math.ceil(totalRegistros / porPagina);
 
-      const doacoes = rows.map(row => ({
-        ...row,
-        pontosUnitarios: mapaPontos[row.item] || 0
-      }));
-
       dbTurmas.all("SELECT * FROM turma", (err, turmas) => {
         res.render("pages/tabela", {
           título: "Tabela de Doações",
           req,
-          doacoes,
+          doacoes: rows,
           paginaAtual: pagina,
           totalPaginas,
           turmas,
@@ -203,14 +224,12 @@ app.get("/tabela", (req, res) => {
   });
 });
 
-// Página de erro 404 personalizada
+// ─────────────────────── Página de erro 404 ───────────────────────
 app.use('/{*erro}', (req, res) => {
-  console.log("GET /fail")
   res.status(404).render('pages/fail', { título: "HTTP ERROR 404 - PAGE NOT FOUND", req: req, msg: "404" });
 });
 
 // Inicia o servidor
 app.listen(PORT, () => {
-  console.log(`Servidor Sendo Executado na Porta: ${PORT}`);
-  console.log(__dirname + '//static');
+  console.log(`Servidor rodando na porta: ${PORT}`);
 });
