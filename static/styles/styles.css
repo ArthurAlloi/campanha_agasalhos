@@ -1,13 +1,32 @@
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /*scrollbar-width: thin;
+  scrollbar-color: #e70074 #272626;*/
+}
+
+/*Scroll-bar*/
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #272626;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0004d;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0055;
+}
   
 body{
   background: center center;
   background-image: url();
-
   background-repeat: no-repeat;
   background-size: cover center center;
 
@@ -45,9 +64,8 @@ footer h2{
 }
 
 main{
+  display: flex;
   align-content: center; 
-  flex: 1;
-  text-align: center;
 }
 
 .sobre h2{
@@ -58,13 +76,13 @@ main{
 
 .fundo-personalizado{
   background-image: url('/static/img/back_row.png'); /* Substitua pelo caminho da sua imagem */
-    background-size: cover; /* Faz a imagem cobrir todo o elemento */
-    min-height: 100vh; /* Define a altura mínima para ocupar a tela inteira */
-    width: 100%; /* Faz o elemento ocupar toda a largura */
-    background-repeat: no-repeat; /* Evita que a imagem se repita */
-    background-position: center; /* Centraliza a imagem */
-    color: white; /* Cor do texto para melhor visibilidade sobre a imagem */
-    padding: 20px; /* Adiciona um espaçamento interno */
+  background-size: cover; /* Faz a imagem cobrir todo o elemento */
+  min-height: 100vh; /* Define a altura mínima para ocupar a tela inteira */
+  width: 100%; /* Faz o elemento ocupar toda a largura */
+  background-repeat: no-repeat; 
+  background-position: center; /* Centraliza a imagem */
+  color: white; 
+  padding: 20px; 
 }
 
 .especi{

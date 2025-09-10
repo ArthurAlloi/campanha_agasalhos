@@ -1,19 +1,16 @@
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    z-index: 1000;
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
 
-    /*background-color: #151819;*/
-    background: rgba(0, 0, 0, 0.80); 
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.80); 
+  backdrop-filter: blur(10px); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
   
-.navbar {
+.navbar{
   width: 100%;
   height: 100%;
   display: flex;
@@ -22,7 +19,7 @@ header {
 }
 
 /* Container principal */
-.components-menu {
+.components-menu{
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -33,43 +30,51 @@ header {
 }
 
 /* LOGO */
-.components-menu-logo {
+.components-menu-logo{
   display: flex;
   align-items: center;
 }
 
-.titulo-container {
+.titulo-container{
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-#logoimg {
+#logoimg{
   height: 60px;
   width: auto;
   transition: transform 0.3s ease;
 }
 
-.tit {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #ffffff, #09fcfc);
+.tit{
+  font-size: 2.3rem;
+  font-weight: bold;
+  letter-spacing: 5px;
+  background: linear-gradient(70deg, #ffffff, #09fcfc);
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+
   animation: gradientText 5s ease-in-out infinite;
 }
 
 /* LINKS CENTRAIS */
-.components-menu-center .nav-links {
+.components-menu-center .nav-links{
   display: flex;
   align-items: center;
   gap: 35px;
   list-style: none;
 }
 
-.nav-links li a {
+li, a{
+  cursor: pointer;
+  text-decoration: none;
+  list-style: none;
+}
+
+.nav-links li a{
   font-size: 15px;
   font-weight: 500;
   color: #d0d0d0ad;
@@ -77,7 +82,7 @@ header {
   transition: 0.3s;
 }
 
-.nav-links li a:hover {
+.nav-links li a:hover{
   color: #ffffff;
   text-shadow: 0 0 4px #fff;
 }
@@ -102,14 +107,14 @@ header {
 }
 
 /* HAMBURGER */
-.components-menu-toggle {
+.components-menu-toggle{
   display: none;
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
 }
 
-.components-menu-toggle .bar {
+.components-menu-toggle .bar{
   width: 28px;
   height: 3px;
   background: #fff;
@@ -117,37 +122,9 @@ header {
   transition: 0.3s;
 }
 
-
-
-
-li, a{
-  cursor: pointer;
-  text-decoration: none;
-}
-
 .titulo-container:hover #logoimg{
   animation: gira 0.65s linear both;
 }
-
-.nav-links a:hover{
-  color: #eff6e0;
-}
-
-.tit {
-  font-size: 2.3rem;
-  font-weight: bold;
-  letter-spacing: 5px;
-
-  background: linear-gradient(90deg, #ffffff, #09fcfc);
-  background-size: 200% 200%;
-
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: gradientText 5s ease-in-out infinite;
-  text-transform: uppercase;
-}
-
 
 @keyframes gira{
   0% {
