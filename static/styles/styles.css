@@ -64,8 +64,9 @@ footer h2{
 }
 
 main{
-  display: flex;
-  align-content: center; 
+  flex: 1;
+  align-items: center;
+  text-align: center;
 }
 
 .sobre h2{
@@ -74,6 +75,7 @@ main{
   color: #2e0550;
 }
 
+/* Fundo com a Imagem Do Canva "MINHOCA" */
 .fundo-personalizado{
   background-image: url('/static/img/back_row.png'); /* Substitua pelo caminho da sua imagem */
   background-size: cover; /* Faz a imagem cobrir todo o elemento */
@@ -83,15 +85,6 @@ main{
   background-position: center; /* Centraliza a imagem */
   color: white; 
   padding: 20px; 
-}
-
-.especi{
-  display: inline;
-}
-
-.content h1{
-  font-size: 4rem;
-  letter-spacing: 5px;
 }
 
 .letra{
@@ -177,38 +170,10 @@ main{
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-#img-s{
-  border-radius: 12px;
-  width: 40%;
-  margin: 20px 0;
-  box-shadow: 0 0 20px rgba(255,255,255,0.4);
-}
-
-.img-c{
+/* Localização Imagem com Href */
+.img-c{ 
   width: 100px;
   height: 100px;
-}
-
-.img-equipe{
-  width: 70%;
-  height: 70%;
-  margin-bottom: 10px;
-  box-shadow: 0 0 20px #ff9b0e; box-shadow: 0 0 25px #ff9b0e;
-  transition: 1s;
-}
-
-.img-equipe:hover{
-  width: 80%;
-  height: 80%;
-  box-shadow: 0 0 20px #01baef; box-shadow: 0 0 25px #01baef;
-}
-
-.img-login{
-  margin-top: 10px;
-  border-radius: 360px;
-  width: 200px;
-  height: 200px;
-  box-shadow: 0 0 50px #3e3e32;
 }
 
 h3{
@@ -217,28 +182,6 @@ h3{
   color: #6c09bd;
   margin-bottom: 15px;
   text-shadow: 0 0 20px #6c09bd;
-}
-
-#btnLogin{
-  font-size: 22px;
-  background: linear-gradient(45deg, #98d9eb,#01baef);
-  font-weight: bolder;
-  padding: 5px;
-  margin-top: 6px;
-  cursor: pointer;
-  transition: 1s;
-}
-
-#btnLogin:hover{
-  font-size: 25px;
-  background: linear-gradient(45deg,#855ebc, #4545bf);
-  color: #2e0550;
-}
-
-::placeholder{
-  font-size: 15px;
-  color: #645c59;
-  font-weight: normal;
 }
 
 #img-j{
@@ -285,6 +228,7 @@ Nesse caso, como o <img> está dentro do <a> e o <h3> está logo depois do <a>, 
   margin-top: 50px; 
   gap: 170px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .doar article h3 {
@@ -314,98 +258,6 @@ h6{
   color: #313131;
   text-shadow: 0 0 20px #ffffff;
   letter-spacing: 10px;
-}
-
-input[type="text"]:hover,
-input[type="password"]:hover {
-    border: 2px solid #01baef;
-    background-color: #5b5a5aaa;
-    color: #fff;
-}
-
-.caixa-login {
-  background-color: rgba(0, 0, 0, 0.5);
-  max-width: 500px;
-  margin: 100px auto;
-  text-align: center;
-  border-radius: 20px;
-  padding: 30px;
-  transition: 1s;
-}
-
-.caixa-login:hover{
-  animation: shadow-drop 0.5s linear forwards;
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-@keyframes shadow-drop {
-  0% {
-    box-shadow: 0 0 0 #71848a;
-  }
-  50% {
-    box-shadow: 0 0 20px #71848a;
-  }
-  100%{
-    box-shadow: 0 0 0 #71848a;
-  }
-}
-
-.caixa-login h2 {
-  animation: textando 0.7s linear both;;
-  margin-bottom: 10px;
-  color: #78fecf;
-  text-shadow: 0 0 10px #00d0ff;
-  font-size: 40px;
-}
-
-@keyframes textando {
-  0% {
-    letter-spacing: 0.7rem;
-    filter: blur(6px);
-    opacity: 0;
-  }
-  100% {            
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-
-label {
-
-  text-align: left;
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #7cdedc;
-  font-size: 22px;
-}
-
-.avatar {
-  margin-top: 10px;
-  border-radius: 360px;
-  width: 150px;
-  height: 150px;
-  margin-bottom: 10px;
-  box-shadow: 0 0 50px #3e3e32;
-}
-
-form {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.input-form{
-  text-shadow: none;
-  padding: 10px;
-  border-radius: 8px;
-  border: 2px solid #00d0ff;
-  box-shadow: 0 0 10px #00d0ff;
-  outline: none;
-  font-size: 1rem;
-  background-color: transparent;
-  color: #6a6a6a;
 }
 
 .form-container {
@@ -455,46 +307,6 @@ input[type="number"] {
   border: 1px solid #ccc;
   background-color: #c7f0ff;
   font-size: 16px;
-}
-
-button {
-  width: 30%;
-  padding: 12px;
-  margin-top: 25px;
-  background-color: transparent;
-  color: white;
-  border: 1px solid #faa613;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bolder;
-  cursor: pointer;
-  transition: 1s;
-}
-
-button:hover {
-  background-color: #faa613;
-  box-shadow: 0 0 40px #ffae00;
-  box-shadow: 0 0 80px #ffae00;
-}
-
-#btnrank{
-  width: 20%;
-  padding: 12px;
-  margin-top: 25px;
-  background-color: transparent;
-  color: white;
-  border: 1px solid #ffd000;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bolder;
-  cursor: pointer;
-  transition: 1s;
-}
-
-#btnrank:hover {
-  background-color: #ffd000;
-  box-shadow: 0 0 40px #ffae00;
-  box-shadow: 0 0 80px #ffae00;
 }
 
 .tabela-container {
@@ -570,169 +382,3 @@ button:hover {
 
 /* ========== RESPONSIVIDADE ========== */
 /*Celular comum*/
-@media (min-width: 481px) and (max-width: 768px) {
-  header {
-    padding: 7px 17px;
-  }
-
-  input{
-    font-size: 1rem;
-    padding: 2px;
-  }
-
-  .titulo-container{
-    gap: 0;
-  }
-
-  .nav-links{
-    gap: 12px;
-  }
-
-  .nav-links li {
-    width: 100%;
-  }
-
-  .nav-links a{
-    
-  }
-
-  .tit {
-    transform: translateX(10px);
-  }
-
-  .sobre {
-    padding: 80px 10px;
-  }
-
-  .content h1 {
-    font-size: 2.5rem;
-  }
-
-  .content p {
-    font-size: 1rem;
-    padding: 0 10px;
-  }
-
-  .doar {
-    flex-direction: column;
-    gap: 40px;
-    align-items: center;
-  }
-
-  .doacao-container {
-    width: 80%;
-    margin: 80px auto;
-  }
-
-  .tabela-container {
-    width: 95%;
-    margin: 60px auto;
-  }
-
-  .img-login,
-  #img-j,
-  .avatar {
-    width: 140px;
-    height: auto;
-  }
-
-  #img-f {
-    width: 90%;
-    height: auto;
-  }
-
-  #img-v {
-    width: 20%;
-    height: auto;
-    transform: none;
-    margin: 10px auto;
-    display: block;
-  }
-
-  #img-j{
-  width: 210px;
-  border-radius: 360px;
-  transition: 0.7s;
-  }
-
-  #img-j:hover{
-    width: 250px;
-  }
-}
-
-/*Tela grande PC*/
-@media (min-width: 1200px) {
-  .sobre {
-    max-width: 1000px;
-  }
-
-  .doar {
-    gap: 220px;
-  }
-
-  .content h1 {
-    font-size: 4.5rem;
-  }
-
-  .content p {
-    font-size: 1.3rem;
-    max-width: 800px;
-  }
-
-  .doacao-container {
-    width: 30%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .tabela-container {
-    width: 75%;
-  }
-}
-
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-}
-
-.menu-toggle .bar {
-  height: 3px;
-  width: 25px;
-  background-color: white;
-  border-radius: 3px;
-  transition: 0.4s;
-}
-
-/* RESPONSIVO */
-@media (max-width: 768px) {
-
-.menu-toggle {
-  display: flex;
-}
-
-.nav-links {
-  position: absolute;
-  top: 65px;
-  right: 0;
-  width: 25%;
-  flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.7);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease;
-  z-index: 999;
-  padding-left: 0;
-}
-
-.nav-links.active {
-  max-height: 500px;
-  padding: 20px 0;
-}
-
-.nav-links li {
-  margin: 2px 0;
-  text-align: center;
-}
-}

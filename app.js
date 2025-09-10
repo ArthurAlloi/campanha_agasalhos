@@ -73,6 +73,11 @@ app.get("/localizacao", function(req, res) {
   res.render("pages/localizacao", { título: "Localizacao", req });
 });
 
+app.get("/cadastro", function(req, res) {
+  console.log("/Cadastro GET");
+  res.render("pages/cadastro", { título: "Cadastro", req, erro: null });
+});
+
 // Login - GET exibe o formulário, POST valida o usuário
 app.get("/login", function(req, res) {
   console.log("/Login GET");

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../partials/head"); %>
+
+<body>
+
+    <%- include("../partials/menu"); %>
+
+    <div class="caixa-login">
+
+        <img src="/static/img/Log.jpg" alt="Cadastro" class="avatar" /> <!--COLOCAR A LOGO DO SITE EMM
+        NÃO PODE ESQUECER-->
+        
+        <h2>Cadastro</h2>
+
+        <form action="/cadastro" method="post" class="form-cadastro">
+
+            <input type="text" id="cpf" name="cpf" class="input-form-login" placeholder="CPF" required maxlength="11" /> <!--CONTAR COM CPF CARACTERES-->
+          
+            <input type="email" id="email" name="email" class="input-form-login" placeholder="E-MAIL" required />
+          
+            <input type="password" id="password" name="password" class="input-form-login" placeholder="Senha" required minlength="8" />
+          
+            <button type="submit" class="">Cadastrar</button>
+          </form>
+          
+    </div>
+
+<%- include("../partials/footer"); %> 
+
+</body>
+</html>

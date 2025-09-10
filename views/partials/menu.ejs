@@ -27,12 +27,11 @@
               DOAÇÕES
               </a>
           </li>
-          
         </ul>
       </div>
 
       <div class="components-menu-right">
-        <ul>
+        <ul class="login-links">
           <% if (!req.session.user) { %>
             <li><a href="/login" value="Login">LOGIN</a></li>
           <% } else { %>

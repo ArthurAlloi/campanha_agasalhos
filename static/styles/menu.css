@@ -4,6 +4,7 @@ header{
   left: 0;
   width: 100%;
   height: 70px;
+  z-index: 1000;
 
   background: rgba(0, 0, 0, 0.80); 
   backdrop-filter: blur(10px); 
@@ -26,25 +27,25 @@ header{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
-/* LOGO */
+/* Logo com Título */
 .components-menu-logo{
   display: flex;
   align-items: center;
-}
-
-.titulo-container{
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 #logoimg{
   height: 60px;
   width: auto;
   transition: transform 0.3s ease;
+}
+
+.titulo-container{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .tit{
@@ -60,17 +61,16 @@ header{
   animation: gradientText 5s ease-in-out infinite;
 }
 
+li, a{
+  cursor: pointer;
+  text-decoration: none;
+  list-style: none;
+}
 /* LINKS CENTRAIS */
 .components-menu-center .nav-links{
   display: flex;
   align-items: center;
-  gap: 35px;
-  list-style: none;
-}
-
-li, a{
-  cursor: pointer;
-  text-decoration: none;
+  gap: 15px;
   list-style: none;
 }
 
@@ -88,7 +88,14 @@ li, a{
 }
 
 /* LOGIN/LOGOUT (direita) */
-/*KEYFRAME DA FIAP*/
+
+.components-menu-right .login-links{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  list-style: none;
+}
+
 .components-menu-right a{
   font-size: 10px;
   font-weight: bold;
@@ -107,6 +114,7 @@ li, a{
 }
 
 /* HAMBURGER */
+/* ARRUMAR EMMMM NÃO ESQUECEEEE*/
 .components-menu-toggle{
   display: none;
   flex-direction: column;
