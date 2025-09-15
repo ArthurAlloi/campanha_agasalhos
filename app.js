@@ -73,11 +73,14 @@ app.get("/localizacao", function(req, res) {
   res.render("pages/localizacao", { título: "Localizacao", req });
 });
 
+<<<<<<< HEAD
 app.get("/equipe", function(req, res) {
   console.log("/Equipe GET");
   res.render("pages/equipe", { título: "Equipe", req });
 });
 
+=======
+>>>>>>> origin/Dev-JoaoLucas
 // Login - GET exibe o formulário, POST valida o usuário
 app.get("/login", function(req, res) {
   console.log("/Login GET");
