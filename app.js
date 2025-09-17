@@ -73,43 +73,6 @@ app.get("/", (req, res) => res.render("pages/index", { título: "Index", req }))
 app.get("/sobre", (req, res) => res.render("pages/sobre", { título: "Sobre", req }));
 app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localizacao", req }));
 
-<<<<<<< HEAD
-// Página inicial
-app.get("/", function(req, res) {
-  console.log("/Home GET");
-  res.render("pages/index", { título: "Index", req });
-});
-
-// Páginas fixas
-app.get("/sobre", function(req, res) {
-  console.log("/Sobre GET");
-  res.render("pages/sobre", { título: "Sobre", req });
-});
-
-app.get("/localizacao", function(req, res) {
-  console.log("/Localizacao GET");
-  res.render("pages/localizacao", { título: "Localizacao", req });
-});
-
-app.get("/equipe", function(req, res) {
-  console.log("/Equipe GET");
-  res.render("pages/equipe", { título: "Equipe", req });
-});
-
-// Login - GET exibe o formulário, POST valida o usuário
-app.get("/login", function(req, res) {
-  console.log("/Login GET");
-  res.render("pages/login", { título: "Login", req, erro: null });
-});
-
-app.post("/login", function(req, res) {
-  console.log("/Login POST");
-  const { username, password } = req.body;
-  db.get("SELECT * FROM users WHERE username = ? AND password = ?", [username, password], function(err, row) {
-    if (row) {
-      req.session.user = row;
-      res.redirect("/doacoes_doar");
-=======
 // ─────────────────────── Cadastro ───────────────────────
 app.get("/cadastro", (req, res) => {
   res.render("pages/cadastro", { título: "Cadastro", req, erro: null, sucesso: null });
@@ -164,32 +127,12 @@ app.post("/login", (req, res) => {
     // Redireciona conforme o tipo de usuário
     if (row.adm === 1) {
       return res.redirect("/doacoes_doar"); // admin
->>>>>>> origin/Dev-Arthur
     } else {
       return res.redirect("/doacoes_doaruser"); // usuário normal
     }
   });
 });
 
-<<<<<<< HEAD
-// Logout - encerra sessão
-app.get("/logout", function(req, res) {
-  console.log("/Logout GET");
-  req.session.destroy(function() {
-    res.redirect("/");
-  });
-});
-
-// Página de doações (acessível somente se estiver logado)
-app.get("/doacoes_doar", function(req, res) {
-  console.log("/Doacoes_Doar GET");
-  res.render("pages/doacoes_doar", { título: "Doações", req });
-});
-
-// Página para realizar uma doação
-app.get("/realizardoacao", function(req, res) {
-  console.log("/Realizardoacao GET");
-=======
 // Logout
 app.get("/logout", (req, res) => {
   req.session.destroy(() => res.redirect("/"));
@@ -197,7 +140,6 @@ app.get("/logout", (req, res) => {
 
 // ─────────────────────── Área Restrita ───────────────────────
 app.get("/dashboard", (req, res) => {
->>>>>>> origin/Dev-Arthur
   if (!req.session.user) return res.redirect("/login");
   res.render("pages/dashboard", { título: "Área Restrita", req, user: req.session.user });
 });
@@ -210,98 +152,6 @@ app.get("/usuarios", (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-// Rota POST para processar a doação
-app.post("/realizardoacao", function(req, res) {
-  console.log("/Realizardoacao POST");
-  if (!req.session.user) return res.redirect("/login");
-  const { turma, item, quantidade } = req.body;
-  const qtd = parseInt(quantidade);
-  const mapaPontos = {
-    "Roupas comuns usadas": 1,
-    "Roupas de frio usadas": 2,
-    "Roupas novas embaladas com etiqueta": 3,
-    "Roupas de cama de inverno usadas": 10,
-    "Roupas de cama de inverno novas": 20
-  };
-  const pontos = (mapaPontos[item] || 0) * qtd;
-  const data = new Date().toISOString().split('T')[0];
-
-  dbArrecadacao.run("INSERT INTO ARRECADACAO (turma, item, quantidade, pontos, data) VALUES (?, ?, ?, ?, ?)",
-    [turma, item, qtd, pontos, data], function(err) {
-      res.redirect("/tabela");
-    });
-});
-
-// Página de ranking das turmas
-app.get("/ranking", function(req, res) {
-  console.log("/Ranking GET");
-  dbArrecadacao.all(`
-    SELECT turma, SUM(pontos) AS totalPontos, COUNT(*) AS totalDoacoes
-    FROM ARRECADACAO
-    GROUP BY turma
-    ORDER BY totalPontos DESC
-  `, function(err, ranking) {
-    res.render("pages/ranking", {
-      título: "Ranking de Doações",
-      req,
-      ranking
-    });
-  });
-});
-
-// Página com a tabela de doações, com filtro e paginação
-app.get("/tabela", (req, res) => {
-  console.log("/Tabela GET");
-  const pagina = parseInt(req.query.pagina) || 1;
-  const porPagina = 10;
-  const offset = (pagina - 1) * porPagina;
-  const turmaSelecionada = req.query.turma || "";
-
-  const mapaPontos = {
-    "Roupas comuns usadas": 1,
-    "Roupas de frio usadas": 2,
-    "Roupas novas embaladas com etiqueta": 3,
-    "Roupas de cama de inverno usadas": 10,
-    "Roupas de cama de inverno novas": 20
-  };
-
-  let query = "SELECT * FROM ARRECADACAO";
-  let countQuery = "SELECT COUNT(*) as total FROM ARRECADACAO";
-  const params = [];
-
-  if (turmaSelecionada) {
-    query += " WHERE turma = ?";
-    countQuery += " WHERE turma = ?";
-    params.push(turmaSelecionada);
-  }
-
-  query += " LIMIT ? OFFSET ?";
-  params.push(porPagina, offset);
-
-  dbArrecadacao.all(query, params, function(err, rows) {
-    dbArrecadacao.get(countQuery, turmaSelecionada ? [turmaSelecionada] : [], function(err, result) {
-      const totalRegistros = result.total;
-      const totalPaginas = Math.ceil(totalRegistros / porPagina);
-
-      const doacoes = rows.map(row => ({
-        ...row,
-        pontosUnitarios: mapaPontos[row.item] || 0
-      }));
-
-      dbTurmas.all("SELECT * FROM turma", (err, turmas) => {
-        res.render("pages/tabela", {
-          título: "Tabela de Doações",
-          req,
-          doacoes,
-          paginaAtual: pagina,
-          totalPaginas,
-          turmas,
-          turmaSelecionada
-        });
-      });
-    });
-=======
 app.post("/usuarios/criar", (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   const { cpf, email, password, adm, ativo } = req.body;
@@ -315,7 +165,6 @@ app.post("/usuarios/editar/:id", (req, res) => {
   const { cpf, email, password, adm, ativo } = req.body;
   db.run("UPDATE users SET cpf = ?, email = ?, password = ?, adm = ?, ativo = ? WHERE id = ?", [cpf, email, password, adm || 0, ativo || 1, req.params.id], () => {
     res.redirect("/usuarios");
->>>>>>> origin/Dev-Arthur
   });
 });
 
