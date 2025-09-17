@@ -7,24 +7,31 @@
 
   <%- include("../partials/menu"); %>
 
-  <main class="content">
+  <main>
 
-    <div class="caixa-login">
+    <div class="caixa-login" id="caixa-login">
 
-      <h2>Faça seu Login</h2>
-
-      <img src="/static/img/Log.jpg" alt="Usuário" class="avatar" />
+      <img src="/static/img/Log.jpg" alt="Usuário" class="avatar" /><!--COLOCAR A LOGO DO SITE EMM
+      NÃO PODE ESQUECER-->
+      
+      <h2>LOGIN</h2>
 
       <form action="/login" method="POST">
 
-        <label for="username">Nome</label>
-        <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" class="input-form" required />
 
-        <label for="password">Senha</label>
-        <input type="password" id="password" name="password" placeholder="Digite sua senha" class="input-form" required />
+        <!--<label for="username">Nome</label>-->
+        <input type="text" id="cpf" name="cpf" placeholder="CPF" class="input-form-login" required />
 
-        <div class="fancy">
-          <button type="submit">Entrar</button>
+
+        <!--<label for="password">Senha</label-->
+        <input type="password" id="password" name="password" placeholder="Senha" class="input-form-login" required />
+
+        <div>
+          <button type="submit" class="">Entrar</button>
+        </div>
+
+        <div class="login-link-Cadastro">
+          <a href="/cadastro">Casdastrar</a>
         </div>
         
       </form>

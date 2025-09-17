@@ -1,24 +1,34 @@
 <header>
-    <nav class="navbar">
-
+  <nav class="navbar"> 
+    <div class="components-menu">
+      
+      <div class="components-menu-logo">
         <a href="/">
-            <div class="titulo-container">
-              <img src="../static/Img/Logo.png" alt="Logo Da Campanha" id="logoimg">
-              <div class="tit">Campanha</div>
-            </div>
+          <div class="titulo-container">
+            <img src="../static/Img/Logo.png" alt="Logo Da Campanha" id="logoimg" />
+            <div class="tit">IDEARIUM</div>
+          </div>
         </a>
+      </div>
 
-    <ul class="nav-links">
-        <li><a href="/"><input type="button" value="Home"></a></li>
-        <li><a href="/sobre"><input type="button" value="Sobre"></a></li>
-        <li><a href="/localizacao"><input type="button" value="Localização"></a></li>
-        <li><a href="/equipe"><input type="button" value="Equipe"></a></li>
-        <li><a href="/doacoes_doar"><input type="button" <% if (!req.session.user){ %> 
-            value="Doações"
-        <% } else { %>
-            value="Doações/Doar"
-        <% } %> >
-        </a></li>
+      <div class="components-menu-center">
+        <ul class="nav-links">
+          <li><a href="/" value="Home">HOME</a></li>
+          <li><a href="/sobre" value="Sobre">SOBRE</a></li>
+          <li><a href="/localizacao" value="Localização">LOCALIZAÇÃO</a></li>
+          <li>
+            <a href="/doacoes_doar"
+              <% if (!req.session.user) { %>
+                value="Doações"
+              <% } else { %>
+                value="Doações/Doar"
+              <% } %>
+              >
+              DOAÇÕES
+              </a>
+          </li>
+        </ul>
+      </div>
 
         <% if (!req.session.user) { %>
             <li><a href="/cadastro"><input type="button" value="cadastro"></a></li>
@@ -27,8 +37,14 @@
             <li><a href="/logout"><input type="button" value="Logout"></a></li>
         <% } %>
 
-    </ul>
 
-    </nav>
-    
+      <!-- Botão do menu hamburguer (mobile) -->
+      <div class="components-menu-toggle" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+
+    </div>   
+  </nav>
 </header>
