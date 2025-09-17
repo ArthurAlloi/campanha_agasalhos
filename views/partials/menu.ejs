@@ -30,12 +30,15 @@
         </ul>
       </div>
 
-        <% if (!req.session.user) { %>
-            <li><a href="/cadastro"><input type="button" value="cadastro"></a></li>
-            <li><a href="/login"><input type="button" value="Login"></a></li>
-        <% } else { %>
-            <li><a href="/logout"><input type="button" value="Logout"></a></li>
-        <% } %>
+      <div class="components-menu-right">
+        <ul class="login-links">
+          <% if (!req.session.user) { %>
+            <li><a href="/login" value="Login">LOGIN</a></li>
+          <% } else { %>
+            <li><a href="/logout" value="Logout">LOGOUT</a></li>
+          <% } %>
+        </ul>
+      </div>
 
 
       <!-- Botão do menu hamburguer (mobile) -->
