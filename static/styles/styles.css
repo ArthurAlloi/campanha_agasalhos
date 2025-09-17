@@ -75,6 +75,7 @@ main{
   padding: 20px; 
 }
 
+
 .letra{
   color: #548bde;
 }
@@ -115,17 +116,16 @@ main{
 }
 
 .sobre article {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(95, 23, 23, 0.224);
   border-radius: 12px;
   padding: 15px;
   margin: 15px 0;
-  box-shadow: 0 0 15px rgba(255, 200, 0, 0.25);
   transition: 0.4s;
   animation: fadeInUp 1s ease-in-out;
 }
 .sobre article:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(255, 200, 0, 0.6);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.573);
 }
 
 .btn-ajudar {
@@ -251,7 +251,7 @@ h6{
 footer {
   background-color: #2d2d2d;
   color: #bfbfbf;
-  padding: 40px 80px;
+  padding: 30px 60px;
   text-align: center;
 }
 
@@ -264,7 +264,7 @@ footer {
 }
 
 .footer-logo {
-  font-size: 42px;
+  font-size: 32px;
   font-weight: bold;
   color: #d64343ab;
   margin-bottom: 20px;
@@ -280,8 +280,10 @@ footer {
 
 .footer-column h1{
   text-decoration: underline;
-  text-underline-offset: 5px;
+  text-underline-offset: 3px;
+  text-transform: uppercase;
   margin-bottom: 10px;
+  font-size: 18px;
 }
 
 .footer-column h4 {
@@ -292,15 +294,23 @@ footer {
   color: #888;
 }
 
-.footer-column a {
-  color: #bfbfbfa4;
+li{
   text-decoration: none;
-  font-size: 14px;
-  margin-bottom: 8px;
-  transition: color 0.3s;
+  list-style: none;
 }
 
-.footer-column a:hover {
+.footer-column li{
+  margin-bottom: 8px;
+}
+
+.footer-column li a{
+  color: #bfbfbfa4;
+  font-size: 14px;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.footer-column li a:hover {
   color: #fff;
 }
 

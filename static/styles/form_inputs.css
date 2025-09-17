@@ -23,7 +23,7 @@
   50% {
     box-shadow: 0 0 20px #71848a;
   }
-  100%{
+  100% {
     box-shadow: 0 0 0 #71848a;
   }
 }
@@ -35,15 +35,14 @@
   width: 110px;
   height: auto;
   margin-bottom: 10px;
-  box-shadow: 0 0 25px #3e3e32;
+  box-shadow: 0 0 15px #3e3e32;
 }
 
 /* Título da Caixa de Login */
 .caixa-login h2{
   animation: textando 0.7s linear both;;
   margin-bottom: 10px;
-  color: #348267;
-  text-shadow: 0 0 10px #57a1b1;
+  color: #190860;
   font-size: 2.2rem;
   letter-spacing: 3px;
 }
@@ -149,7 +148,7 @@ button{
   font-size: 18px;
   font-weight: bolder;
   cursor: pointer;
-  transition: 1s;
+  transition: 0.3s;
 }
 
 button:hover {
