@@ -73,19 +73,28 @@ app.get("/", (req, res) => res.render("pages/index", { título: "Index", req }))
 app.get("/sobre", (req, res) => res.render("pages/sobre", { título: "Sobre", req }));
 app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localizacao", req }));
 
+// Middleware para proteger rotas
+function authMiddleware(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  next();
+}
+
 // ─────────────────────── Cadastro ───────────────────────
 app.get("/cadastro", (req, res) => {
   res.render("pages/cadastro", { título: "Cadastro", req, erro: null, sucesso: null });
 });
 
 app.post("/cadastro", function (req, res) {
-  const { cpf, email, password } = req.body;
+  let { cpf, email, password } = req.body;
+  const cpfLimpo = cpf.replace(/\D/g, ""); // remove pontos e traços
 
   if (!cpf || !email || !password) {
     return res.render("pages/cadastro", { título: "Cadastro", req, erro: "Preencha todos os campos!", sucesso: null });
   }
 
-  db.run("INSERT INTO users (cpf, email, password) VALUES (?, ?, ?)", [cpf, email, password], function (err) {
+  db.run("INSERT INTO users (cpf, email, password) VALUES (?, ?, ?)", [cpfLimpo, email, password], function (err) {
     if (err) {
       console.error("Erro ao cadastrar:", err.message);
       return res.render("pages/cadastro", { título: "Cadastro", req, erro: "CPF ou E-mail já cadastrados!", sucesso: null });
@@ -101,9 +110,11 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const { cpf, password } = req.body;
+  let { cpf, password } = req.body;
+  const cpfLimpo = cpf.replace(/\D/g, "");
 
-  db.get("SELECT * FROM users WHERE cpf = ?", [cpf], (err, row) => {
+
+  db.get("SELECT * FROM users WHERE cpf = ?", [cpfLimpo], (err, row) => {
     if (err) {
       console.error("Erro no login:", err.message);
       return res.render("pages/login", { título: "Login", req, erro: "Erro no servidor!" });
@@ -128,9 +139,23 @@ app.post("/login", (req, res) => {
     if (row.adm === 1) {
       return res.redirect("/doacoes_doar"); // admin
     } else {
-      return res.redirect("/doacoes_doaruser"); // usuário normal
+      return res.redirect("/"); // usuário normal
     }
   });
+});
+
+// Página admin
+app.get("/doacoes_doar", authMiddleware, (req, res) => {
+  if (req.session.user.adm !== 1) {
+    return res.redirect("/");
+  }
+  res.render("pages/doacoes_doar", { título: "Área Restrita", req, user: req.session.user });
+});
+
+
+// Página inicial (usuário normal)
+app.get("/", authMiddleware, (req, res) => {
+  res.send("Bem-vindo ao SOL - Usuário comum");
 });
 
 // Logout
@@ -139,8 +164,12 @@ app.get("/logout", (req, res) => {
 });
 
 // ─────────────────────── Área Restrita ───────────────────────
-app.get("/dashboard", (req, res) => {
-  if (!req.session.user) return res.redirect("/login");
+app.get("/dashboard", authMiddleware, (req, res) => {
+  const dados = {
+    usuariosAtivos: 25,
+    campanhasAbertas: 3,
+    totalDoacoes: 120
+  };
   res.render("pages/dashboard", { título: "Área Restrita", req, user: req.session.user });
 });
 
@@ -173,15 +202,6 @@ app.post("/usuarios/deletar/:id", (req, res) => {
   db.run("DELETE FROM users WHERE id = ?", [req.params.id], () => {
     res.redirect("/usuarios");
   });
-});
-
-// ─────────────────────── Doações, Ranking e Tabela ───────────────────────
-app.get("/doacoes_doar", (req, res) => {
-  res.render("pages/doacoes_doar", { título: "doacoes_doar", req, erro: null });
-});
-
-app.get("/doacoes_doaruser", (req, res) => {
-  res.render("pages/doacoes_doaruser", { título: "doacoes_doaruser", req, erro: null });
 });
 
 // ─────────────────────── Página de erro 404 ───────────────────────

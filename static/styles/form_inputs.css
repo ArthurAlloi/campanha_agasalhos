@@ -70,7 +70,7 @@
   background: transparent;
   outline: none;
   font-size: 1rem;
-  color: #fff;
+  color: #000000;
   transition: 0.3s;
 }
   
@@ -87,7 +87,7 @@ input[type="text"]:hover,
 input[type="password"]:hover,
 input[type="email"]:hover {
   background-color: #02013d40;
-  color: #fff;
+  color: #000000;
 }
 
 label{
