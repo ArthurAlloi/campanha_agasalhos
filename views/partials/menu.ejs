@@ -22,21 +22,23 @@
                 value="Doações"
               <% } else { %>
                 value="Doações/Doar"
-              <% } %>
-              >
-             CAMPANHAS
-              </a>
+              <% } %>>
+              CAMPANHAS
+            </a>
           </li>
+
+          <% if (req.session.user && req.session.user.adm === 1) { %>
+            <li><a href="/usuariosadm" value="Usuários">USUÁRIOS</a></li>
+          <% } %>
         </ul>
       </div>
 
-        <% if (!req.session.user) { %>
-            <li><a href="/cadastro"><input type="button" value="cadastro"></a></li>
-            <li><a href="/login"><input type="button" value="Login"></a></li>
-        <% } else { %>
-            <li><a href="/logout"><input type="button" value="Logout"></a></li>
-        <% } %>
-
+      <% if (!req.session.user) { %>
+          <li><a href="/cadastro"><input type="button" value="Cadastro"></a></li>
+          <li><a href="/login"><input type="button" value="Login"></a></li>
+      <% } else { %>
+          <li><a href="/logout"><input type="button" value="Logout"></a></li>
+      <% } %>
 
       <!-- Botão do menu hamburguer (mobile) -->
       <div class="components-menu-toggle" onclick="toggleMenu()">

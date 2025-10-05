@@ -26,15 +26,15 @@ db.serialize(() => {
     ativo INTEGER DEFAULT 1
   )`, () => {
     // Cria admin padrão se não existir
-    db.get("SELECT * FROM users WHERE cpf='00000000000'", (err, row) => {
+    db.get("SELECT * FROM users WHERE cpf='000.00.000-00'", (err, row) => {
       if (!row) {
         db.run("INSERT INTO users (cpf, email, password, adm, ativo) VALUES (?, ?, ?, ?, ?)", [
-          "00000000000",
+          "000.000.000-00",
           "admin@site.com",
           "adm123",
           1, // adm
           1  // ativo
-        ], () => console.log("✅ Admin padrão criado!"));
+        ],() => console.log("✅ Admin padrão criado!")); 
       }
     });
   });
@@ -145,33 +145,33 @@ app.get("/dashboard", (req, res) => {
 });
 
 // ─────────────────────── CRUD de Usuários ───────────────────────
-app.get("/usuarios", (req, res) => {
+app.get("/usuariosadm", (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   db.all("SELECT * FROM users", (err, users) => {
-    res.render("pages/usuarios", { título: "Usuários", req, users });
+    res.render("pages/usuariosadm", { título: "Usuários", req, users });
   });
 });
 
-app.post("/usuarios/criar", (req, res) => {
+app.post("/usuariosadm/criar", (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   const { cpf, email, password, adm, ativo } = req.body;
   db.run("INSERT INTO users (cpf, email, password, adm, ativo) VALUES (?, ?, ?, ?, ?)", [cpf, email, password, adm || 0, ativo || 1], () => {
-    res.redirect("/usuarios");
+    res.redirect("/usuariosadm");
   });
 });
 
-app.post("/usuarios/editar/:id", (req, res) => {
+app.post("/usuariosadm/editar/:id", (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   const { cpf, email, password, adm, ativo } = req.body;
   db.run("UPDATE users SET cpf = ?, email = ?, password = ?, adm = ?, ativo = ? WHERE id = ?", [cpf, email, password, adm || 0, ativo || 1, req.params.id], () => {
-    res.redirect("/usuarios");
+    res.redirect("/usuariosadm");
   });
 });
 
-app.post("/usuarios/deletar/:id", (req, res) => {
+app.post("/usuariosadm/deletar/:id", (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   db.run("DELETE FROM users WHERE id = ?", [req.params.id], () => {
-    res.redirect("/usuarios");
+    res.redirect("/usuariosadm");
   });
 });
 
@@ -184,6 +184,9 @@ app.get("/doacoes_doaruser", (req, res) => {
   res.render("pages/doacoes_doaruser", { título: "doacoes_doaruser", req, erro: null });
 });
 
+app.get("/criarcampanha", (req, res) => {
+  res.render("pages/criarcampanha", { título: "criarcampanha", req, erro: null });
+});
 // ─────────────────────── Página de erro 404 ───────────────────────
 app.use((req, res) => {
   res.status(404).render('pages/fail', { título: "HTTP ERROR 404 - PAGE NOT FOUND", req: req, msg: "404" });
