@@ -178,6 +178,11 @@ app.post("/usuariosadm/deletar/:id", (req, res) => {
 app.get("/doacoes_doar", (req, res) => res.render("pages/doacoes_doar", { título: "Doações", req, erro: null }));
 app.get("/doacoes_doaruser", (req, res) => res.render("pages/doacoes_doaruser", { título: "Doações Usuário", req, erro: null }));
 
+
+//________________________Criar Campanhas__________________________
+
+app.get("/criarcampanha", (req, res) => res.render("pages/criarcampanha", { título: "CriarCampanha", req }));
+
 // ─────────────────────── Página de erro 404 ───────────────────────
 app.use((req, res) => res.status(404).render('pages/fail', { título: "HTTP ERROR 404", req, msg: "404" }));
 

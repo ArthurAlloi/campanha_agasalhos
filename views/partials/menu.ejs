@@ -17,7 +17,7 @@
           <li><a href="/sobre" value="Sobre">SOBRE</a></li>
           <li><a href="/localizacao" value="Localização">LOCALIZAÇÃO</a></li>
           <li>
-            <a href="/doacoes_doar"
+            <a href="/doacoes_doaruser"
               <% if (!req.session.user) { %>
                 value="Doações"
               <% } else { %>
@@ -29,6 +29,7 @@
 
           <% if (req.session.user && req.session.user.adm === 1) { %>
             <li><a href="/usuariosadm" value="Usuários">USUÁRIOS</a></li>
+                 <li><a href="/doacoes_doar" value="Criar">CriarCampanha</a></li>
           <% } %>
         </ul>
       </div>
