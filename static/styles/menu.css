@@ -133,7 +133,7 @@ header{
     transform: scale(1) rotateZ(0);
   }
   50% {
-    transform: scale(50) rotateZ(180deg);
+    transform: scale(2) rotateZ(180deg);
   }
   100%{ 
     transform: scale(1) rotateZ(360deg);

@@ -88,14 +88,6 @@ app.get("/", (req, res) => res.render("pages/index", { título: "Index", req }))
 app.get("/sobre", (req, res) => res.render("pages/sobre", { título: "Sobre", req }));
 app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localizacao", req }));
 
-// Middleware para proteger rotas
-function authMiddleware(req, res, next) {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-  next();
-}
-
 // ─────────────────────── Cadastro ───────────────────────
 app.get("/cadastro", (req, res) => {
   res.render("pages/cadastro", { título: "Cadastro", req, erro: null, sucesso: null });
@@ -103,9 +95,6 @@ app.get("/cadastro", (req, res) => {
 
 app.post("/cadastro", (req, res) => {
   const { cpf, email, password } = req.body;
-app.post("/cadastro", function (req, res) {
-  let { cpf, email, password } = req.body;
-  const cpfLimpo = cpf.replace(/\D/g, ""); // remove pontos e traços
 
   if (!cpf || !email || !password) {
     return res.render("pages/cadastro", { título: "Cadastro", req, erro: "Preencha todos os campos!", sucesso: null });
@@ -119,11 +108,6 @@ app.post("/cadastro", function (req, res) {
         console.error("Erro ao cadastrar:", err.message);
         return res.render("pages/cadastro", { título: "Cadastro", req, erro: "CPF ou E-mail já cadastrados!", sucesso: null });
       }
-  db.run("INSERT INTO users (cpf, email, password) VALUES (?, ?, ?)", [cpfLimpo, email, password], function (err) {
-    if (err) {
-      console.error("Erro ao cadastrar:", err.message);
-      return res.render("pages/cadastro", { título: "Cadastro", req, erro: "CPF ou E-mail já cadastrados!", sucesso: null });
-    }
 
       res.render("pages/cadastro", { título: "Cadastro", req, erro: null, sucesso: "Usuário cadastrado com sucesso!" });
     }
@@ -136,9 +120,7 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  let { cpf, password } = req.body;
-  const cpfLimpo = cpf.replace(/\D/g, "");
-
+  const { cpf, password } = req.body;
 
   dbUsers.get("SELECT * FROM users WHERE cpf = ?", [cpf], (err, row) => {
     if (err) return res.render("pages/login", { título: "Login", req, erro: "Erro no servidor!" });
@@ -146,63 +128,9 @@ app.post("/login", (req, res) => {
     if (row.password !== password) return res.render("pages/login", { título: "Login", req, erro: "Senha incorreta!" });
     if (row.ativo === 0) return res.render("pages/login", { título: "Login", req, erro: "Usuário desativado!" });
 
-  db.get("SELECT * FROM users WHERE cpf = ?", [cpfLimpo], (err, row) => {
-    if (err) {
-      console.error("Erro no login:", err.message);
-      return res.render("pages/login", { título: "Login", req, erro: "Erro no servidor!" });
-    }
-
-    if (!row) {
-      return res.render("pages/login", { título: "Login", req, erro: "Usuário não encontrado!" });
-    }
-
-    if (row.password !== password) {
-      return res.render("pages/login", { título: "Login", req, erro: "Senha incorreta!" });
-    }
-
-    if (row.ativo === 0) {
-      return res.render("pages/login", { título: "Login", req, erro: "Usuário desativado!" });
-    }
-
-    // Setando a sessão
     req.session.user = { id: row.id, cpf: row.cpf, adm: row.adm };
     return row.adm === 1 ? res.redirect("/doacoes_doar") : res.redirect("/doacoes_doaruser");
-
-    // Redireciona conforme o tipo de usuário
-    if (row.adm === 1) {
-      return res.redirect("/doacoes_doar"); // admin
-    } else {
-      return res.redirect("/"); // usuário normal
-    }
   });
-});
-
-// Página admin
-app.get("/doacoes_doar", authMiddleware, (req, res) => {
-  if (req.session.user.adm !== 1) {
-    return res.redirect("/");
-  }
-  res.render("pages/doacoes_doar", { título: "Área Restrita", req, user: req.session.user });
-});
-
-
-// Página inicial (usuário normal)
-app.get("/", authMiddleware, (req, res) => {
-  res.send("Bem-vindo ao SOL - Usuário comum");
-});
-
-// Página admin
-app.get("/doacoes_doar", authMiddleware, (req, res) => {
-  if (req.session.user.adm !== 1) {
-    return res.redirect("/");
-  }
-  res.render("pages/doacoes_doar", { título: "Área Restrita", req, user: req.session.user });
-});
-
-
-// Página inicial (usuário normal)
-app.get("/", authMiddleware, (req, res) => {
-  res.send("Bem-vindo ao SOL - Usuário comum");
 });
 
 // Logout
@@ -212,14 +140,6 @@ app.get("/logout", (req, res) => req.session.destroy(() => res.redirect("/")));
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) return res.redirect("/login");
   res.render("pages/dashboard", { título: "dashboardadm", req, user: req.session.user });
-// ─────────────────────── Área Restrita ───────────────────────
-app.get("/dashboard", authMiddleware, (req, res) => {
-  const dados = {
-    usuariosAtivos: 25,
-    campanhasAbertas: 3,
-    totalDoacoes: 120
-  };
-  res.render("pages/dashboard", { título: "Área Restrita", req, user: req.session.user });
 });
 
 // ─────────────────────── CRUD Usuários ───────────────────────
@@ -257,6 +177,11 @@ app.post("/usuariosadm/deletar/:id", (req, res) => {
 // ─────────────────────── Páginas Doações ───────────────────────
 app.get("/doacoes_doar", (req, res) => res.render("pages/doacoes_doar", { título: "Doações", req, erro: null }));
 app.get("/doacoes_doaruser", (req, res) => res.render("pages/doacoes_doaruser", { título: "Doações Usuário", req, erro: null }));
+
+
+//________________________Criar Campanhas__________________________
+
+app.get("/criarcampanha", (req, res) => res.render("pages/criarcampanha", { título: "CriarCampanha", req }));
 
 // ─────────────────────── Página de erro 404 ───────────────────────
 app.use((req, res) => res.status(404).render('pages/fail', { título: "HTTP ERROR 404", req, msg: "404" }));
