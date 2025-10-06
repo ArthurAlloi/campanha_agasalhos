@@ -57,6 +57,10 @@ main{
   text-align: center;
 }
 
+#Logo_index{
+  width: 350px;
+}
+
 .sobre h2{
   font-size: 30px;
   transform: translateX(100px);

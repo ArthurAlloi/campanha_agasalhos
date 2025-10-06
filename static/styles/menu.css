@@ -39,7 +39,6 @@ header{
 #logoimg{
   height: 60px;
   width: auto;
-  transition: transform 0.3s ease;
 }
 
 .titulo-container{
@@ -134,7 +133,7 @@ header{
     transform: scale(1) rotateZ(0);
   }
   50% {
-    transform: scale(1.8) rotateZ(180deg);
+    transform: scale(50) rotateZ(180deg);
   }
   100%{ 
     transform: scale(1) rotateZ(360deg);
