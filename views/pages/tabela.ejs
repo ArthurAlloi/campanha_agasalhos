@@ -1,82 +1,52 @@
 <!DOCTYPE html>
-<html lang="pt-br"> <!-- Define o idioma da página como português do Brasil -->
+<html lang="pt-br">
+  <%- include("../partials/head"); %>
+  <body>
+    <%- include("../partials/menu"); %>
 
-<%- include("../partials/head"); %> <!-- Inclui o cabeçalho HTML comum (meta tags, links de estilo, etc.) -->
-<%- include("../partials/menu"); %> <!-- Inclui o menu de navegação padrão do site -->
+    <main class="container">
+      <h1>📅 Campanhas</h1>
 
-<body>
-
-  <div class="tabela-container"> <!-- Container principal da tabela -->
-    <h1>Tabela de Doações</h1> <!-- Título principal da página -->
-
-  <form method="get" action="/tabela" class="filtro-form">
-    <label for="turma">Filtrar por Turma:</label>
-    <select name="turma" id="turma" onchange="this.form.submit()">
-      <option value="">Todas</option>
-      <% turmas.forEach(t => { %>
-        <option value="<%= t.sigla %>" <%= turmaSelecionada === t.sigla ? 'selected' : '' %>><%= t.sigla %></option>
-      <% }) %>
-    </select>
-  </form>
-
-
-
-    <table class="tabela-doacoes"> <!-- Início da tabela -->
-      <thead>
-        <tr> <!-- Linha do cabeçalho da tabela -->
-          <th>Turma</th> <!-- Coluna da turma -->
-          <th>Item Doado</th> <!-- Coluna do item doado -->
-          <th>Quantidade</th> <!-- Coluna da quantidade de itens -->
-          <th>Pontos por Unidade</th> <!-- Coluna dos pontos por item -->
-          <th>Pontos Totais</th> <!-- Coluna dos pontos totais -->
-          <th>Data</th> <!-- Coluna da data da doação -->
-        </tr>
-      </thead>
-      <tbody>
-        <% doacoes.forEach(doacao => { %> <!-- Percorre cada doação recebida do servidor -->
-          <tr> <!-- Nova linha da tabela para cada doação -->
-            <td><%= doacao.turma %></td> <!-- Mostra a turma da doação -->
-            <td><%= doacao.item %></td> <!-- Mostra o nome do item doado -->
-            <td><%= doacao.quantidade %></td> <!-- Mostra a quantidade doada -->
-            <td><%= doacao.pontosUnitarios %></td> <!-- Mostra os pontos por unidade -->
-            <td><%= doacao.pontos %></td> <!-- Mostra os pontos totais (quantidade * pontos por unidade) -->
-            <td><%= doacao.data %></td> <!-- Mostra a data da doação -->
+      <table id="tabela-campanhas">
+        <thead>
+          <tr>
+            <th>Nome da Campanha</th>
+            <th>Data de Início</th>
+            <th>Data de Término</th>
+            <th>Status</th>
+            <th>Tempo Restante</th>
+            <th>Ações</th>
           </tr>
-        <% }) %>
-      </tbody>
-    </table> <!-- Fim da tabela -->
+        </thead>
+        <tbody>
+          <% if (campanhas.length > 0) { %>
+            <% campanhas.forEach(c => { %>
+              <tr data-id="<%= c.id %>">
+                <td><%= c.nome %></td>
+                <td><%= new Date(c.data_inicio).toLocaleDateString('pt-BR') %></td>
+                <td><%= new Date(c.data_fim).toLocaleDateString('pt-BR') %></td>
 
-    <!-- Paginação -->
-    <div class="paginacao"> <!-- Container para os botões de paginação -->
-      <% if (paginaAtual > 1) { %> <!-- Se não está na primeira página, permite voltar -->
-        <a class="paginacao-btn" href="/tabela?pagina=<%= paginaAtual - 1 %>">← Anterior</a>
-      <% } else { %> <!-- Se estiver na primeira página, desativa o botão -->
-        <span class="paginacao-btn disabled"></span>
-      <% } %>
+                <td class="status <%= c.ativa ? 'ativa' : 'encerrada' %>">
+                  <%= c.ativa ? 'Ativa ✅' : 'Encerrada ❌' %>
+                </td>
 
-      <span class="pagina-info">Página <%= paginaAtual %> de <%= totalPaginas %></span> <!-- Mostra o número da página atual -->
+                <td class="timer" data-fim="<%= c.data_fim %>"></td>
 
-      <% if (paginaAtual < totalPaginas) { %> <!-- Se não está na última página, permite avançar -->
-        <a class="paginacao-btn" href="/tabela?pagina=<%= paginaAtual + 1 %>">Próxima →</a>
-      <% } else { %> <!-- Se estiver na última página, desativa o botão -->
-        <span class="paginacao-btn disabled"></span>
-      <% } %>
-    </div>
+                <td>
+                  <form action="/campanhas/<%= c.id %>" method="GET">
+                    <button class="btn-ver" <%= c.ativa ? '' : 'disabled' %>>Ver mais</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr><td colspan="6">Nenhuma campanha cadastrada 😕</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </main>
 
-    <div class="botao-ranking"> <!-- Botão que leva ao ranking de turmas -->
-      <a href="/ranking" class="ranking-btn"><button type="submit" id="btnrank">Ver Ranking</button></a>
-    </div>
-
-  </div>
-
-  <!-- Botão Voltar -->
-  <div class="voltar"> <!-- Container do botão de voltar -->
-    <a href="/doacoes_doar"> <!-- Link que redireciona para a página de doações -->
-      <img src="https://cdn-icons-png.flaticon.com/512/5935/5935366.png" alt="Voltar" id="img-v"> <!-- Ícone do botão -->
-    </a>
-  </div>
-
-  <%- include("../partials/footer"); %> <!-- Inclui o rodapé padrão do site -->
-
-</body>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="/js/timerAPI.js"></script>
+  </body>
 </html>
