@@ -86,7 +86,69 @@ dbDoacoes.run(`CREATE TABLE IF NOT EXISTS doacoes (
 // ─────────────────────── Rotas Fixas ───────────────────────
 app.get("/", (req, res) => res.render("pages/index", { título: "Index", req }));
 app.get("/sobre", (req, res) => res.render("pages/sobre", { título: "Sobre", req }));
-app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localizacao", req }));
+app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localização", req }));
+
+
+
+
+// ─────────────── TABELA DE CAMPANHAS ───────────────
+app.get("/tabela", (req, res) => {
+  dbCampanhas.all("SELECT * FROM campanhas", (err, campanhas) => {
+    if (err) return res.status(500).send("Erro ao carregar campanhas");
+
+    const agora = new Date();
+    campanhas.forEach(c => {
+      const fim = new Date(c.data_fim);
+      if (c.ativa === 1 && fim < agora) {
+        dbCampanhas.run("UPDATE campanhas SET ativa = 0 WHERE id = ?", [c.id]);
+        c.ativa = 0;
+      }
+    });
+
+    // ✅ Passando req para a tabela.ejs
+    res.render("pages/tabela", { campanhas, título: "Tabela de Campanhas", req });
+  });
+});
+
+// ─────────────── API pra desativar campanha ───────────────
+app.post("/api/campanhas/desativar/:id", (req, res) => {
+  const id = req.params.id;
+  dbCampanhas.run("UPDATE campanhas SET ativa = 0 WHERE id = ?", [id], err => {
+    if (err) return res.status(500).json({ erro: "Erro ao desativar campanha" });
+    res.json({ sucesso: true });
+  });
+});
+
+
+app.get("/campanhas/:id", (req, res) => {
+  const idCampanha = req.params.id;
+
+  dbCampanhas.get("SELECT * FROM campanhas WHERE id = ?", [idCampanha], (err, campanha) => {
+    if (err || !campanha) return res.status(404).send("Campanha não encontrada");
+
+    const query = `
+      SELECT t.sigla, SUM(d.total_pontos) AS total_pontos
+      FROM doacoes d
+      JOIN turmas t ON d.id_turma = t.id
+      JOIN itens i ON d.id_item = i.id
+      WHERE i.id_campanha = ?
+      GROUP BY t.id
+    `;
+
+    dbDoacoes.all(query, [idCampanha], (err, turmasDoacoes) => {
+      if (err) return res.status(500).send("Erro ao carregar doações");
+
+      res.render("pages/verCampanha", { 
+        campanha, 
+        turmasDoacoes, 
+        título: `Campanha Detalhes`, 
+        req 
+      });
+    });
+  });
+});
+
+
 
 // ─────────────────────── Cadastro ───────────────────────
 app.get("/cadastro", (req, res) => {
@@ -133,13 +195,13 @@ app.post("/login", (req, res) => {
   });
 });
 
-// Logout
+// ─────────────────────── Logout ───────────────────────
 app.get("/logout", (req, res) => req.session.destroy(() => res.redirect("/")));
 
 // ─────────────────────── Dashboard ───────────────────────
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) return res.redirect("/login");
-  res.render("pages/dashboard", { título: "dashboardadm", req, user: req.session.user });
+  res.render("pages/dashboard", { título: "Dashboard", req, user: req.session.user });
 });
 
 // ─────────────────────── CRUD Usuários ───────────────────────
@@ -173,15 +235,45 @@ app.post("/usuariosadm/deletar/:id", (req, res) => {
   dbUsers.run("DELETE FROM users WHERE id = ?", [req.params.id], () => res.redirect("/usuariosadm"));
 });
 
-
 // ─────────────────────── Páginas Doações ───────────────────────
 app.get("/doacoes_doar", (req, res) => res.render("pages/doacoes_doar", { título: "Doações", req, erro: null }));
 app.get("/doacoes_doaruser", (req, res) => res.render("pages/doacoes_doaruser", { título: "Doações Usuário", req, erro: null }));
 
+// ─────────────────────── Criar Campanhas ───────────────────────
+app.get("/criarcampanha", (req, res) =>
+  res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: null, sucesso: null })
+);
 
-//________________________Criar Campanhas__________________________
+app.post("/criarcampanha", (req, res) => {
+  const { nome, descricao, data_inicio, data_fim, nome_item, pontos } = req.body;
 
-app.get("/criarcampanha", (req, res) => res.render("pages/criarcampanha", { título: "CriarCampanha", req }));
+  if (!nome || !data_inicio || !data_fim || !nome_item || !pontos) {
+    return res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: "Preencha todos os campos obrigatórios!", sucesso: null });
+  }
+
+  dbCampanhas.run(
+    `INSERT INTO campanhas (nome, descricao, data_inicio, data_fim) VALUES (?, ?, ?, ?)`,
+    [nome, descricao || "", data_inicio, data_fim],
+    function (err) {
+      if (err) {
+        console.error("Erro ao criar campanha:", err.message);
+        return res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: "Erro ao criar campanha!", sucesso: null });
+      }
+
+      const campanhaId = this.lastID;
+
+      const stmt = dbCampanhas.prepare(`INSERT INTO itens (id_campanha, nome_item, pontos) VALUES (?, ?, ?)`);
+      for (let i = 0; i < nome_item.length; i++) {
+        if (nome_item[i] && pontos[i]) {
+          stmt.run(campanhaId, nome_item[i], pontos[i]);
+        }
+      }
+      stmt.finalize();
+
+      res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: null, sucesso: "Campanha criada com sucesso!" });
+    }
+  );
+});
 
 // ─────────────────────── Página de erro 404 ───────────────────────
 app.use((req, res) => res.status(404).render('pages/fail', { título: "HTTP ERROR 404", req, msg: "404" }));
