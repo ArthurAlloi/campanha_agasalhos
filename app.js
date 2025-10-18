@@ -1,27 +1,41 @@
-// Importação de bibliotecas necessárias
-const express = require('express'); // Framework para servidor web
-const session = require('express-session'); // Gerenciamento de sessões
-const sqlite3 = require('sqlite3'); // Banco de dados SQLite
-const path = require('path'); // Manipulação de caminhos de arquivos
+// ─────────────────────── Importações ───────────────────────
+const express = require('express');
+const session = require('express-session');
+const sqlite3 = require('sqlite3');
+const path = require('path');
 
-const app = express(); // Inicialização do aplicativo Express
-const PORT = 8000; // Porta em que o servidor irá rodar
+const app = express();
+const PORT = 8000;
 
-// Configurações básicas do servidor
-app.use(express.urlencoded({ extended: true })); // Permite receber dados de formulários via POST
-app.use(session({ secret: 'banguela', resave: false, saveUninitialized: true })); // Configuração da sessão
-app.use("/static", express.static(path.join(__dirname, "static"))); // Pasta de arquivos estáticos
-app.set('view engine', 'ejs'); // Define a engine de views como EJS
+// ─────────────────────── Configurações ───────────────────────
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: 'banguela', resave: false, saveUninitialized: true }));
+app.use("/static", express.static(path.join(__dirname, "static")));
+app.set('view engine', 'ejs');
 
 // ─────────────────────── Banco de Usuários ───────────────────────
-const db = new sqlite3.Database("adm.db"); // Cria ou abre o banco de usuários
-// Cria a tabela de usuários se não existir
-db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
-// Insere o admin padrão, se ele não existir
-db.get("SELECT * FROM users WHERE username = 'admin'", function(err, row) {
-  if (!row) {
-    db.run("INSERT INTO users (username, password) VALUES ('admin', 'adm123')");
-  }
+const dbUsers = new sqlite3.Database('adm.db');
+dbUsers.serialize(() => {
+  dbUsers.run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cpf TEXT UNIQUE,
+    nome TEXT,
+    email TEXT UNIQUE,
+    password TEXT,
+    adm INTEGER DEFAULT 0,
+    ativo INTEGER DEFAULT 1
+  )`);
+
+  // Verificar e criar admin padrão se não existir
+  dbUsers.get("SELECT * FROM users WHERE cpf = '000.000.000-00'", (err, row) => {
+    if (!row) {
+      dbUsers.run(
+        "INSERT INTO users (cpf, email, password, adm, ativo) VALUES (?, ?, ?, ?, ?)",
+        ["000.000.000-00", "admin@site.com", "adm123", 1, 1],
+        () => console.log("✅ Admin padrão criado no adm.db!")
+      );
+    }
+  });
 });
 
 // ─────────────────────── Banco de Roupas ───────────────────────
@@ -29,7 +43,6 @@ const dbRoupas = new sqlite3.Database("pontuacaoroupas.db");
 dbRoupas.run("CREATE TABLE IF NOT EXISTS roupa (id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT, pontos INTEGER)");
 dbRoupas.get("SELECT COUNT(*) as total FROM roupa", function(err, row) {
   if (row.total === 0) {
-    // Insere os tipos de roupas e seus pontos
     dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas comuns usadas', 1)");
     dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas de frio usadas', 2)");
     dbRoupas.run("INSERT INTO roupa (descricao, pontos) VALUES ('Roupas novas embaladas com etiqueta', 3)");
@@ -39,193 +52,249 @@ dbRoupas.get("SELECT COUNT(*) as total FROM roupa", function(err, row) {
 });
 
 // ─────────────────────── Banco de Turmas ───────────────────────
-const dbTurmas = new sqlite3.Database("turmas.db");
-dbTurmas.run("CREATE TABLE IF NOT EXISTS turma (id INTEGER PRIMARY KEY AUTOINCREMENT, sigla TEXT, docente TEXT)");
-dbTurmas.get("SELECT COUNT(*) as total FROM turma", function(err, row) {
+const dbTurmas = new sqlite3.Database('turmas.db');
+dbTurmas.run(`CREATE TABLE IF NOT EXISTS turmas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  sigla TEXT UNIQUE,
+  docente TEXT,
+  ativo INTEGER DEFAULT 1
+)`);
+
+// Inserir turmas padrão se a tabela estiver vazia
+dbTurmas.get("SELECT COUNT(*) as total FROM turmas", function(err, row) {
   if (row.total === 0) {
-    // Insere turmas padrão
-    dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M14', 'WILLIAM')");
-    dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M3A', 'FABIO')");
-    dbTurmas.run("INSERT INTO turma (sigla, docente) VALUES ('M3B', 'EPAMINONDAS')");
+    dbTurmas.run("INSERT INTO turmas (sigla, docente) VALUES ('M14', 'WILLIAM')");
+    dbTurmas.run("INSERT INTO turmas (sigla, docente) VALUES ('M3A', 'FABIO')");
+    dbTurmas.run("INSERT INTO turmas (sigla, docente) VALUES ('M3B', 'EPAMINONDAS')");
   }
 });
+
+// ─────────────────────── Banco de Campanhas ───────────────────────
+const dbCampanhas = new sqlite3.Database('campanhas.db');
+dbCampanhas.serialize(() => {
+  dbCampanhas.run(`CREATE TABLE IF NOT EXISTS campanhas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    descricao TEXT,
+    data_inicio TEXT,
+    data_fim TEXT,
+    ativa INTEGER DEFAULT 1
+  )`);
+
+  dbCampanhas.run(`CREATE TABLE IF NOT EXISTS itens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_campanha INTEGER,
+    nome_item TEXT,
+    pontos INTEGER
+  )`);
+
+  dbCampanhas.run(`CREATE TABLE IF NOT EXISTS campanhas_turmas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_campanha INTEGER,
+    id_turma INTEGER
+  )`);
+});
+
+// ─────────────────────── Banco de Doações ───────────────────────
+const dbDoacoes = new sqlite3.Database('doacoes.db');
+dbDoacoes.run(`CREATE TABLE IF NOT EXISTS doacoes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_turma INTEGER,
+  id_item INTEGER,
+  quantidade INTEGER,
+  total_pontos INTEGER,
+  data_doacao TEXT DEFAULT CURRENT_TIMESTAMP
+)`);
 
 // ─────────────────────── Banco de Arrecadação ───────────────────────
 const dbArrecadacao = new sqlite3.Database("arrecadacao.db");
 dbArrecadacao.run("CREATE TABLE IF NOT EXISTS ARRECADACAO (id INTEGER PRIMARY KEY AUTOINCREMENT, turma TEXT, item TEXT, quantidade INTEGER, pontos INTEGER, data TEXT)");
 
-// ─────────────────────── Roteamento ───────────────────────
+// ─────────────────────── Rotas Fixas ───────────────────────
+app.get("/", (req, res) => res.render("pages/index", { título: "Index", req }));
+app.get("/sobre", (req, res) => res.render("pages/sobre", { título: "Sobre", req }));
+app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localização", req }));
 
-// Página inicial
-app.get("/", function(req, res) {
-  console.log("/Home GET");
-  res.render("pages/index", { título: "Index", req });
+// ─────────────────────── Cadastro ───────────────────────
+app.get("/cadastro", (req, res) => {
+  res.render("pages/cadastro", { título: "Cadastro", req, erro: null, sucesso: null });
 });
 
-// Páginas fixas
-app.get("/sobre", function(req, res) {
-  console.log("/Sobre GET");
-  res.render("pages/sobre", { título: "Sobre", req });
+app.post("/cadastro", (req, res) => {
+  const { cpf, email, password } = req.body;
+
+  if (!cpf || !email || !password) {
+    return res.render("pages/cadastro", { título: "Cadastro", req, erro: "Preencha todos os campos!", sucesso: null });
+  }
+
+  dbUsers.run(
+    "INSERT INTO users (cpf, email, password) VALUES (?, ?, ?)",
+    [cpf, email, password],
+    function (err) {
+      if (err) {
+        console.error("Erro ao cadastrar:", err.message);
+        return res.render("pages/cadastro", { título: "Cadastro", req, erro: "CPF ou E-mail já cadastrados!", sucesso: null });
+      }
+      res.render("pages/cadastro", { título: "Cadastro", req, erro: null, sucesso: "Usuário cadastrado com sucesso!" });
+    }
+  );
 });
 
-app.get("/localizacao", function(req, res) {
-  console.log("/Localizacao GET");
-  res.render("pages/localizacao", { título: "Localizacao", req });
-});
-
-<<<<<<< HEAD
-app.get("/equipe", function(req, res) {
-  console.log("/Equipe GET");
-  res.render("pages/equipe", { título: "Equipe", req });
-});
-
-=======
->>>>>>> origin/Dev-JoaoLucas
-// Login - GET exibe o formulário, POST valida o usuário
-app.get("/login", function(req, res) {
-  console.log("/Login GET");
+// ─────────────────────── Login ───────────────────────
+app.get("/login", (req, res) => {
   res.render("pages/login", { título: "Login", req, erro: null });
 });
 
-app.post("/login", function(req, res) {
-  console.log("/Login POST");
-  const { username, password } = req.body;
-  db.get("SELECT * FROM users WHERE username = ? AND password = ?", [username, password], function(err, row) {
-    if (row) {
-      req.session.user = row;
-      res.redirect("/doacoes_doar");
-    } else {
-      res.render("pages/login", { título: "Login", req, erro: "Usuário ou senha inválidos" });
-    }
+app.post("/login", (req, res) => {
+  const { cpf, password } = req.body;
+
+  dbUsers.get("SELECT * FROM users WHERE cpf = ?", [cpf], (err, row) => {
+    if (err) return res.render("pages/login", { título: "Login", req, erro: "Erro no servidor!" });
+    if (!row) return res.render("pages/login", { título: "Login", req, erro: "Usuário não encontrado!" });
+    if (row.password !== password) return res.render("pages/login", { título: "Login", req, erro: "Senha incorreta!" });
+    if (row.ativo === 0) return res.render("pages/login", { título: "Login", req, erro: "Usuário desativado!" });
+
+    req.session.user = { id: row.id, cpf: row.cpf, adm: row.adm };
+    return row.adm === 1 ? res.redirect("/doacoes_doar") : res.redirect("/doacoes_doaruser");
   });
 });
 
-// Logout - encerra sessão
-app.get("/logout", function(req, res) {
-  console.log("/Logout GET");
-  req.session.destroy(function() {
-    res.redirect("/");
-  });
-});
+// ─────────────────────── Logout ───────────────────────
+app.get("/logout", (req, res) => req.session.destroy(() => res.redirect("/")));
 
-// Página de doações (acessível somente se estiver logado)
-app.get("/doacoes_doar", function(req, res) {
-  console.log("/Doacoes_Doar GET");
-  res.render("pages/doacoes_doar", { título: "Doações", req });
-});
-
-// Página para realizar uma doação
-app.get("/realizardoacao", function(req, res) {
-  console.log("/Realizardoacao GET");
+// ─────────────────────── Dashboard ───────────────────────
+app.get("/dashboard", (req, res) => {
   if (!req.session.user) return res.redirect("/login");
-  dbRoupas.all("SELECT * FROM roupa", function(err, roupas) {
-    dbTurmas.all("SELECT * FROM turma", function(err, turmas) {
-      res.render("pages/realizardoacao", { título: "Realizar Doação", req, roupas, turmas });
-    });
-  });
+  res.render("pages/dashboard", { título: "Dashboard", req, user: req.session.user });
 });
 
-// Rota POST para processar a doação
-app.post("/realizardoacao", function(req, res) {
-  console.log("/Realizardoacao POST");
-  if (!req.session.user) return res.redirect("/login");
-  const { turma, item, quantidade } = req.body;
-  const qtd = parseInt(quantidade);
-  const mapaPontos = {
-    "Roupas comuns usadas": 1,
-    "Roupas de frio usadas": 2,
-    "Roupas novas embaladas com etiqueta": 3,
-    "Roupas de cama de inverno usadas": 10,
-    "Roupas de cama de inverno novas": 20
-  };
-  const pontos = (mapaPontos[item] || 0) * qtd;
-  const data = new Date().toISOString().split('T')[0];
-
-  dbArrecadacao.run("INSERT INTO ARRECADACAO (turma, item, quantidade, pontos, data) VALUES (?, ?, ?, ?, ?)",
-    [turma, item, qtd, pontos, data], function(err) {
-      res.redirect("/tabela");
-    });
+// ─────────────────────── CRUD Usuários ───────────────────────
+app.get("/usuariosadm", (req, res) => {
+  if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
+  dbUsers.all("SELECT * FROM users", (err, users) => res.render("pages/usuariosadm", { título: "Usuários", req, users }));
 });
 
-// Página de ranking das turmas
-app.get("/ranking", function(req, res) {
-  console.log("/Ranking GET");
-  dbArrecadacao.all(`
-    SELECT turma, SUM(pontos) AS totalPontos, COUNT(*) AS totalDoacoes
-    FROM ARRECADACAO
-    GROUP BY turma
-    ORDER BY totalPontos DESC
-  `, function(err, ranking) {
-    res.render("pages/ranking", {
-      título: "Ranking de Doações",
-      req,
-      ranking
-    });
-  });
+app.post("/usuariosadm/criar", (req, res) => {
+  if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
+  const { cpf, email, password, adm, ativo } = req.body;
+  dbUsers.run(
+    "INSERT INTO users (cpf, email, password, adm, ativo) VALUES (?, ?, ?, ?, ?)",
+    [cpf, email, password, adm || 0, ativo || 1],
+    () => res.redirect("/usuariosadm")
+  );
 });
 
-// Página com a tabela de doações, com filtro e paginação
-app.get("/tabela", (req, res) => {
-  console.log("/Tabela GET");
-  const pagina = parseInt(req.query.pagina) || 1;
-  const porPagina = 10;
-  const offset = (pagina - 1) * porPagina;
-  const turmaSelecionada = req.query.turma || "";
+app.post("/usuariosadm/editar/:id", (req, res) => {
+  if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
+  const { cpf, email, password, adm, ativo } = req.body;
+  dbUsers.run(
+    "UPDATE users SET cpf = ?, email = ?, password = ?, adm = ?, ativo = ? WHERE id = ?",
+    [cpf, email, password, adm || 0, ativo || 1, req.params.id],
+    () => res.redirect("/usuariosadm")
+  );
+});
 
-  const mapaPontos = {
-    "Roupas comuns usadas": 1,
-    "Roupas de frio usadas": 2,
-    "Roupas novas embaladas com etiqueta": 3,
-    "Roupas de cama de inverno usadas": 10,
-    "Roupas de cama de inverno novas": 20
-  };
+app.post("/usuariosadm/deletar/:id", (req, res) => {
+  if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
+  dbUsers.run("DELETE FROM users WHERE id = ?", [req.params.id], () => res.redirect("/usuariosadm"));
+});
 
-  let query = "SELECT * FROM ARRECADACAO";
-  let countQuery = "SELECT COUNT(*) as total FROM ARRECADACAO";
-  const params = [];
+// ─────────────────────── Páginas Doações ───────────────────────
+app.get("/doacoes_doar", (req, res) => res.render("pages/doacoes_doar", { título: "Doações", req, erro: null }));
+app.get("/doacoes_doaruser", (req, res) => res.render("pages/doacoes_doaruser", { título: "Doações Usuário", req, erro: null }));
 
-  if (turmaSelecionada) {
-    query += " WHERE turma = ?";
-    countQuery += " WHERE turma = ?";
-    params.push(turmaSelecionada);
+// ─────────────────────── Criar Campanhas ───────────────────────
+app.get("/criarcampanha", (req, res) =>
+  res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: null, sucesso: null })
+);
+
+app.post("/criarcampanha", (req, res) => {
+  const { nome, descricao, data_inicio, data_fim, nome_item, pontos } = req.body;
+
+  if (!nome || !data_inicio || !data_fim || !nome_item || !pontos) {
+    return res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: "Preencha todos os campos obrigatórios!", sucesso: null });
   }
 
-  query += " LIMIT ? OFFSET ?";
-  params.push(porPagina, offset);
+  dbCampanhas.run(
+    `INSERT INTO campanhas (nome, descricao, data_inicio, data_fim) VALUES (?, ?, ?, ?)`,
+    [nome, descricao || "", data_inicio, data_fim],
+    function (err) {
+      if (err) {
+        console.error("Erro ao criar campanha:", err.message);
+        return res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: "Erro ao criar campanha!", sucesso: null });
+      }
 
-  dbArrecadacao.all(query, params, function(err, rows) {
-    dbArrecadacao.get(countQuery, turmaSelecionada ? [turmaSelecionada] : [], function(err, result) {
-      const totalRegistros = result.total;
-      const totalPaginas = Math.ceil(totalRegistros / porPagina);
+      const campanhaId = this.lastID;
+      const stmt = dbCampanhas.prepare(`INSERT INTO itens (id_campanha, nome_item, pontos) VALUES (?, ?, ?)`);
+      for (let i = 0; i < nome_item.length; i++) {
+        if (nome_item[i] && pontos[i]) {
+          stmt.run(campanhaId, nome_item[i], pontos[i]);
+        }
+      }
+      stmt.finalize();
 
-      const doacoes = rows.map(row => ({
-        ...row,
-        pontosUnitarios: mapaPontos[row.item] || 0
-      }));
+      res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: null, sucesso: "Campanha criada com sucesso!" });
+    }
+  );
+});
 
-      dbTurmas.all("SELECT * FROM turma", (err, turmas) => {
-        res.render("pages/tabela", {
-          título: "Tabela de Doações",
-          req,
-          doacoes,
-          paginaAtual: pagina,
-          totalPaginas,
-          turmas,
-          turmaSelecionada
-        });
+// ─────────────── TABELA DE CAMPANHAS ───────────────
+app.get("/tabela", (req, res) => {
+  dbCampanhas.all("SELECT * FROM campanhas", (err, campanhas) => {
+    if (err) return res.status(500).send("Erro ao carregar campanhas");
+
+    const agora = new Date();
+    campanhas.forEach(c => {
+      const fim = new Date(c.data_fim);
+      if (c.ativa === 1 && fim < agora) {
+        dbCampanhas.run("UPDATE campanhas SET ativa = 0 WHERE id = ?", [c.id]);
+        c.ativa = 0;
+      }
+    });
+
+    res.render("pages/tabela", { campanhas, título: "Tabela de Campanhas", req });
+  });
+});
+
+// ─────────────── API pra desativar campanha ───────────────
+app.post("/api/campanhas/desativar/:id", (req, res) => {
+  const id = req.params.id;
+  dbCampanhas.run("UPDATE campanhas SET ativa = 0 WHERE id = ?", [id], err => {
+    if (err) return res.status(500).json({ erro: "Erro ao desativar campanha" });
+    res.json({ sucesso: true });
+  });
+});
+
+app.get("/campanhas/:id", (req, res) => {
+  const idCampanha = req.params.id;
+
+  dbCampanhas.get("SELECT * FROM campanhas WHERE id = ?", [idCampanha], (err, campanha) => {
+    if (err || !campanha) return res.status(404).send("Campanha não encontrada");
+
+    const query = `
+      SELECT t.sigla, SUM(d.total_pontos) AS total_pontos
+      FROM doacoes d
+      JOIN turmas t ON d.id_turma = t.id
+      JOIN itens i ON d.id_item = i.id
+      WHERE i.id_campanha = ?
+      GROUP BY t.id
+    `;
+
+    dbDoacoes.all(query, [idCampanha], (err, turmasDoacoes) => {
+      if (err) return res.status(500).send("Erro ao carregar doações");
+
+      res.render("pages/verCampanha", { 
+        campanha, 
+        turmasDoacoes, 
+        título: `Campanha Detalhes`, 
+        req 
       });
     });
   });
 });
 
-// Página de erro 404 personalizada
-app.use('/{*erro}', (req, res) => {
-  console.log("GET /fail")
-  res.status(404).render('pages/fail', { título: "HTTP ERROR 404 - PAGE NOT FOUND", req: req, msg: "404" });
-});
+// ─────────────────────── Página de erro 404 ───────────────────────
+app.use((req, res) => res.status(404).render('pages/fail', { título: "HTTP ERROR 404", req, msg: "404" }));
 
-// Inicia o servidor
-app.listen(PORT, () => {
-  console.log(`Servidor Sendo Executado na Porta: ${PORT}`);
-  console.log(__dirname + '//static');
-});
+// ─────────────────────── Servidor ───────────────────────
+app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta: ${PORT}`));

@@ -1,0 +1,341 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /*scrollbar-width: thin;
+  scrollbar-color: #e70074 #272626;*/
+}
+
+/*Scroll-bar*/
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #272626;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0004d;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0055;
+}
+  
+body{
+  background: center center;
+  background-image: url();
+  background-repeat: no-repeat;
+  background-size: cover center center;
+
+  /*Dark Theme*/
+  background-color: #eff6e0;
+  /*Light Theme*/
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#bg-video{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.3);
+}
+
+main{
+  flex: 1;
+  align-items: center;
+  text-align: center;
+}
+
+#Logo_index{
+  width: 350px;
+}
+
+.sobre h2{
+  font-size: 30px;
+  transform: translateX(100px);
+  color: #2e0550;
+}
+
+/* Fundo com a Imagem Do Canva "MINHOCA" */
+.fundo-personalizado{
+  background-image: url('/static/img/back_row.png'); /* Substitua pelo caminho da sua imagem */
+  background-size: cover; /* Faz a imagem cobrir todo o elemento */
+  min-height: 100vh; /* Define a altura mínima para ocupar a tela inteira */
+  width: 100%; /* Faz o elemento ocupar toda a largura */
+  background-repeat: no-repeat; 
+  background-position: center; /* Centraliza a imagem */
+  color: white; 
+  padding: 20px; 
+}
+
+
+.letra{
+  color: #548bde;
+}
+
+.content p{
+  margin-top: 15px;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sobre{
+  padding: 100px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@keyframes fadeInUp {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.sobre h1{
+  font-size: 45px;
+  color: #fff3d9;
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px #ff9b0e;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.sobre p{
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.sobre article {
+  background: rgba(95, 23, 23, 0.224);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 15px 0;
+  transition: 0.4s;
+  animation: fadeInUp 1s ease-in-out;
+}
+.sobre article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.573);
+}
+
+.btn-ajudar {
+  display: inline-block;
+  margin-top: 20px;
+  background: linear-gradient(45deg, #ff9b0e, #ffc800);
+  color: #000;
+  padding: 15px 30px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-ajudar:hover {
+  background: linear-gradient(45deg, #ffc800, #ff6f61);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ffb347;
+}
+
+.img-maps{
+  width: 550px;
+  height: auto;
+  opacity: 0.9;
+  transition: 1s;
+}
+
+.img-maps:hover{
+  animation: shadow-drop 0.5s linear forwards;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Localização Imagem com Href */
+.img-c{ 
+  width: 100px;
+  height: 100px;
+}
+
+h3{
+  font-size: 2.4rem;
+  font-weight: bolder;
+  color: #6c09bd;
+  margin-bottom: 15px;
+  text-shadow: 0 0 20px #6c09bd;
+}
+
+#img-j{
+  width: 310px;
+  border-radius: 360px;
+  transition: 0.7s;
+}
+
+#img-j:hover{
+  scale: calc(1.1);
+}
+
+/* UAuu */
+/*Para que o <h3> mude de cor quando a imagem for "hoverada", você precisa usar o seletor de irmão no CSS, 
+como o + (irmão adjacente) ou ~ (irmão geral).
+
+Nesse caso, como o <img> está dentro do <a> e o <h3> está logo depois do <a>, você pode usar a:hover + h3*/
+
+.doar article a:hover + h3 {
+  color: #00d0ff;
+  text-shadow: 0 0 20px #00d0ff;
+  transition: 0.7s;
+  font-size: 2.6rem;
+}
+
+#img-f{
+  margin-top: -80px;
+  margin-bottom: 30px;
+  width: 50%;
+  height: 50%;
+}
+
+#img-v{
+  width: 7%;
+  height: 7%;
+  transform: translateX(110%);
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
+.doar {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px; 
+  gap: 170px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.doar article h3 {
+  transition: 1.3s;
+}
+
+h4{
+  margin-top: 100px;
+  font-size: 50px;
+  text-shadow: 0 0 20px #ff9b0e; text-shadow: 0 0 30px #ffc800;
+  font-weight: bolder;
+  color: #ffc800;
+  margin-bottom: 20px;
+}
+
+h5{
+  font-size: 22px;
+  font-weight: bolder;
+  color: #fbffb9;
+  text-shadow: 0 0 20px #678ead;
+}
+
+h6{
+  margin-bottom: 10px;
+  font-size: 140px;
+  font-weight: bolder;
+  color: #313131;
+  text-shadow: 0 0 20px #ffffff;
+  letter-spacing: 10px;
+}
+
+footer {
+  background-color: #2d2d2d;
+  color: #bfbfbf;
+  padding: 30px 60px;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: #d64343ab;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 20px;
+  min-width: 180px;
+}
+
+.footer-column h1{
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.footer-column h4 {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: #888;
+}
+
+li{
+  text-decoration: none;
+  list-style: none;
+}
+
+.footer-column li{
+  margin-bottom: 8px;
+}
+
+.footer-column li a{
+  color: #bfbfbfa4;
+  font-size: 14px;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.footer-column li a:hover {
+  color: #fff;
+}
+
+#icone_footer{
+  width: 30px;
+  height: auto;
+}
+
+.footer-container-2{
+  margin-top: 15px;
+}
+
+.footer-container-2 h1{
+  left: 0;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ffffff4e;
+}
+
+/*usuarios ADM*/
+
+
+
+/* ========== RESPONSIVIDADE ========== */
