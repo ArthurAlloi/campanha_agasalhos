@@ -1,11 +1,15 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <title>Realizar Doação</title>
-  </head>
+  
+<%- include("../partials/head"); %>
+
   <body>
+
+    <%- include("../partials/menu"); %>
+
+    <main class="solu-main">
+
     <h1>Registrar Doação</h1>
 
     <form action="/realizardoacao" method="POST">
@@ -48,5 +52,6 @@
 
       <button type="submit">Salvar Doação</button>
     </form>
+    </main>
   </body>
 </html>

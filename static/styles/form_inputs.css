@@ -2,7 +2,7 @@
 .caixa-login{
   background-color: rgba(0, 0, 0, 0);
   text-align: center;
-  margin: 110px auto;
+  margin: 30px auto;
   border-radius: 15px;
   padding: 30px;
   max-width: 450px;
@@ -87,7 +87,7 @@ input[type="text"]:hover,
 input[type="password"]:hover,
 input[type="email"]:hover {
   background-color: #02013d40;
-  color: #000000;
+  color: #fafafa;
 }
 
 label{
@@ -236,6 +236,18 @@ input[type="number"] {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
+
+.solu-main button{
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-1);
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 
 /* ===========================
    Títulos

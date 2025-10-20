@@ -162,9 +162,10 @@ app.get("/campanhas/:id", (req, res) => {
         });
 
         res.render("pages/verCampanha", {
+          título: `Campanha `,
           campanha: { id: idCampanha },
           turmasDoacoes,
-          req
+          req, erro: null, sucesso: null 
         });
       });
     });
@@ -278,7 +279,7 @@ app.get('/realizardoacaocamp', (req, res) => {
       dbCampanhas.all('SELECT * FROM itens', (err, roupas) => {
         if (err) return res.status(500).send('Erro ao carregar itens');
 
-        res.render('pages/realizardoacaocamp', { campanhas, turmas, roupas, idCampanhaSelecionada });
+        res.render('pages/realizardoacaocamp', { título: "Realizar Doação", campanhas, turmas, roupas, idCampanhaSelecionada, req, erro: null});
       });
     });
   });
@@ -341,7 +342,7 @@ app.post("/criarcampanha", (req, res) => {
 });
 
 // ─────────────────────── Página de erro 404 ───────────────────────
-app.use((req, res) => res.status(404).render('pages/fail', { título: "HTTP ERROR 404", req, msg: "404" }));
+app.use((req, res) => res.status(404).render('pages/fail', { título: "ERRO 404 - Página não encontrada", req, msg: "404" }));
 
 // ─────────────────────── Servidor ───────────────────────
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta: ${PORT}`));

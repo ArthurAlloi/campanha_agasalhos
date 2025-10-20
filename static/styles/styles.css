@@ -52,7 +52,7 @@ body{
   margin: 0;
 
   font-family: "Poppins", sans-serif;
-  background: var(--color-5);
+  background: linear-gradient(180deg, var(--color-6), var(--color-3));
   color: var(--color-6);
   overflow-x: hidden;
 }
@@ -129,6 +129,28 @@ main h4{
 @keyframes fadeInUp {
   from {opacity: 0; transform: translateY(20px);}
   to {opacity: 1; transform: translateY(0);}
+}
+
+/*Página ERRO 404*/
+
+.container_fail_404{
+  display: flex;
+  justify-content: center;
+}
+
+.fail_404 h6{
+  font-size: 1.5rem;
+}
+
+.letra{
+  color: var(--color-accent);
+  font-size: 8rem;
+  letter-spacing: 20px;
+}
+
+.fail_404{
+  background: transparent;
+  border: 0;
 }
 
 /* ========== RESPONSIVIDADE ========== */
