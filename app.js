@@ -239,6 +239,48 @@ app.post("/usuariosadm/deletar/:id", (req, res) => {
 app.get("/doacoes_doar", (req, res) => res.render("pages/doacoes_doar", { título: "Doações", req, erro: null }));
 app.get("/doacoes_doaruser", (req, res) => res.render("pages/doacoes_doaruser", { título: "Doações Usuário", req, erro: null }));
 
+
+// ─────────────────────── realizar a doacao em alguma campanha ───────────────────────
+
+// ─────────────────────── Realizar Doação Campanha ───────────────────────
+app.get('/realizardoacaocamp', (req, res) => {
+  const idCampanhaSelecionada = req.query.id_campanha || null;
+
+  dbCampanhas.all('SELECT * FROM campanhas WHERE ativa = 1', (err, campanhas) => {
+    if (err) return res.status(500).send('Erro ao carregar campanhas');
+
+    dbTurmas.all('SELECT * FROM turmas WHERE ativo = 1', (err, turmas) => {
+      if (err) return res.status(500).send('Erro ao carregar turmas');
+
+      dbCampanhas.all('SELECT * FROM itens', (err, roupas) => {
+        if (err) return res.status(500).send('Erro ao carregar itens');
+
+        res.render('pages/realizardoacaocamp', { campanhas, turmas, roupas, idCampanhaSelecionada });
+      });
+    });
+  });
+});
+
+
+app.post('/realizardoacao', (req, res) => {
+  const { id_campanha, id_turma, id_roupa, quantidade } = req.body;
+
+  dbCampanhas.get('SELECT pontos FROM itens WHERE id = ?', [id_roupa], (err, roupa) => {
+    if (err || !roupa) return res.status(500).send('Erro ao buscar pontos do item');
+
+    const pontosTotais = roupa.pontos * quantidade;
+
+    dbDoacoes.run(
+      `INSERT INTO doacoes (id_turma, id_item, quantidade, total_pontos) VALUES (?, ?, ?, ?)`,
+      [id_turma, id_roupa, quantidade, pontosTotais],
+      err => {
+        if (err) return res.status(500).send('Erro ao salvar doação');
+        res.redirect('/tabela'); // volta pra tabela de campanhas
+      }
+    );
+  });
+});
+
 // ─────────────────────── Criar Campanhas ───────────────────────
 app.get("/criarcampanha", (req, res) =>
   res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: null, sucesso: null })
