@@ -136,14 +136,14 @@ label{
   color: #2e0550;
 }
 
-button{
+.btn_form{
   width: 30%;
   padding: 12px;
   margin-top: 25px;
   background-color: transparent;
   color: white;
   border: 1px solid #13d3fa;
-  background: #031b87;
+  background: var(--color-3);
   border-radius: 10px;
   font-size: 18px;
   font-weight: bolder;
@@ -151,8 +151,9 @@ button{
   transition: 0.3s;
 }
 
-button:hover {
-  background: #010b3b;
+.btn_form:hover{
+  scale: calc(1.1);
+  background: var(--color-1);
 }
 
 #btnrank{
@@ -223,4 +224,166 @@ input[type="number"] {
   border: 1px solid #ccc;
   background-color: #c7f0ff;
   font-size: 16px;
+}
+
+/*USUARIOS ADM*/
+
+.solu-main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--color-card);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+/* ===========================
+   Títulos
+=========================== */
+.solu-title {
+  font-size: 2em;
+  text-align: center;
+  color: var(--color-accent);
+  margin-bottom: 25px;
+}
+
+.solu-subtitle {
+  font-size: 1.2em;
+  color: var(--color-text-secondary);
+  margin: 20px 0 10px;
+}
+
+/* ===========================
+   Formulários
+=========================== */
+.solu-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.solu-form input[type="text"],
+.solu-form input[type="email"],
+.solu-form input[type="password"],
+.solu-form input[type="number"] {
+  padding: 10px;
+  border: 1px solid var(--color-4);
+  border-radius: 6px;
+  font-size: 1em;
+  width: 100%;
+  background-color: var(--color-2);
+  color: var(--color-text);
+  transition: 0.3s;
+}
+
+.solu-form input:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  box-shadow: 0 0 5px var(--color-accent);
+}
+
+.solu-form label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95em;
+  color: var(--color-text-secondary);
+}
+
+.solu-form button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-1);
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.solu-form button:hover {
+  background: #e0a500;
+}
+
+/* ===========================
+   Tabela
+=========================== */
+.solu-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: var(--color-2);
+  color: var(--color-text);
+}
+
+.solu-table th,
+.solu-table td {
+  border: 1px solid var(--color-4);
+  padding: 10px;
+  text-align: center;
+  font-size: 0.95em;
+}
+
+.solu-table th {
+  background: linear-gradient(135deg, var(--color-3), var(--color-4));
+  color: var(--color-accent);
+}
+
+.solu-table tr:nth-child(even) {
+  background-color: var(--color-3);
+}
+
+/* ===========================
+   Formulário inline na tabela
+=========================== */
+.solu-table form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.solu-table form input {
+  width: 90px;
+  padding: 5px;
+  background-color: var(--color-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-4);
+  border-radius: 4px;
+}
+
+.solu-table form button {
+  padding: 5px 10px;
+  font-size: 0.85em;
+  background-color: var(--color-accent);
+  color: var(--color-1);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  min-width: 70px;
+}
+
+.solu-table form button:hover {
+  background-color: #e0a500;
+}
+
+.solu-table .action-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.solu-table .action-cell form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.solu-table input[type="text"],
+.solu-table input[type="email"],
+.solu-table input[type="password"] {
+  width: 120px;
 }

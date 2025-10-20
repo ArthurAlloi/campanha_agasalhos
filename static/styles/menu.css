@@ -6,8 +6,7 @@ header{
   height: 70px;
   z-index: 1000;
 
-  background: rgba(0, 0, 0, 0.80); 
-  backdrop-filter: blur(10px); 
+  background: #2b2b2b;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
   
@@ -51,7 +50,7 @@ header{
   font-size: 2.3rem;
   font-weight: bold;
   letter-spacing: 5px;
-  background: linear-gradient(270deg, #f6427e, #ffcc00);
+  background: linear-gradient(270deg, #f69342, #ffcc00);
   background-size: 800% 800%;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -145,4 +144,19 @@ header{
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Espaço dinâmico para compensar o header fixo */
+#header-space {
+  height: 70px; /* mesma altura do header */
+}
+
+/* Quando o header muda de tamanho (scroll, responsivo, etc.) */
+header.scrolled + #header-space {
+  height: 60px;
+}
+
+/* Corrige o deslocamento ao clicar em âncoras (#sobre, #campanhas...) */
+section {
+  scroll-margin-top: 90px;
 }

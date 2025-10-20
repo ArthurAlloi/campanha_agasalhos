@@ -5,13 +5,13 @@
   <body>
     <%- include("../partials/menu"); %>
 
-    <main>
-      <h1>Gerenciamento de Usuários</h1>
+    <main class="solu-main">
+      <h1 class="solu-title">Gerenciamento de Usuários</h1>
 
       <!-- Formulário de criação -->
-      <form action="/usuariosadm/criar" method="POST" class="form">
-        <h3>Criar novo usuário</h3>
-        <input type="text" name="cpf" placeholder="CPF" required>
+      <form action="/usuariosadm/criar" method="POST" class="solu-form">
+        <h3 class="solu-subtitle">Criar novo usuário</h3>
+        <input type="text" name="cpf" id="cpf" placeholder="CPF" required>
         <input type="email" name="email" placeholder="E-mail" required>
         <input type="password" name="password" placeholder="Senha" required>
         <label>
@@ -26,8 +26,8 @@
       <hr>
 
       <!-- Tabela de usuários -->
-      <h3>Usuários cadastrados</h3>
-      <table border="1" cellpadding="6">
+      <h3 class="solu-subtitle">Usuários cadastrados</h3>
+      <table class="solu-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -46,20 +46,26 @@
               <td><%= user.email %></td>
               <td><%= user.adm ? 'Sim' : 'Não' %></td>
               <td><%= user.ativo ? 'Sim' : 'Não' %></td>
-              <td>
+
+              <td class="action-cell">
                 <!-- Editar -->
-                <form action="/usuariosadm/editar/<%= user.id %>" method="POST" style="display:inline;">
+                <form action="/usuariosadm/editar/<%= user.id %>" method="POST">
                   <input type="text" name="cpf" value="<%= user.cpf %>" required>
                   <input type="email" name="email" value="<%= user.email %>" required>
-                  <input type="password" name="password" value="<%= user.password %>" required>
-                  <input type="number" name="adm" value="<%= user.adm %>" min="0" max="1">
-                  <input type="number" name="ativo" value="<%= user.ativo %>" min="0" max="1">
+                  <input type="password" name="password" placeholder="Nova senha">
+                  <label>
+                    <input type="checkbox" name="adm" value="1" <%= user.adm ? 'checked' : '' %>> Adm
+                  </label>
+                  <label>
+                    <input type="checkbox" name="ativo" value="1" <%= user.ativo ? 'checked' : '' %>> Ativo
+                  </label>
                   <button type="submit">Salvar</button>
-                </form>
 
-                <!-- Deletar -->
-                <form action="/usuariosadm/deletar/<%= user.id %>" method="POST" style="display:inline;">
-                  <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
+                  <!-- Deletar -->
+                  <form action="/usuariosadm/deletar/<%= user.id %>" method="POST">
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
+                  </form>
+
                 </form>
               </td>
             </tr>
@@ -68,12 +74,9 @@
       </table>
     </main>
 
-     <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script> $('#cpf').mask('000.000.000-00', {reverse: true}); </script>
 
-    <script> $('#cpf').mask('000.000.000-00', {reverse: true});</script>
-
-
-    <%- include("../partials/footer"); %>
   </body>
 </html>

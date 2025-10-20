@@ -13,9 +13,10 @@
 
       <div class="components-menu-center">
         <ul class="nav-links">
-          <li><a href="/" value="Home">HOME</a></li>
-          <li><a href="/sobre" value="Sobre">SOBRE</a></li>
-          <li><a href="/localizacao" value="Localização">LOCALIZAÇÃO</a></li>
+          <li><a href="#home" value="Home">HOME</a></li>
+          <li><a href="#campanhas" value="Sobre">SOBRE</a></li>
+          <li><a href="" value=""">FAQ</a></li>
+          
           <li>
             <a href="/doacoes_doaruser"
               <% if (!req.session.user) { %>
@@ -56,3 +57,6 @@
     </div>   
   </nav>
 </header>
+
+<!-- Espaço automático que impede sobreposição -->
+<div id="header-space"></div>

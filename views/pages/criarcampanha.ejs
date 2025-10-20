@@ -5,7 +5,7 @@
   <body>
     <%- include("../partials/menu"); %>
 
-    <main class="container" style="max-width: 800px; margin: 40px auto;">
+    <main class="solu-main">
       <h1 style="text-align: center;">Criar Nova Campanha</h1>
 
       <% if (sucesso) { %>
@@ -15,7 +15,7 @@
         <div style="color: red; text-align:center; margin-bottom:10px;"><%= erro %></div>
       <% } %>
 
-      <form action="/criarcampanha" method="POST" style="display:flex; flex-direction:column; gap:10px;">
+      <form action="/criarcampanha" method="POST" class="solu-form">
         <label><b>Nome da Campanha:</b></label>
         <input type="text" name="nome" required>
 

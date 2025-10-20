@@ -85,10 +85,6 @@ dbDoacoes.run(`CREATE TABLE IF NOT EXISTS doacoes (
 
 // ─────────────────────── Rotas Fixas ───────────────────────
 app.get("/", (req, res) => res.render("pages/index", { título: "Index", req }));
-app.get("/sobre", (req, res) => res.render("pages/sobre", { título: "Sobre", req }));
-app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localização", req }));
-
-
 
 
 // ─────────────── TABELA DE CAMPANHAS ───────────────
