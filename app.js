@@ -85,8 +85,91 @@ dbDoacoes.run(`CREATE TABLE IF NOT EXISTS doacoes (
 
 // ─────────────────────── Rotas Fixas ───────────────────────
 app.get("/", (req, res) => res.render("pages/index", { título: "Index", req }));
-app.get("/sobre", (req, res) => res.render("pages/sobre", { título: "Sobre", req }));
-app.get("/localizacao", (req, res) => res.render("pages/localizacao", { título: "Localizacao", req }));
+
+// ─────────────── TABELA DE CAMPANHAS ───────────────
+app.get("/tabela", (req, res) => {
+  dbCampanhas.all("SELECT * FROM campanhas", (err, campanhas) => {
+    if (err) return res.status(500).send("Erro ao carregar campanhas");
+
+    const agora = new Date();
+    campanhas.forEach(c => {
+      const fim = new Date(c.data_fim);
+      if (c.ativa === 1 && fim < agora) {
+        dbCampanhas.run("UPDATE campanhas SET ativa = 0 WHERE id = ?", [c.id]);
+        c.ativa = 0;
+      }
+    });
+
+    // ✅ Passando req para a tabela.ejs
+    res.render("pages/tabela", { campanhas, título: "Tabela de Campanhas", req });
+  });
+});
+
+// ─────────────── API pra desativar campanha ───────────────
+app.post("/api/campanhas/desativar/:id", (req, res) => {
+  const id = req.params.id;
+  dbCampanhas.run("UPDATE campanhas SET ativa = 0 WHERE id = ?", [id], err => {
+    if (err) return res.status(500).json({ erro: "Erro ao desativar campanha" });
+    res.json({ sucesso: true });
+  });
+});
+
+app.get("/campanhas/:id", (req, res) => {
+  const idCampanha = req.params.id;
+
+  // Pega todos os itens da campanha
+  dbCampanhas.all("SELECT * FROM itens WHERE id_campanha = ?", [idCampanha], (err, itens) => {
+    if (err) return res.status(500).send("Erro ao buscar itens da campanha");
+
+    const itemIds = itens.map(i => i.id);
+    if (itemIds.length === 0) return res.send("Nenhum item cadastrado para essa campanha");
+
+    // Soma todas as doações da campanha, por turma
+    const placeholders = itemIds.map(() => '?').join(',');
+    dbDoacoes.all(`
+      SELECT id_turma, id_item, SUM(quantidade) AS total_itens, SUM(total_pontos) AS total_pontos
+      FROM doacoes
+      WHERE id_item IN (${placeholders})
+      GROUP BY id_turma, id_item
+    `, itemIds, (err, doacoes) => {
+      if (err) return res.status(500).send("Erro ao carregar doações");
+
+      if (doacoes.length === 0) return res.send("Nenhuma doação registrada ainda");
+
+      // Pega todas as turmas que doaram
+      const turmaIds = [...new Set(doacoes.map(d => d.id_turma))];
+      const placeholdersTurmas = turmaIds.map(() => '?').join(',');
+      dbTurmas.all(`SELECT id, sigla FROM turmas WHERE id IN (${placeholdersTurmas})`, turmaIds, (err, turmas) => {
+        if (err) return res.status(500).send("Erro ao carregar turmas");
+
+        const siglas = {};
+        turmas.forEach(t => siglas[t.id] = t.sigla);
+
+        // Pega os nomes dos itens
+        const itemMap = {};
+        itens.forEach(i => itemMap[i.id] = { nome: i.nome_item, pontos: i.pontos });
+
+        // Organiza os dados por turma
+        const turmasDoacoes = {};
+        doacoes.forEach(d => {
+          if (!turmasDoacoes[d.id_turma]) turmasDoacoes[d.id_turma] = { sigla: siglas[d.id_turma], itens: [] };
+          turmasDoacoes[d.id_turma].itens.push({
+            nome: itemMap[d.id_item].nome,
+            quantidade: d.total_itens,
+            pontos: d.total_pontos
+          });
+        });
+
+        res.render("pages/verCampanha", {
+          campanha: { id: idCampanha },
+          turmasDoacoes,
+          req
+        });
+      });
+    });
+  });
+});
+
 
 // ─────────────────────── Cadastro ───────────────────────
 app.get("/cadastro", (req, res) => {

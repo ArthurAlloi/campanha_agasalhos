@@ -1,0 +1,70 @@
+.tabela-container{
+    width: 85%;
+    margin: 100px auto;
+    margin-bottom: 60px;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #076164;
+}
+
+.tabela-container h1 {
+    text-align: center;
+    color: #78fecf;
+    text-shadow: 0 0 10px #00d0ff;
+    font-size: 3rem;
+    margin-bottom: 25px;
+}
+
+.tabela-doacoes{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+.tabela-doacoes th,
+.tabela-doacoes td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+.tabela-doacoes th {
+    background-color: #2a2a2a;
+    color: #00d0ff;
+    font-weight: bold;
+}
+
+.tabela-doacoes tr:nth-child(even) {
+    background-color: #2e2e2e;
+}
+
+.tabela-doacoes tr:nth-child(odd) {
+    background-color: #1c1c1c;
+}
+
+.tabela-doacoes td {
+    color: #f0f0f0;
+}
+
+.paginacao{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #f4fdaf;
+    font-weight: bolder;
+}
+
+.paginacao-btn{
+    color: #09fcfc;
+    transition: 1s;
+}
+
+.paginacao-btn:hover{
+    text-decoration: underline;
+}
+
+#turma{
+    cursor: pointer;
+    margin-bottom: 20px;
+}
