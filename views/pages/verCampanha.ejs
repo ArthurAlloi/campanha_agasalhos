@@ -1,68 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <%- include("../partials/head") %>
+  <head>
+    <meta charset="UTF-8">
+    <title>Doações da Campanha <%= campanha.id %></title>
+    <style>
+      table { border-collapse: collapse; width: 60%; margin-bottom: 20px; }
+      th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+      th { background-color: #4CAF50; color: white; }
+      h2 { margin-top: 30px; }
+    </style>
+  </head>
   <body>
-    <%- include("../partials/menu") %>
+    <h1>📊 Campanha ID: <%= campanha.id %></h1>
 
-    <main class="container">
-      <h1>⏱ Tempo Restante</h1>
-      <p id="timer" data-fim="<%= campanha.data_fim %>"></p>
+    <% Object.keys(turmasDoacoes).forEach(turmaId => { %>
+      <h2>Turma: <%= turmasDoacoes[turmaId].sigla %></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantidade</th>
+            <th>Pontos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% turmasDoacoes[turmaId].itens.forEach(i => { %>
+            <tr>
+              <td><%= i.nome %></td>
+              <td><%= i.quantidade %></td>
+              <td><%= i.pontos %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% }) %>
 
-      <h2>Doações por Turma</h2>
-      <canvas id="graficoDoacoes" width="400" height="200"></canvas>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      // Timer
-      const timerEl = document.getElementById('timer');
-      const fim = new Date(timerEl.dataset.fim);
-
-      function atualizarTimer() {
-        const agora = new Date();
-        let diff = fim - agora;
-
-        if (diff <= 0) {
-          timerEl.innerText = "Campanha encerrada ❌";
-          return;
-        }
-
-        const dias = Math.floor(diff / (1000*60*60*24));
-        diff -= dias * (1000*60*60*24);
-        const horas = Math.floor(diff / (1000*60*60));
-        diff -= horas * (1000*60*60);
-        const minutos = Math.floor(diff / (1000*60));
-        const segundos = Math.floor((diff / 1000) % 60);
-
-        timerEl.innerText = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
-      }
-
-      setInterval(atualizarTimer, 1000);
-      atualizarTimer();
-
-      // Gráfico de doações por turma
-      const ctx = document.getElementById('graficoDoacoes').getContext('2d');
-      const labels = <%- JSON.stringify(turmasDoacoes.map(t => t.sigla)) %>;
-      const data = <%- JSON.stringify(turmasDoacoes.map(t => t.total_pontos)) %>;
-
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Total de Pontos',
-            data: data,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)'
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            title: { display: true, text: 'Doações por Turma' }
-          }
-        }
-      });
-    </script>
+    <button onclick="window.location.href='/tabela'">Voltar</button>
   </body>
 </html>

@@ -115,30 +115,57 @@ app.post("/api/campanhas/desativar/:id", (req, res) => {
   });
 });
 
-
 app.get("/campanhas/:id", (req, res) => {
   const idCampanha = req.params.id;
 
-  dbCampanhas.get("SELECT * FROM campanhas WHERE id = ?", [idCampanha], (err, campanha) => {
-    if (err || !campanha) return res.status(404).send("Campanha não encontrada");
+  // Pega todos os itens da campanha
+  dbCampanhas.all("SELECT * FROM itens WHERE id_campanha = ?", [idCampanha], (err, itens) => {
+    if (err) return res.status(500).send("Erro ao buscar itens da campanha");
 
-    const query = `
-      SELECT t.sigla, SUM(d.total_pontos) AS total_pontos
-      FROM doacoes d
-      JOIN turmas t ON d.id_turma = t.id
-      JOIN itens i ON d.id_item = i.id
-      WHERE i.id_campanha = ?
-      GROUP BY t.id
-    `;
+    const itemIds = itens.map(i => i.id);
+    if (itemIds.length === 0) return res.send("Nenhum item cadastrado para essa campanha");
 
-    dbDoacoes.all(query, [idCampanha], (err, turmasDoacoes) => {
+    // Soma todas as doações da campanha, por turma
+    const placeholders = itemIds.map(() => '?').join(',');
+    dbDoacoes.all(`
+      SELECT id_turma, id_item, SUM(quantidade) AS total_itens, SUM(total_pontos) AS total_pontos
+      FROM doacoes
+      WHERE id_item IN (${placeholders})
+      GROUP BY id_turma, id_item
+    `, itemIds, (err, doacoes) => {
       if (err) return res.status(500).send("Erro ao carregar doações");
 
-      res.render("pages/verCampanha", { 
-        campanha, 
-        turmasDoacoes, 
-        título: `Campanha Detalhes`, 
-        req 
+      if (doacoes.length === 0) return res.send("Nenhuma doação registrada ainda");
+
+      // Pega todas as turmas que doaram
+      const turmaIds = [...new Set(doacoes.map(d => d.id_turma))];
+      const placeholdersTurmas = turmaIds.map(() => '?').join(',');
+      dbTurmas.all(`SELECT id, sigla FROM turmas WHERE id IN (${placeholdersTurmas})`, turmaIds, (err, turmas) => {
+        if (err) return res.status(500).send("Erro ao carregar turmas");
+
+        const siglas = {};
+        turmas.forEach(t => siglas[t.id] = t.sigla);
+
+        // Pega os nomes dos itens
+        const itemMap = {};
+        itens.forEach(i => itemMap[i.id] = { nome: i.nome_item, pontos: i.pontos });
+
+        // Organiza os dados por turma
+        const turmasDoacoes = {};
+        doacoes.forEach(d => {
+          if (!turmasDoacoes[d.id_turma]) turmasDoacoes[d.id_turma] = { sigla: siglas[d.id_turma], itens: [] };
+          turmasDoacoes[d.id_turma].itens.push({
+            nome: itemMap[d.id_item].nome,
+            quantidade: d.total_itens,
+            pontos: d.total_pontos
+          });
+        });
+
+        res.render("pages/verCampanha", {
+          campanha: { id: idCampanha },
+          turmasDoacoes,
+          req
+        });
       });
     });
   });
@@ -234,6 +261,48 @@ app.post("/usuariosadm/deletar/:id", (req, res) => {
 // ─────────────────────── Páginas Doações ───────────────────────
 app.get("/doacoes_doar", (req, res) => res.render("pages/doacoes_doar", { título: "Doações", req, erro: null }));
 app.get("/doacoes_doaruser", (req, res) => res.render("pages/doacoes_doaruser", { título: "Doações Usuário", req, erro: null }));
+
+
+// ─────────────────────── realizar a doacao em alguma campanha ───────────────────────
+
+// ─────────────────────── Realizar Doação Campanha ───────────────────────
+app.get('/realizardoacaocamp', (req, res) => {
+  const idCampanhaSelecionada = req.query.id_campanha || null;
+
+  dbCampanhas.all('SELECT * FROM campanhas WHERE ativa = 1', (err, campanhas) => {
+    if (err) return res.status(500).send('Erro ao carregar campanhas');
+
+    dbTurmas.all('SELECT * FROM turmas WHERE ativo = 1', (err, turmas) => {
+      if (err) return res.status(500).send('Erro ao carregar turmas');
+
+      dbCampanhas.all('SELECT * FROM itens', (err, roupas) => {
+        if (err) return res.status(500).send('Erro ao carregar itens');
+
+        res.render('pages/realizardoacaocamp', { campanhas, turmas, roupas, idCampanhaSelecionada });
+      });
+    });
+  });
+});
+
+
+app.post('/realizardoacao', (req, res) => {
+  const { id_campanha, id_turma, id_roupa, quantidade } = req.body;
+
+  dbCampanhas.get('SELECT pontos FROM itens WHERE id = ?', [id_roupa], (err, roupa) => {
+    if (err || !roupa) return res.status(500).send('Erro ao buscar pontos do item');
+
+    const pontosTotais = roupa.pontos * quantidade;
+
+    dbDoacoes.run(
+      `INSERT INTO doacoes (id_turma, id_item, quantidade, total_pontos) VALUES (?, ?, ?, ?)`,
+      [id_turma, id_roupa, quantidade, pontosTotais],
+      err => {
+        if (err) return res.status(500).send('Erro ao salvar doação');
+        res.redirect('/tabela'); // volta pra tabela de campanhas
+      }
+    );
+  });
+});
 
 // ─────────────────────── Criar Campanhas ───────────────────────
 app.get("/criarcampanha", (req, res) =>
