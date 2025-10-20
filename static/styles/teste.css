@@ -1,0 +1,112 @@
+/* HERO */
+#home {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(6, 20, 27, 0.8), rgba(6, 20, 27, 0.8)),
+    url("https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000")
+      center/cover;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: var(--color-accent);
+}
+
+.hero p {
+  margin: 1rem 0 2rem;
+  color: var(--color-6);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.btn {
+  background: var(--color-accent);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  color: var(--color-1);
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background: var(--color-5);
+  color: var(--color-2);
+  
+}
+
+/* SEÇÕES */
+section {
+  padding: 6rem 2rem;
+  text-align: center;
+  background: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+}
+
+section:nth-child(even) {
+  background: var(--color-3);
+}
+
+section h2 {
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+/* CAMPANHAS */
+.campanhas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: var(--color-4);
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 300px;
+  transition: transform 0.4s, box-shadow 0.4s;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 20px var(--color-accent);
+}
+
+/* MAPA */
+.map-container {
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  margin: 2rem auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(242, 183, 5, 0.3);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ANIMAÇÕES */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.4s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -5,7 +5,7 @@
       <div class="components-menu-logo">
         <a href="/">
           <div class="titulo-container">
-            <img src="../static/Img/Logo.png" alt="Logo Da Campanha" id="logoimg" />
+            <img src="../static/Img/Logo_two.png" alt="Logo Da Campanha" id="logoimg" />
             <div class="tit">SOL</div>
           </div>
         </a>
@@ -13,20 +13,21 @@
 
       <div class="components-menu-center">
         <ul class="nav-links">
-          <li><a href="/" value="Home">HOME</a></li>
-          <li><a href="/sobre" value="Sobre">SOBRE</a></li>
-          <li><a href="/localizacao" value="Localização">LOCALIZAÇÃO</a></li>
+          <li><a href="#home" value="Home">HOME</a></li>
+          <li><a href="#campanhas" value="Sobre">SOBRE</a></li>
+          <li><a href="" value=""">FAQ</a></li>
+          
           <li>
             <a href="/doacoes_doaruser"
               <% if (!req.session.user) { %>
                 value="Doações"
               <% } else { %>
                 value="Doações/Doar"
-              <% } %>>
-              CAMPANHAS
-            </a>
+              <% } %>
+              >
+             CAMPANHAS
+              </a>
           </li>
-
           <% if (req.session.user && req.session.user.adm === 1) { %>
             <li><a href="/usuariosadm" value="Usuários">USUÁRIOS</a></li>
                  <li><a href="/doacoes_doar" value="Criar">CriarCampanha</a></li>
@@ -34,12 +35,17 @@
         </ul>
       </div>
 
-      <% if (!req.session.user) { %>
-          <li><a href="/cadastro"><input type="button" value="Cadastro"></a></li>
-          <li><a href="/login"><input type="button" value="Login"></a></li>
-      <% } else { %>
-          <li><a href="/logout"><input type="button" value="Logout"></a></li>
-      <% } %>
+      <div class="components-menu-right">
+        <ul class="login-links">
+          <% if (!req.session.user) { %>
+            <li><a href="/cadastro" value="Cadastro">CADASTRO</a></li>
+            <li><a href="/login" value="Login">LOGIN</a></li>
+        <% } else { %>
+          <li><a href="/logout" value="Logout">LOGOUT</a></li>
+        <% } %>
+        </ul>
+      </div>
+
 
       <!-- Botão do menu hamburguer (mobile) -->
       <div class="components-menu-toggle" onclick="toggleMenu()">
@@ -51,3 +57,6 @@
     </div>   
   </nav>
 </header>
+
+<!-- Espaço automático que impede sobreposição -->
+<div id="header-space"></div>

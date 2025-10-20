@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <%- include("../partials/head"); %>
-
+<script src="script.js" defer></script>
 <body>
 
   <!--<video controls autoplay muted loop id="bg-video">
@@ -11,19 +11,69 @@
   </video>-->
   
 
-    <%- include("../partials/menu"); %>
+  <%- include("../partials/menu"); %>
 
-    <div class="fundo-personalizado">
+    <!-- <div class="fundo-personalizado"> -->
       
-      <main>
-      
-        <section class="sobre">
-          <h6><span class="letra">Doa</span>luz</h6>
-          <h2>Crie campanhas de forma rápida e prática.</h2>
-        </section>
+      <!-- HOME -->
+      <section id="home" class="fade-in">
+        <img src="/static/img/Logo.png" alt="">
+        <div class="hero">
+          <h1>Solidariedade Online</h1>
+          <p>Conectando pessoas, causas e corações para transformar vidas e promover um mundo mais colaborativo.</p>
+          <a href="#campanhas"><button class="btn">Conheça as Campanhas</button></a>
+        </div>
+      </section>
+    
+      <!-- SOBRE -->
+      <section id="sobre" class="fade-in">
+        <h2>Sobre</h2>
+        <p>
+          A SOL – Solidariedade Online é uma plataforma que conecta pessoas, causas e corações dispostos a fazer a diferença.
+          Nosso objetivo é divulgar e promover campanhas online de forma simples e acessível, 
+          permitindo que qualquer pessoa contribua para gerar impacto positivo na sociedade.
+        </p>
+      </section>
+    
+      <!-- CAMPANHAS -->
+      <section id="campanhas" class="fade-in">
+        <h2>Campanhas Ativas</h2>
+        <div class="campanhas">
+          <div class="card">
+            <h3>Campanha do Agasalho</h3>
+            <p>Ajude a aquecer o inverno de famílias em situação de vulnerabilidade.</p>
+          </div>
+          <div class="card">
+            <h3>Doe Alimentos</h3>
+            <p>Contribua para garantir refeições dignas para quem mais precisa.</p>
+          </div>
+          <div class="card">
+            <h3>Brinquedos para Todos</h3>
+            <p>Leve alegria às crianças neste Natal com sua doação.</p>
+          </div>
+        </div>
+      </section>
+    
+      <!-- LOCALIZAÇÃO -->
+      <section id="localizacao" class="fade-in">
+        <h2>Localização</h2>
+        <p>Unidade do SENAI “Dr. Celso Charuri” – Av. Rebouças, 3965 - Jardim São Carlos, Sumaré - SP, 13170-023</p>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps?q=Av.+Rebou%C3%A7as,+3965+-+Jardim+S%C3%A3o+Carlos,+Sumar%C3%A9+-+SP,+13170-023&output=embed" loading="lazy"></iframe>
+        </div>
+      </section>
+    
+      <!-- DOAÇÃO -->
+      <section id="doacao" class="fade-in">
+        <h2>Faça uma Doação</h2>
+        <p>Transforme pequenos gestos em grandes mudanças. Toda contribuição conta!</p>
+        <button class="btn">Doar Agora</button>
+      </section>
+    
+    
+    <!-- </div> -->
 
-      </main>
-    </div>
+  <%- include("../partials/footer"); %>
 
 </body>
 </html>
