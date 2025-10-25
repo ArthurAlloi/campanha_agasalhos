@@ -33,9 +33,6 @@
                   <form action="/campanhas/<%= c.id %>" method="GET" style="display:inline;">
                     <button <%= c.ativa ? '' : 'disabled' %>>Ver mais</button>
                   </form>
-
-                  <button onclick="window.location.href='/realizardoacaocamp?id_campanha=<%= c.id %>'" <%= c.ativa ? '' : 'disabled' %>>
-                    Doar
                   </button>
                 </td>
               </tr>
