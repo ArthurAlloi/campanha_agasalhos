@@ -19,18 +19,19 @@
           <li><a href="#campanhas">SOBRE</a></li>
           <li><a href="#">FAQ</a></li>
           
-          <li>
-            <% if (!req.session.user) { %>
-              <a href="/doacoes_doaruser" value="Doações">CAMPANHAS</a>
-            <% } else { %>
-              <a href="/doacoes_doaruser" value="Doações/Doar">CAMPANHAS</a>
-            <% } %>
-          </li>
+          <!-- CAMPANHAS PARA TODOS -->
+          <li><a href="/tabela">CAMPANHAS</a></li>
 
           <!-- LINKS EXCLUSIVOS PARA ADMIN -->
           <% if (req.session.user && req.session.user.adm === 1) { %>
-            <li><a href="/criarcampanha" value="Campanha">CRIAR CAMPANHAS</a></li>
-            <li><a href="/usuariosadm" value="Usuários">USUÁRIOS</a></li>
+            <li><a href="/criarcampanha">CRIAR CAMPANHAS</a></li>
+            <li><a href="/usuariosadm">USUÁRIOS</a></li>
+            <li><a href="/doacoes_doar">OPÇÕES ADM</a></li>
+          <% } %>
+
+          <!-- LINKS PARA MINI ADMIN -->
+          <% if (req.session.user && req.session.user.adm === 2) { %>
+            <li><a href="/realizardoacaocamp">REALIZAR DOAÇÃO</a></li>
           <% } %>
         </ul>
       </div>
@@ -39,10 +40,10 @@
       <div class="components-menu-right">
         <ul class="login-links">
           <% if (!req.session.user) { %>
-            <li><a href="/cadastro" value="Cadastro">CADASTRO</a></li>
-            <li><a href="/login" value="Login">LOGIN</a></li>
+            <li><a href="/cadastro">CADASTRO</a></li>
+            <li><a href="/login">LOGIN</a></li>
           <% } else { %>
-            <li><a href="/logout" value="Logout">LOGOUT</a></li>
+            <li><a href="/logout">LOGOUT</a></li>
           <% } %>
         </ul>
       </div>
