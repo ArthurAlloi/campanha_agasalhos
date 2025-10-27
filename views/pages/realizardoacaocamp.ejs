@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <title>Realizar Doação</title>
-  </head>
-  <body>
+
+<%- include("../partials/head"); %>
+<%- include("../partials/menu"); %>
+
+<body>
     <h1>Registrar Doação</h1>
 
-  <form action="/realizardoacao" method="POST">
+  <form class="solu-table" action="/realizardoacao" method="POST">
     <!-- CAMPANHA -->
     <label for="campanha">Campanha:</label>
     <select id="campanha" name="id_campanha" required>
@@ -49,5 +49,5 @@
 
       <button type="submit">Salvar Doação</button>
     </form>
-  </body>
+</body>
 </html>
