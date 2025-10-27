@@ -11,15 +11,22 @@
       <!-- Formulário de criação -->
       <form action="/usuariosadm/criar" method="POST" class="solu-form">
         <h3 class="solu-subtitle">Criar novo usuário</h3>
-        <input type="text" name="cpf" id="cpf" placeholder="CPF" required>
-        <input type="email" name="email" placeholder="E-mail" required>
-        <input type="password" name="password" placeholder="Senha" required>
-        <label>
-          <input type="checkbox" name="adm" value="1"> Administrador
-        </label>
+
+        <input type="text" name="cpf" id="cpf" placeholder="CPF" required maxlength="14">
+        <input type="email" name="email" placeholder="E-mail" required maxlength="100">
+        <input type="password" name="password" placeholder="Senha" required maxlength="50">
+
+        <label for="adm">Nível de Acesso:</label>
+        <select name="adm" id="adm">
+          <option value="0">Usuário</option>
+          <option value="2">Mini Admin</option>
+          <option value="1">Admin</option>
+        </select>
+
         <label>
           <input type="checkbox" name="ativo" value="1" checked> Ativo
         </label>
+
         <button type="submit">Criar</button>
       </form>
 
@@ -33,7 +40,7 @@
             <th>ID</th>
             <th>CPF</th>
             <th>Email</th>
-            <th>Administrador</th>
+            <th>Nível de Acesso</th>
             <th>Ativo</th>
             <th>Ações</th>
           </tr>
@@ -44,29 +51,38 @@
               <td><%= user.id %></td>
               <td><%= user.cpf %></td>
               <td><%= user.email %></td>
-              <td><%= user.adm ? 'Sim' : 'Não' %></td>
+              <td>
+                <% if(user.adm === 0){ %>Usuário<% } %>
+                <% if(user.adm === 2){ %>Mini Admin<% } %>
+                <% if(user.adm === 1){ %>Admin<% } %>
+              </td>
               <td><%= user.ativo ? 'Sim' : 'Não' %></td>
-
               <td class="action-cell">
                 <!-- Editar -->
-                <form action="/usuariosadm/editar/<%= user.id %>" method="POST">
-                  <input type="text" name="cpf" value="<%= user.cpf %>" required>
-                  <input type="email" name="email" value="<%= user.email %>" required>
-                  <input type="password" name="password" placeholder="Nova senha">
-                  <label>
-                    <input type="checkbox" name="adm" value="1" <%= user.adm ? 'checked' : '' %>> Adm
-                  </label>
+                <form action="/usuariosadm/editar/<%= user.id %>" method="POST" style="margin-bottom:5px;">
+                  <input type="text" name="cpf" value="<%= user.cpf %>" required maxlength="14">
+                  <input type="email" name="email" value="<%= user.email %>" required maxlength="100">
+                  <input type="password" name="password" placeholder="Nova senha" maxlength="50">
+
+                  <label for="adm_<%= user.id %>">Nível de Acesso:</label>
+                  <select name="adm" id="adm_<%= user.id %>">
+                    <option value="0" <%= user.adm === 0 ? 'selected' : '' %>>Usuário</option>
+                    <option value="2" <%= user.adm === 2 ? 'selected' : '' %>>Mini Admin</option>
+                    <option value="1" <%= user.adm === 1 ? 'selected' : '' %>>Admin</option>
+                  </select>
+
                   <label>
                     <input type="checkbox" name="ativo" value="1" <%= user.ativo ? 'checked' : '' %>> Ativo
                   </label>
+
                   <button type="submit">Salvar</button>
-
-                  <!-- Deletar -->
-                  <form action="/usuariosadm/deletar/<%= user.id %>" method="POST">
-                    <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
-                  </form>
-
                 </form>
+
+                <!-- Deletar -->
+                <form action="/usuariosadm/deletar/<%= user.id %>" method="POST">
+                  <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
+                </form>
+
               </td>
             </tr>
           <% }) %>
@@ -75,8 +91,9 @@
     </main>
 
     <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script> $('#cpf').mask('000.000.000-00', {reverse: true}); </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script>
+      $('#cpf').mask('000.000.000-00', {reverse: true});
+    </script>
   </body>
 </html>

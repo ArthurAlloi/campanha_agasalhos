@@ -2,52 +2,54 @@
   <nav class="navbar"> 
     <div class="components-menu">
       
+      <!-- LOGO -->
       <div class="components-menu-logo">
         <a href="/">
           <div class="titulo-container">
-            <img src="../static/Img/Logo_two.png" alt="Logo Da Campanha" id="logoimg" />
+            <img src="../static/Img/Logo_two.png" alt="Logo da Campanha" id="logoimg" />
             <div class="tit">SOL</div>
           </div>
         </a>
       </div>
 
+      <!-- LINKS CENTRAIS -->
       <div class="components-menu-center">
         <ul class="nav-links">
-          <li><a href="#home" value="Home">HOME</a></li>
-          <li><a href="#campanhas" value="Sobre">SOBRE</a></li>
-          <li><a href="" value=""">FAQ</a></li>
+          <li><a href="#home">HOME</a></li>
+          <li><a href="#campanhas">SOBRE</a></li>
+          <li><a href="#">FAQ</a></li>
           
-          <li>
-            <a href="/doacoes_doaruser"
-              <% if (!req.session.user) { %>
-                value="Doações"
-              <% } else { %>
-                value="Doações/Doar"
-              <% } %>
-              >
-             CAMPANHAS
-              </a>
-          </li>
+          <!-- CAMPANHAS PARA TODOS -->
+          <li><a href="/tabela">CAMPANHAS</a></li>
+
+          <!-- LINKS EXCLUSIVOS PARA ADMIN -->
           <% if (req.session.user && req.session.user.adm === 1) { %>
-            <li><a href="/usuariosadm" value="Usuários">USUÁRIOS</a></li>
-                 <li><a href="/doacoes_doar" value="Criar">CriarCampanha</a></li>
+            <li><a href="/criarcampanha">CRIAR CAMPANHAS</a></li>
+            <li><a href="/usuariosadm">USUÁRIOS</a></li>
+            <li><a href="/doacoes_doar">OPÇÕES ADM</a></li>
+            <li><a href="/realizardoacaocamp">DOAR</a></li>
+          <% } %>
+
+          <!-- LINKS PARA MINI ADMIN -->
+          <% if (req.session.user && req.session.user.adm === 2) { %>
+            <li><a href="/realizardoacaocamp">REALIZAR DOAÇÃO</a></li>
           <% } %>
         </ul>
       </div>
 
+      <!-- LOGIN / LOGOUT -->
       <div class="components-menu-right">
         <ul class="login-links">
           <% if (!req.session.user) { %>
-            <li><a href="/cadastro" value="Cadastro">CADASTRO</a></li>
-            <li><a href="/login" value="Login">LOGIN</a></li>
-        <% } else { %>
-          <li><a href="/logout" value="Logout">LOGOUT</a></li>
-        <% } %>
+            <li><a href="/cadastro">CADASTRO</a></li>
+            <li><a href="/login">LOGIN</a></li>
+          <% } else { %>
+            <li><a href="/logout">LOGOUT</a></li>
+          <% } %>
         </ul>
       </div>
 
-
-      <!-- Botão do menu hamburguer (mobile) -->
+      <!-- BOTÃO MOBILE -->
       <div class="components-menu-toggle" onclick="toggleMenu()">
         <span class="bar"></span>
         <span class="bar"></span>
