@@ -62,14 +62,18 @@
 /* Inputs minimalistas */
 .input-form-login{
   width: 100%;
-  border-radius: 7px;
-  padding: 12px;
+  border-radius: 2px;
   margin: 12px 0;
   border: none;
   border-bottom: 2px solid #001261;
   background: transparent;
   outline: none;
   font-size: 1rem;
+  display: block;
+  height: 50px;
+  letter-spacing: 2px;
+  
+  text-align: center;
   color: #000000;
   transition: 0.3s;
 }
@@ -80,14 +84,6 @@
     
 .input-form-login:focus{
   border-bottom: 2px solid #fff;
-}
-
-/* Hover dos Inputs */
-input[type="text"]:hover,
-input[type="password"]:hover,
-input[type="email"]:hover {
-  background-color: #02013d40;
-  color: #fafafa;
 }
 
 label{
