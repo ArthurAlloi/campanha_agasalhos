@@ -63,7 +63,7 @@
 .input-form-login{
   width: 100%;
   border-radius: 2px;
-  margin: 12px 0;
+  margin: 8px 0;
   border: none;
   border-bottom: 2px solid #001261;
   background: transparent;
@@ -221,6 +221,8 @@ input[type="number"] {
   background-color: #c7f0ff;
   font-size: 16px;
 }
+
+
 
 /*USUARIOS ADM*/
 

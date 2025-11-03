@@ -17,7 +17,7 @@
 }
 
 .login-logo-fiap {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
@@ -36,7 +36,7 @@
 
 .login-column {
     display: inline-block;
-    padding: 5px;
+    padding: 3px;
     vertical-align: middle;
     width: 100%;
 }
@@ -52,16 +52,8 @@
 
 .login-input {
     background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #FFF;
-    display: block;
-    font: 15px/45px 'Gotham HTF Book';
-    height: 50px;
-    letter-spacing: 2px;
-    outline: none;
     padding: 0 15px;
     text-align: center;
-    width: 100% !important;
 }
 
 .login-btn {
@@ -70,13 +62,14 @@
     color: #FFF;
     cursor: pointer;
     display: block;
-    font: 14px 'Gotham HTF Bold';
+    font: 16px 'Gotham HTF Bold';
     height: 50px;
     letter-spacing: 1px;
     outline: none;
     text-transform: uppercase;
     transition: all .4s;
     width: 100%;
+    opacity: 0.5;
     -webkit-appearance: none;
 }
 

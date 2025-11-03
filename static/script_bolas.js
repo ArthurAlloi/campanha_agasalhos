@@ -23,8 +23,8 @@ var Particle = function (x, y) {
 
     this.color = colors[Math.floor(Math.random() * colors.length)]
 
-    this.opacity = 3
-    this.opacityMax = Math.random() * 0.25
+    this.opacity = 0.3
+    this.opacityMax = Math.random() * 0.5
 
     this.x = x
     this.y = y
