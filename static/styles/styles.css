@@ -27,20 +27,21 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a89004;
+  background: #a89004; /*DEFINIR CORES*/
 }
 
+/*PADRONIZAÇÃO DE CORES*/
 :root {
       --color-bg-dark: #06141B;
       --color-bg-medium: #11212D;
       --color-card: #253745;
       --color-text: #CCD0CF;
       --color-text-secondary: #9BA8AB;
-      --color-accent: #F2B705; /* amarelo solar */
-      --color-1: #06141B;
-      --color-2: #11212D;
-      --color-3: #253745;
-      --color-4: #4A5C6A;
+      --color-accent: #F2B705;
+      --color-1: #00171f;
+      --color-2: #003459;
+      --color-3: #7facbb;
+      --color-4: #f0f7f4;
       --color-5: #9BA8AB;
       --color-6: #CCD0CF;
 
@@ -48,7 +49,7 @@ html {
   
 body{
   /*Dark Theme*/
-  background-color: #eff6e0;
+  background-color: #f0f7f4;/*DEFINIR CORES*/
   /*Light Theme*/
 
   display: flex;
@@ -60,18 +61,6 @@ body{
   /*background: linear-gradient(180deg, var(--color-6), var(--color-3));*/
   color: var(--color-6);
   overflow-x: hidden;
-}
-
-/* Fundo com a Imagem Do Canva "MINHOCA" */
-.fundo-personalizado{
-  background-image: url('/static/img/cody-chan-KXhg6oW1npQ-unsplash.jpg'); /* Substitua pelo caminho da sua imagem */
-  background-size: cover; /* Faz a imagem cobrir todo o elemento */
-  min-height: 100vh; /* Define a altura mínima para ocupar a tela inteira */
-  width: 100%; /* Faz o elemento ocupar toda a largura */
-  background-repeat: no-repeat; 
-  background-position: center; /* Centraliza a imagem */
-  color: white; 
-  padding: 20px; 
 }
 
 #bg-video{
@@ -117,7 +106,7 @@ main h4{
 }
 
 .icones_doacoes_doar a:hover + h3 {
-  color: #ffee06;
+  color: #ffee06; /*DEFINIR CORES*/
   transition: 0.7s;
   font-size: 1.6rem;
 }
@@ -137,8 +126,8 @@ main h4{
   to {opacity: 1; transform: translateY(0);}
 }
 
-/*Página ERRO 404*/
 
+/*Página ERRO 404*/
 .container_fail_404{
   display: flex;
   justify-content: center;

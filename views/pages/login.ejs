@@ -3,13 +3,32 @@
 
 <%- include("../partials/head"); %>
 
-<body id="page-fiaplogin-index">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    overflow:hidden;
+    width: 100%;
+}
+</style>
+
+<body id="page-sollogin-index">
 
   <main>
 
-    <div class="login-box" id="caixa-login">
+    <div class="login-box">
+      <form id="login" action="/login" method="POST" class="form-cadastro">
 
-      <div class="login-logo-fiap">
+      <div class="login-logo-sol">
 
         <svg xmlns="https://svgcollections.com/wp-content/uploads/2024/07/abstract_bear_design_Ctpw6.png" viewBox="0 0 141.8 20.6">
             <path fill="#254441"
@@ -18,8 +37,6 @@
         </svg>
 
       </div>
-
-      <form id="login" action="/login" method="POST" class="form-cadastro">
 
         <div class="login-columns">
                 
@@ -31,12 +48,13 @@
           <div class="login-column">
               <label for="password" class="login-label">Senha</label>
               <input type="password" id="password" name="password" class="input-form-login" required />
+              <span toggle="#password" class="fa fa-fw fa-eye toggle-password"></span>
           </div>
       
       </div>
 
         <div class="login-footer">
-          <input type="submit" id="loginbtn" class="login-btn" value="Conectar">
+          <input type="submit" id="login-btn" class="login-btn" value="Conectar">
         </div>
 
         <div class="login-link-Cadastro">
@@ -45,18 +63,19 @@
         
       </form>
 
-      <% if (erro) { %>
-        <p class="error" style="color: red; margin-top: 10px;"><%= erro %></p>
-      <% } %>
+      <div>
+        <% if (erro) { %>
+          <p class="error" style="color: red; margin-top: 10px;"><%= erro %> </p>
+        <% } %>
+      </div>
 
     </div>
 
-    <canvas class="login-canvas-particles">
-    </canvas>
-    
-    <script src="/views/pagestest/script_bolas.js"></script>
-
   </main>
+
+    <script type="text/javascript" src="/static/script_bolas.js"></script>
+    <canvas class="login-canvas-particles" max-width="100%" height="auto" 
+    style="left: 0px; top: 0px; position: absolute; height: 739px; width: 799px;"></canvas>
 
   <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

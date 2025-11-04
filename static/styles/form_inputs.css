@@ -1,68 +1,65 @@
-/*DIV Principal*/
-.caixa-login{
-  background-color: rgba(0, 0, 0, 0);
-  text-align: center;
-  margin: 30px auto;
-  border-radius: 15px;
-  padding: 30px;
-  max-width: 450px;
-  width: 100%;
-  color: #fff;
-  transition: 1s;
+#page-sollogin-index{
+    /*background: #000 url('background-1.jpg') center no-repeat;
+    background-size: cover;
+    font: 14px "Gotham HTF Book";*/
 }
 
-.caixa-login:hover{
-  animation: shadow-drop 0.5s linear forwards;
-  background-color: rgba(0, 0, 0, 0);
+.login-canvas-particles {
+    position: absolute; /* ou relative se o main tiver position: relative */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* fica atrás do formulário */
+    opacity: 0.6;
 }
 
-@keyframes shadow-drop {
-  0% {
-    box-shadow: 0 0 0 #71848a;
-  }
-  50% {
-    box-shadow: 0 0 20px #71848a;
-  }
-  100% {
-    box-shadow: 0 0 0 #71848a;
-  }
+.login-box {
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 320px;
 }
 
-/*Imagem Avatar*/
-.avatar{
-  margin-top: 10px;
-  border-radius: 360px;
-  width: 110px;
-  height: auto;
-  margin-bottom: 10px;
-  box-shadow: 0 0 15px #3e3e32;
+.login-logo-sol {
+    margin-bottom: 15px;
+    text-align: center;
 }
 
-/* Título da Caixa de Login */
-.caixa-login h2{
-  animation: textando 0.7s linear both;;
-  margin-bottom: 10px;
-  color: #190860;
-  font-size: 2.2rem;
-  letter-spacing: 3px;
+.login-logo-sol > svg {
+    height: 50px;
+    width: 200px;
+    fill: #fff;
 }
 
-@keyframes textando{
-  0% {
-    letter-spacing: 0.7rem;
-    filter: blur(6px);
-    opacity: 0;
-  }
-  100% {            
-    filter: blur(0px);
-    opacity: 1;
-  }
+.login-columns {
+    display: grid;
+    margin: auto;
+    width: 100%;
+    font-size: 0;
+}
+
+.login-column {
+    display: inline-block;
+    padding: 3px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.login-label {
+    color: #000000;
+    display: block;
+    font: 16px 'Gotham HTF Light';
+    letter-spacing: 1px;
+    text-align: left;
+    text-transform: uppercase;
 }
 
 /* Inputs minimalistas */
 .input-form-login{
   width: 100%;
-  border-radius: 2px;
+  border-radius: 5px;
   margin: 8px 0;
   border: none;
   border-bottom: 2px solid #001261;
@@ -77,31 +74,88 @@
   color: #000000;
   transition: 0.3s;
 }
-  
-.input-form-login::placeholder{
-  color: #18046a8e;
-}
     
 .input-form-login:focus{
   border-bottom: 2px solid #fff;
 }
-
-label{
-  text-align: left;
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #7cdedc;
-  font-size: 22px;
-}  
   
+
+.login-btn {
+    background: #a4dcff !important;
+    border: none;
+    color: #FFF;
+    cursor: pointer;
+    display: block;
+    font: 16px 'Gotham HTF Bold';
+    height: 50px;
+    letter-spacing: 1px;
+    outline: none;
+    text-transform: uppercase;
+    transition: all .4s;
+    width: 100%;
+    opacity: 0.5;
+    -webkit-appearance: none;
+}
+
+.login-btn:hover {
+    background: #fff !important;
+    color: #a4dcff !important;
+    opacity: 1;
+}
+
+.login-footer {
+    padding: 5px;
+    width: 100%;
+}
+
+
+.login-error {
+    background: #ed145b;
+    border-radius: 4px;
+    color: #FFF;
+    display: block;
+    font: 13px/18px 'Gotham HTF Medium';
+    padding: 6px 10px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.login-reset-password{
+    margin-top: 30px;
+    display: block;
+    font: 12px/50px 'Gotham HTF Medium';
+    letter-spacing: 1px;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    color: #ED145B;
+}
+
+form#login {
+    width: 320px;
+}
+
+.toggle-password {
+    float: right;
+    margin-right: 10px;
+    margin-top: -32px;
+    position: relative;
+    z-index: 2;
+    color: #ED145B;
+    font-size: 20px !important;
+}
+
 /* Link para Cadastro */
 .login-link-Cadastro {
   margin-top: 20px;
 }
 
 .login-link-Cadastro a {
-  color: #1000eb;
+  color: #776ef1;
   font-size: 1.2rem;
   text-decoration: none;
   opacity: 0.8;
@@ -112,288 +166,4 @@ label{
 .login-link-Cadastro a:hover {
   opacity: 1;
   text-decoration: underline;
-}
-
-/* Botões */
-
-#btnLogin{
-  font-size: 22px;
-  background: linear-gradient(45deg, #98d9eb,#01baef);
-  font-weight: bolder;
-  padding: 5px;
-  margin-top: 6px;
-  cursor: pointer;
-  transition: 1s;
-}
-
-#btnLogin:hover{
-  font-size: 25px;
-  background: linear-gradient(45deg,#855ebc, #4545bf);
-  color: #2e0550;
-}
-
-.btn_form{
-  width: 30%;
-  padding: 12px;
-  margin-top: 25px;
-  background-color: transparent;
-  color: white;
-  border: 1px solid #13d3fa;
-  background: var(--color-3);
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bolder;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn_form:hover{
-  scale: calc(1.1);
-  background: var(--color-1);
-}
-
-#btnrank{
-  width: 20%;
-  padding: 12px;
-  margin-top: 25px;
-  background-color: transparent;
-  color: white;
-  border: 1px solid #ffd000;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bolder;
-  cursor: pointer;
-  transition: 1s;
-}
-
-#btnrank:hover {
-  background-color: #ffd000;
-  box-shadow: 0 0 40px #ffae00;
-  box-shadow: 0 0 80px #ffae00;
-}
-
-/* Formulário Doações */
-.form-container {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 20px;
-  background-color: #222; 
-  border-radius: 10px;
-  box-shadow: 0 0 10px #000;
-  text-align: center;
-}
-
-.form-title {
-  color: white;
-  margin-bottom: 20px;
-  font-size: 2rem;
-}
-
-.doacao-container {
-  width: 40%;
-  margin: 100px 0px 0px 400px;
-  margin-bottom: 60px;
-  background-color: #1e1e1e;
-  padding: 30px;
-  border-radius: 15px;
-  border: 1px solid #333;
-}
-
-.doacao-container h1 {
-  text-align: center;
-  color: #78fecf;
-  text-shadow: 0 0 10px #00d0ff;
-  font-size: 2rem;
-  margin-bottom: 30px;
-}
-
-#quantidade{
-  color: black;
-}
-
-select,
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #c7f0ff;
-  font-size: 16px;
-}
-
-
-
-/*USUARIOS ADM*/
-
-.solu-main {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: var(--color-card);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
-.solu-main button{
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  background: var(--color-accent);
-  color: var(--color-1);
-  font-size: 1em;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-
-/* ===========================
-   Títulos
-=========================== */
-.solu-title {
-  font-size: 2em;
-  text-align: center;
-  color: var(--color-accent);
-  margin-bottom: 25px;
-}
-
-.solu-subtitle {
-  font-size: 1.2em;
-  color: var(--color-text-secondary);
-  margin: 20px 0 10px;
-}
-
-/* ===========================
-   Formulários
-=========================== */
-.solu-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 30px;
-}
-
-.solu-form input[type="text"],
-.solu-form input[type="email"],
-.solu-form input[type="password"],
-.solu-form input[type="number"] {
-  padding: 10px;
-  border: 1px solid var(--color-4);
-  border-radius: 6px;
-  font-size: 1em;
-  width: 100%;
-  background-color: var(--color-2);
-  color: var(--color-text);
-  transition: 0.3s;
-}
-
-.solu-form input:focus {
-  border-color: var(--color-accent);
-  outline: none;
-  box-shadow: 0 0 5px var(--color-accent);
-}
-
-.solu-form label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.95em;
-  color: var(--color-text-secondary);
-}
-
-.solu-form button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  background: var(--color-accent);
-  color: var(--color-1);
-  font-size: 1em;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.solu-form button:hover {
-  background: #e0a500;
-}
-
-/* ===========================
-   Tabela
-=========================== */
-.solu-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  background-color: var(--color-2);
-  color: var(--color-text);
-}
-
-.solu-table th,
-.solu-table td {
-  border: 1px solid var(--color-4);
-  padding: 10px;
-  text-align: center;
-  font-size: 0.95em;
-}
-
-.solu-table th {
-  background: linear-gradient(135deg, var(--color-3), var(--color-4));
-  color: var(--color-accent);
-}
-
-.solu-table tr:nth-child(even) {
-  background-color: var(--color-3);
-}
-
-/* ===========================
-   Formulário inline na tabela
-=========================== */
-.solu-table form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: center;
-}
-
-.solu-table form input {
-  width: 90px;
-  padding: 5px;
-  background-color: var(--color-2);
-  color: var(--color-text);
-  border: 1px solid var(--color-4);
-  border-radius: 4px;
-}
-
-.solu-table form button {
-  padding: 5px 10px;
-  font-size: 0.85em;
-  background-color: var(--color-accent);
-  color: var(--color-1);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s;
-  min-width: 70px;
-}
-
-.solu-table form button:hover {
-  background-color: #e0a500;
-}
-
-.solu-table .action-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: flex-start;
-}
-
-.solu-table .action-cell form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.solu-table input[type="text"],
-.solu-table input[type="email"],
-.solu-table input[type="password"] {
-  width: 120px;
 }
