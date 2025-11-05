@@ -49,7 +49,6 @@ html {
   
 body{
   /*Dark Theme*/
-  background-color: #f0f7f4;/*DEFINIR CORES*/
   /*Light Theme*/
 
   display: flex;
@@ -90,6 +89,14 @@ main h4{
   margin-top: 1rem;
   color: var(--color-accent);
   padding: 10px;
+}
+
+.background-gradient {
+  background-image: url(/static/img/gradiente.webp);
+  background-position: top;
+  background-repeat: repeat-y;
+  background-size: contain;
+  position: relative;
 }
 
 .article_doacoes_doar{

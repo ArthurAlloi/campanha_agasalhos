@@ -1,63 +1,73 @@
 <header>
-  <nav class="navbar"> 
-    <div class="components-menu">
+  <div class="components-menu">
       
-      <!-- LOGO -->
-      <div class="components-menu-logo">
-        <a href="/">
-          <div class="titulo-container">
-            <img src="../static/Img/Logo_two.png" alt="Logo da Campanha" id="logoimg" />
-            <div class="tit">SOL</div>
-          </div>
-        </a>
+    <!-- LOGO -->      
+    <a id="menu-logo-sol" href="/">
+      <div class="logo-sol">
+        <svg id="logoimg" viewBox="0 0 100 100" width="100" height="100">
+          <circle cx="50" cy="50" r="20" fill="#FFD93D" />
+            <g stroke="#FFD93D" stroke-width="4">
+              <line x1="50" y1="0" x2="50" y2="20" />
+              <line x1="50" y1="80" x2="50" y2="100" />
+              <line x1="0" y1="50" x2="20" y2="50" />
+              <line x1="80" y1="50" x2="100" y2="50" />
+              <line x1="15" y1="15" x2="32" y2="32" />
+              <line x1="68" y1="68" x2="85" y2="85" />
+              <line x1="15" y1="85" x2="32" y2="68" />
+              <line x1="68" y1="32" x2="85" y2="15" />
+            </g>
+        </svg>
+
+        <!--<img src="../static/Img/Logo_two.png" alt="Logo da Campanha" id="logoimg" />-->
       </div>
+    </a>
 
-      <!-- LINKS CENTRAIS -->
-      <div class="components-menu-center">
-        <ul class="nav-links">
-          <li><a href="#home">HOME</a></li>
-          <li><a href="#campanhas">SOBRE</a></li>
-          <li><a href="#">FAQ</a></li>
-          
-          <!-- CAMPANHAS PARA TODOS -->
-          <li><a href="/tabela">CAMPANHAS</a></li>
+    <nav class="navbar">
 
-          <!-- LINKS EXCLUSIVOS PARA ADMIN -->
-          <% if (req.session.user && req.session.user.adm === 1) { %>
-            <li><a href="/criarcampanha">CRIAR CAMPANHAS</a></li>
-            <li><a href="/usuariosadm">USUÁRIOS</a></li>
-            <li><a href="/realizardoacaocamp">DOAR</a></li>
-          <% } %>
+      <!-- LINKS Iniciais -->
+      <ul class="components-menu-center">
+        <li class="nav-links"><a href="/">HOME</a></li>
+        <li class="nav-links"><a href="#campanhas">SOBRE</a></li>
+        <li class="nav-links"><a href="#">FAQ</a></li>
+        
+        <!-- CAMPANHAS PARA TODOS -->
+        <li class="nav-links"><a href="/tabela">CAMPANHAS</a></li>
 
-          <!-- LINKS PARA MINI ADMIN -->
-          <% if (req.session.user && req.session.user.adm === 2) { %>
-            <li><a href="/realizardoacaocamp">REALIZAR DOAÇÃO</a></li>
-          <% } %>
-        </ul>
-      </div>
+        <!-- LINKS EXCLUSIVOS PARA ADMIN -->
+        <% if (req.session.user && req.session.user.adm === 1) { %>
+          <li class="nav-links"><a href="/criarcampanha">CRIAR CAMPANHAS</a></li>
+          <li class="nav-links"><a href="/usuariosadm">USUÁRIOS</a></li>
+          <li class="nav-links"><a href="/realizardoacaocamp">DOAR</a></li>
+        <% } %>
+
+        <!-- LINKS PARA MINI ADMIN -->
+        <% if (req.session.user && req.session.user.adm === 2) { %>
+          <li class="nav-links"><a href="/realizardoacaocamp">REALIZAR DOAÇÃO</a></li>
+        <% } %>
+      </ul>
 
       <!-- LOGIN / LOGOUT -->
       <div class="components-menu-right">
-        <ul class="login-links">
           <% if (!req.session.user) { %>
-            <li><a href="/cadastro">CADASTRO</a></li>
-            <li><a href="/login">LOGIN</a></li>
+            <a id="btn-menu-login" href="/login">LOGIN</a>
+            <a id="btn-menu-cadastro" href="/cadastro">CADASTRO</a>
           <% } else { %>
-            <li><a href="/logout">LOGOUT</a></li>
+            <a id="btn-menu-logout" href="/logout">LOGOUT</a>
           <% } %>
-        </ul>
+      
+        <!-- BOTÃO MOBILE -->
+        <div class="components-menu-toggle" onclick="toggleMenu()">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+
       </div>
 
-      <!-- BOTÃO MOBILE -->
-      <div class="components-menu-toggle" onclick="toggleMenu()">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </div>
+    </nav>
 
-    </div>   
-  </nav>
+  </div>   
 </header>
 
-<!-- Espaço automático que impede sobreposição -->
-<div id="header-space"></div>
+<!-- Espaço automático que impede sobreposição 
+<div id="header-space"></div>-->
