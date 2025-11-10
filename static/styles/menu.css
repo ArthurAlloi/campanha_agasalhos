@@ -9,7 +9,7 @@
   --icon-size: 60px;
   --primary-color: #FFD93D;
   --text-color: #F2F5FA;
-  --hover-color: #ffd45c;
+  --hover-color: #fcd04d;
   --transition-fast: 0.3s ease;
 }
 
@@ -59,7 +59,7 @@ header {
 }
 
 #logoimg:hover {
-  transform: scale(1.8) rotate(270deg);
+  transform: scale(1.6) rotate(270deg);
 }
 
 /* ===== NAVBAR ===== */
