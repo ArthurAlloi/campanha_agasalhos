@@ -2,7 +2,8 @@
     /*background: #000 url('/static/img/sunset-7133867_1920.jpg') center no-repeat;*/
     
     font: 14px "Gotham HTF Book";
-    background: linear-gradient(310deg, #463699, #262335);
+    background: #1D1E2C;
+    background: linear-gradient(45deg,rgba(29, 30, 44, 1) 0%, rgba(172, 159, 187, 1) 100%);
     background-position: center no-repeat;
     background-size: cover;
 }
@@ -95,9 +96,9 @@
   
 
 .login-btn {
-    background: #a4dcff !important;
+    background: #bfa4ff !important;
     border: none;
-    color: #FFF;
+    color: #000000;
     cursor: pointer;
     display: block;
     font: 16px 'Gotham HTF Bold';
@@ -107,12 +108,12 @@
     text-transform: uppercase;
     transition: all .4s;
     width: 100%;
-    opacity: 0.5;
+    opacity: 0.6;
     -webkit-appearance: none;
 }
 
 .login-btn:hover {
-    background: #fff !important;
+    background: #310597 !important;
     color: #a4dcff !important;
     opacity: 1;
 }

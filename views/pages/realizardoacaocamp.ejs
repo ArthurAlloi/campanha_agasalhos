@@ -1,66 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <%- include("../partials/head"); %>
+  <%- include("../partials/menu"); %>
 
-<%- include("../partials/head"); %>
-<%- include("../partials/menu"); %>
+  <body>
+    <main class="page-doacao-registrar solu-main">
 
-<body>
-  <main class="solu-main">
+      <form id="form-doacao" class="form-campanha" action="/realizardoacao" method="POST" novalidate>
+        <div>
+          <h1 class="page-title">Registrar Doação</h1>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-col">
+            <label for="select-campanha" class="form-label">Campanha</label>
+            <select id="select-campanha" name="id_campanha" class="select" required>
+              <option value="">— selecione uma campanha —</option>
+              <% campanhas.forEach(c => { %>
+                <option value="<%= c.id %>" <%= (Number(idCampanhaSelecionada) === c.id) ? 'selected' : '' %>><%= c.nome %></option>
+              <% }) %>
+            </select>
+          </div>
 
-    <div>
-      <h1 class="solu-title">Registrar Doação</h1>
-    </div>
-  
-  <form class="solu-form" action="/realizardoacao" method="POST"> 
-    
-    <div>
-      <label class="solu-subtitle" for="campanha">Campanha:</label>
-      
-      <select id="campanha" name="id_campanha" required>
-        <option value="">— selecione uma campanha —</option>
-        <% campanhas.forEach(c => { %>
-          <option value="<%= c.id %>" <%= (Number(idCampanhaSelecionada) === c.id) ? 'selected' : '' %>>
-            <%= c.nome %>
-          </option>
-        <% }) %>
-      </select>
-    </div>
+          <div class="form-col">
+            <label for="select-turma" class="form-label">Turma</label>
+            <select id="select-turma" name="id_turma" class="select" required>
+              <option value="">— selecione uma turma —</option>
+              <% turmas.forEach(t => { %>
+                <option value="<%= t.id %>"><%= t.sigla || t.nome %></option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
 
-    <div>
-      <label class="solu-subtitle" for="turma">Turma:</label>
-      <select id="turma" name="id_turma" required>
-        <option value="">— selecione uma turma —</option>
-        <% turmas.forEach(t => { %>
-          <option value="<%= t.id %>"><%= t.sigla || t.nome %></option>
-        <% }) %>
-      </select>
-    </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="select-roupa" class="form-label">Item</label>
+            <select id="select-roupa" name="id_roupa" class="select" required>
+              <option value="">— selecione um item —</option>
+              <% roupas.forEach(r => { %>
+                <option value="<%= r.id %>" data-campanha="<%= r.id_campanha %>"><%= r.nome_item || r.nome %> — <%= r.pontos %> pts</option>
+              <% }) %>
+            </select>
+          </div>
 
-    <div>
-      <label class="solu-subtitle" for="roupa">Item:</label>
-      <select id="roupa" name="id_roupa" required>
-        <option value="">— selecione um item —</option>
-        <% roupas.forEach(r => { %>
-          <option value="<%= r.id %>" data-campanha="<%= r.id_campanha %>">
-            <%= r.nome_item || r.nome %> — <%= r.pontos %> pts
-          </option>
-        <% }) %>
-      </select>
-    </div>
+          <div class="form-col">
+            <label for="input-quantidade" class="form-label">Quantidade</label>
+            <input id="input-quantidade" class="input" type="number" name="quantidade" min="1" required>
+          </div>
+        </div>
 
-    <div>
-      <label class="solu-subtitle" for="quantidade">Quantidade:</label>
-      <input type="number" id="quantidade" name="quantidade" min="1" required>
-    </div>
-
-    <div>
-      <input type="submit" id="loginbtn" class="login-btn" value="Salvar Doação">
-    </div>
-
-    </form>
-  
-  </main>
-
-</body>
-
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Salvar Doação</button>
+        </div>
+      </form>
+    </main>
+  </body>
 </html>

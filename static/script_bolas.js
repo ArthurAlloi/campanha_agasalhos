@@ -1,5 +1,5 @@
 // Particles.
-var colors = ['#ed145b', '#FFF']
+var colors = ['#5914edff', '#FFF']
 
 var Particle = function (x, y) {
     this.alive = true
@@ -8,12 +8,12 @@ var Particle = function (x, y) {
 
     this.drag = Math.random()
     this.theta = Math.random() * (2 * Math.PI)
-    this.wander = 0.1
+    this.wander = 0.01
 
     this.color = colors[Math.floor(Math.random() * colors.length)]
 
-    this.opacity = 0
-    this.opacityMax = Math.random() * 0.25
+    this.opacity = 0.05
+    this.opacityMax = Math.random() * 0.3
 
     this.x = x
     this.y = y

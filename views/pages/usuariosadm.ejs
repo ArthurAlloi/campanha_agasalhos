@@ -5,95 +5,146 @@
   <body>
     <%- include("../partials/menu"); %>
 
-    <main class="solu-main">
-      <h1 class="solu-title">Gerenciamento de Usuários</h1>
+    <main class="page-usuarios solu-main">
 
-      <!-- Formulário de criação -->
-      <form action="/usuariosadm/criar" method="POST" class="solu-form">
-        <h3 class="solu-subtitle">Criar novo usuário</h3>
+      <!-- FORMULÁRIO DE CRIAÇÃO -->
+      <form id="form-usuario-criar" class="form-admin form-card" action="/usuariosadm/criar" method="POST" novalidate>
+        <div class="page-header">
+          <h1 class="page-title">Gerenciamento de Usuários</h1>
+        </div>
+        
+        <h2 class="form-heading">Criar novo usuário</h2>
 
-        <input type="text" name="cpf" id="cpf" placeholder="CPF" required maxlength="14">
-        <input type="email" name="email" placeholder="E-mail" required maxlength="100">
-        <input type="password" name="password" placeholder="Senha" required maxlength="50">
+        <div class="form-row">
+          <div class="form-col">
+            <label for="input-cpf-new" class="form-label">CPF</label>
+            <input id="input-cpf-new" class="input cpf-input" type="text" name="cpf" placeholder="000.000.000-00" required maxlength="14">
+          </div>
 
-        <label for="adm">Nível de Acesso:</label>
-        <select name="adm" id="adm">
-          <option value="0">Usuário</option>
-          <option value="2">Mini Admin</option>
-          <option value="1">Admin</option>
-        </select>
+          <div class="form-col">
+            <label for="input-email-new" class="form-label">E-mail</label>
+            <input id="input-email-new" class="input" type="email" name="email" placeholder="usuario@exemplo.com" required maxlength="100">
+          </div>
+        </div>
 
-        <label>
-          <input type="checkbox" name="ativo" value="1" checked> Ativo
-        </label>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="input-password-new" class="form-label">Senha</label>
+            <input id="input-password-new" class="input" type="password" name="password" placeholder="Senha" required maxlength="50">
+          </div>
 
-        <button type="submit">Criar</button>
+          <div class="form-col">
+            <label for="select-adm-new" class="form-label">Nível de Acesso</label>
+            <select id="select-adm-new" class="select" name="adm">
+              <option value="0">Usuário</option>
+              <option value="2">Mini Admin</option>
+              <option value="1">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row" style="align-items:center;">
+          <label class="form-label" for="checkbox-ativo-new">
+            <input id="checkbox-ativo-new" type="checkbox" name="ativo" value="1" checked>
+            Ativo
+          </label>
+
+          <div style="margin-left:auto;">
+            <button type="submit" class="btn btn-primary">Criar</button>
+          </div>
+        </div>
       </form>
 
-      <hr>
+      <hr class="sep">
 
-      <!-- Tabela de usuários -->
-      <h3 class="solu-subtitle">Usuários cadastrados</h3>
-      <table class="solu-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Nível de Acesso</th>
-            <th>Ativo</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% users.forEach(user => { %>
-            <tr>
-              <td><%= user.id %></td>
-              <td><%= user.cpf %></td>
-              <td><%= user.email %></td>
-              <td>
-                <% if(user.adm === 0){ %>Usuário<% } %>
-                <% if(user.adm === 2){ %>Mini Admin<% } %>
-                <% if(user.adm === 1){ %>Admin<% } %>
-              </td>
-              <td><%= user.ativo ? 'Sim' : 'Não' %></td>
-              <td class="action-cell">
-                <!-- Editar -->
-                <form action="/usuariosadm/editar/<%= user.id %>" method="POST" style="margin-bottom:5px;">
-                  <input type="text" name="cpf" value="<%= user.cpf %>" required maxlength="14">
-                  <input type="email" name="email" value="<%= user.email %>" required maxlength="100">
-                  <input type="password" name="password" placeholder="Nova senha" maxlength="50">
+      <!-- TABELA DE USUÁRIOS -->
+      <section class="users-section">
+        <h2 class="subheading">Usuários cadastrados</h2>
 
-                  <label for="adm_<%= user.id %>">Nível de Acesso:</label>
-                  <select name="adm" id="adm_<%= user.id %>">
-                    <option value="0" <%= user.adm === 0 ? 'selected' : '' %>>Usuário</option>
-                    <option value="2" <%= user.adm === 2 ? 'selected' : '' %>>Mini Admin</option>
-                    <option value="1" <%= user.adm === 1 ? 'selected' : '' %>>Admin</option>
-                  </select>
+        <div class="table-wrap">
+          <table class="table-users" role="table" aria-label="Tabela de usuários">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Email</th>
+                <th scope="col">Nível de Acesso</th>
+                <th scope="col">Ativo</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(user => { %>
+                <tr class="user-row">
+                  <td class="cell-id"><%= user.id %></td>
+                  <td class="cell-cpf"><%= user.cpf %></td>
+                  <td class="cell-email"><%= user.email %></td>
+                  <td class="cell-adm">
+                    <% if(user.adm === 0){ %>Usuário<% } %>
+                    <% if(user.adm === 2){ %>Mini Admin<% } %>
+                    <% if(user.adm === 1){ %>Admin<% } %>
+                  </td>
+                  <td class="cell-ativo"><%= user.ativo ? 'Sim' : 'Não' %></td>
 
-                  <label>
-                    <input type="checkbox" name="ativo" value="1" <%= user.ativo ? 'checked' : '' %>> Ativo
-                  </label>
+                  <td class="cell-actions">
+                    <!-- EDITAR (inline form) -->
+                    <form class="form-user-edit" action="/usuariosadm/editar/<%= user.id %>" method="POST" autocomplete="off">
+                      <div class="edit-row">
+                        <input class="input input-sm cpf-input" type="text" name="cpf" value="<%= user.cpf %>" required maxlength="14" aria-label="cpf-<%= user.id %>">
+                        <input class="input input-sm" type="email" name="email" value="<%= user.email %>" required maxlength="100" aria-label="email-<%= user.id %>">
+                        <input class="input input-sm" type="password" name="password" placeholder="Nova senha" maxlength="50" aria-label="senha-<%= user.id %>">
 
-                  <button type="submit">Salvar</button>
-                </form>
+                        <select class="select select-sm" name="adm" id="select-adm-<%= user.id %>">
+                          <option value="0" <%= user.adm === 0 ? 'selected' : '' %>>Usuário</option>
+                          <option value="2" <%= user.adm === 2 ? 'selected' : '' %>>Mini Admin</option>
+                          <option value="1" <%= user.adm === 1 ? 'selected' : '' %>>Admin</option>
+                        </select>
 
-                <!-- Deletar -->
-                <form action="/usuariosadm/deletar/<%= user.id %>" method="POST">
-                  <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
-                </form>
+                        <label class="form-label-inline">
+                          <input type="checkbox" name="ativo" value="1" <%= user.ativo ? 'checked' : '' %>> Ativo
+                        </label>
 
-              </td>
-            </tr>
-          <% }) %>
-        </tbody>
-      </table>
+                        <button type="submit" class="btn btn-secondary btn-sm">Salvar</button>
+                      </div>
+                    </form>
+
+                    <!-- DELETAR -->
+                    <form class="form-user-delete" action="/usuariosadm/deletar/<%= user.id %>" method="POST" style="margin-top:8px;">
+                      <button type="submit" class="btn btn-remove btn-sm">Excluir</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
 
+    <!-- SCRIPTS: máscara de CPF e confirmação de exclusão -->
     <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
     <script>
-      $('#cpf').mask('000.000.000-00', {reverse: true});
+      (function () {
+        // aplica máscara a todos os inputs com classe .cpf-input
+        document.addEventListener('DOMContentLoaded', function () {
+          if (window.jQuery && jQuery.fn.mask) {
+            jQuery('.cpf-input').mask('000.000.000-00', {reverse: true});
+          } else {
+            // fallback simples caso jQuery não carregue (não bloqueante)
+            console.warn('jQuery ou plugin de máscara não carregados — máscara de CPF não aplicada.');
+          }
+
+          // confirmar exclusão
+          document.querySelectorAll('.form-user-delete').forEach(form => {
+            form.addEventListener('submit', function (e) {
+              const confirmDelete = confirm('Tem certeza que deseja excluir este usuário?');
+              if (!confirmDelete) e.preventDefault();
+            });
+          });
+        });
+      })();
     </script>
   </body>
 </html>
