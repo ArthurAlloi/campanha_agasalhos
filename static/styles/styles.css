@@ -99,6 +99,10 @@ main h4{
   position: relative;
 }
 
+#index-logo{
+  width: 50%;
+}
+
 .article_doacoes_doar{
   background: var(--color-6);
   display: flex;
