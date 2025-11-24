@@ -24,7 +24,8 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--container-padding);
-  z-index: 9999;
+  z-index: 52;
+  width: 100%;
 }
 
 /* ===== ESPAÇO PARA HEADER ===== */

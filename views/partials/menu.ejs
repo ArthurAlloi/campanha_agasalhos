@@ -84,23 +84,6 @@
           <% if (!req.session.user) { %>
             <a id="btn-menu-login" href="/login">LOGIN</a>
             <a id="btn-menu-cadastro" href="/cadastro">CADASTRO</a>
-            <div id="header-right-talk-container" style="opacity: 1;">
-              <span id="header-right-talk-btn-arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                  height="16" fill="none" viewBox="0 0 16 16">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="1.5" d="M2.343 8h11.314m0 0-4.984 4.984M13.657 8 8.673 3.016">
-                  </path>
-                  </svg>
-              </span>
-
-              <span id="header-right-talk-btn-text">Let's talk</span>
-
-              <span id="header-right-talk-btn-dots">
-                  <span class="header-right-talk-btn-dot"></span>
-              </span>
-            </div>
-
           <% } else { %>
             <a id="btn-menu-logout" href="/logout">LOGOUT</a>
           <% } %>
