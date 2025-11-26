@@ -62,17 +62,6 @@ body{
   overflow-x: hidden;
 }
 
-#bg-video{
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.3);
-}
-
 main{
   position: relative;
   flex: 1;
@@ -160,3 +149,27 @@ main h4{
 }
 
 /* ========== RESPONSIVIDADE ========== */
+
+
+.back-button{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: start;
+  font-size: 1em;
+  margin: 60px;
+  z-index: 9999;
+}
+
+.back-button-logo{
+  background: #06141B;
+  padding: 1em;
+  border-radius: 60px;
+  transition: 0.4s;
+  opacity: 0.75;
+}
+
+.back-button-logo:hover{
+  background: #06141B;
+  opacity: 1;
+}

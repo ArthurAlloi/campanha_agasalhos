@@ -167,7 +167,7 @@
 }
 .table-campanhas tbody tr:hover {
   background: linear-gradient(90deg, rgba(242,183,5,0.03), rgba(255,122,162,0.02));
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
 
 /* status badges */
