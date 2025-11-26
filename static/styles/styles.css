@@ -88,6 +88,17 @@ main h4{
   position: relative;
 }
 
+#bg-video{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.3);
+}
+
 #index-logo{
   width: 50%;
 }
