@@ -22,10 +22,20 @@ header {
   height: var(--header-height);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 var(--container-padding);
   z-index: 52;
   width: 100%;
+}
+
+#header {
+  position: fixed;
+  left: 0;
+  z-index: 52;
+  width: 100%;
+  padding: 0 var(--container-padding);
+  padding: var(--base-padding-y) var(--base-padding-x);
+  font-size: clamp(1rem,1vw,1.5rem);
+  transition: color .25s;
 }
 
 /* ===== ESPAÇO PARA HEADER ===== */

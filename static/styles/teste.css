@@ -1,23 +1,3 @@
-/* HERO */
-#home {
-  background: linear-gradient(rgba(6, 20, 27, 0.8), rgba(6, 20, 27, 0.8)),
-    url("https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000")
-      center/cover;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  color: var(--color-accent);
-}
-
-.hero p {
-  margin: 1rem 0 2rem;
-  color: var(--color-6);
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin-inline: auto;
-}
-
 .btn {
   background: var(--color-accent);
   border: none;
@@ -27,31 +7,6 @@
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-  background: var(--color-5);
-  color: var(--color-2);
-  
-}
-
-/* SEÇÕES */
-section {
-  padding: 6rem 2rem;
-  text-align: center;
-  background: var(--color-2);
-  border-bottom: 1px solid var(--color-3);
-}
-
-section:nth-child(even) {
-  background: var(--color-3);
-}
-
-section h2 {
-  color: var(--color-accent);
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
 }
 
 /* CAMPANHAS */
@@ -83,7 +38,7 @@ section h2 {
   height: 400px;
   margin: 2rem auto;
   border-radius: 15px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 0 20px rgba(242, 183, 5, 0.3);
 }
 
@@ -92,6 +47,8 @@ section h2 {
   height: 100%;
   border: 0;
 }
+
+/*TESTE NOVO BOTAO*/
 
 #home-reel-cta {
     display: flex;
@@ -116,7 +73,7 @@ section h2 {
     color: #201f1f;
     box-shadow: 0 6px 10px #0000000a,0 2px 4px #0000000a;
     transition: background cubic-bezier(.35,0,0,1) .2s;
-    will-change: transform
+    will-change: transform;
 }
 
 @media (hover: hover) {
@@ -182,6 +139,4 @@ section h2 {
     height: 100%
 }
 
-
-/*TESTE NOVO*/
-
+/*TESTE TUDO NOVO*/

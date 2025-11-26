@@ -216,7 +216,7 @@ app.post("/login", (req, res) => {
     if (row.ativo === 0) return res.render("pages/login", { título: "Login", req, erro: "Usuário desativado!" });
 
     req.session.user = { id: row.id, cpf: row.cpf, adm: row.adm };
-    return row.adm === 1 ? res.redirect("/") : res.redirect("/doacoes_doaruser");
+    return row.adm === 1 ? res.redirect("/criarcampanha") : res.redirect("/realizardoacaocamp");
   });
 });
 
@@ -309,13 +309,6 @@ function apenasadm (req, res, next) {
 app.get("/criarcampanha", apenasadm, (req, res) => {
   res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: null, sucesso: null });
 });
-
-
-
-
-
-
-
 
 // ─────────────────────── Criar Campanhas ───────────────────────
 app.get("/criarcampanha", (req, res) =>
