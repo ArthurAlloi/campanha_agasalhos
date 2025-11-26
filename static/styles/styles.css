@@ -7,6 +7,11 @@
   scrollbar-color: #e70074 #272626;*/
 }
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 /*Scroll-bar*/
 ::-webkit-scrollbar {
   width: 4px;
@@ -22,20 +27,21 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a89004;
+  background: #a89004; /*DEFINIR CORES*/
 }
 
+/*PADRONIZAÇÃO DE CORES*/
 :root {
       --color-bg-dark: #06141B;
       --color-bg-medium: #11212D;
       --color-card: #253745;
       --color-text: #CCD0CF;
       --color-text-secondary: #9BA8AB;
-      --color-accent: #F2B705; /* amarelo solar */
-      --color-1: #06141B;
-      --color-2: #11212D;
-      --color-3: #253745;
-      --color-4: #4A5C6A;
+      --color-accent: #F2B705;
+      --color-1: #00171f;
+      --color-2: #003459;
+      --color-3: #7facbb;
+      --color-4: #f0f7f4;
       --color-5: #9BA8AB;
       --color-6: #CCD0CF;
 
@@ -43,44 +49,21 @@
   
 body{
   /*Dark Theme*/
-  background-color: #eff6e0;
   /*Light Theme*/
-
+  background: var(--color-1);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
 
   font-family: "Poppins", sans-serif;
-  background: var(--color-5);
+  /*background: linear-gradient(180deg, var(--color-6), var(--color-3));*/
   color: var(--color-6);
   overflow-x: hidden;
 }
 
-/* Fundo com a Imagem Do Canva "MINHOCA" */
-.fundo-personalizado{
-  background-image: url('/static/img/cody-chan-KXhg6oW1npQ-unsplash.jpg'); /* Substitua pelo caminho da sua imagem */
-  background-size: cover; /* Faz a imagem cobrir todo o elemento */
-  min-height: 100vh; /* Define a altura mínima para ocupar a tela inteira */
-  width: 100%; /* Faz o elemento ocupar toda a largura */
-  background-repeat: no-repeat; 
-  background-position: center; /* Centraliza a imagem */
-  color: white; 
-  padding: 20px; 
-}
-
-#bg-video{
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.3);
-}
-
 main{
+  position: relative;
   flex: 1;
   align-items: center;
   text-align: center;
@@ -97,6 +80,29 @@ main h4{
   padding: 10px;
 }
 
+.background-gradient {
+  background-image: url(/static/img/gradiente.webp);
+  background-position: top;
+  background-repeat: repeat-y;
+  background-size: contain;
+  position: relative;
+}
+
+#bg-video{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.3);
+}
+
+#index-logo{
+  width: 50%;
+}
+
 .article_doacoes_doar{
   background: var(--color-6);
   display: flex;
@@ -111,7 +117,7 @@ main h4{
 }
 
 .icones_doacoes_doar a:hover + h3 {
-  color: #ffee06;
+  color: #ffee06; /*DEFINIR CORES*/
   transition: 0.7s;
   font-size: 1.6rem;
 }
@@ -131,4 +137,50 @@ main h4{
   to {opacity: 1; transform: translateY(0);}
 }
 
+
+/*Página ERRO 404*/
+.container_fail_404{
+  display: flex;
+  justify-content: center;
+}
+
+.fail_404 h6{
+  font-size: 1.5rem;
+}
+
+.letra{
+  color: var(--color-accent);
+  font-size: 8rem;
+  letter-spacing: 20px;
+}
+
+.fail_404{
+  background: transparent;
+  border: 0;
+}
+
 /* ========== RESPONSIVIDADE ========== */
+
+
+.back-button{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: start;
+  font-size: 1em;
+  margin: 60px;
+  z-index: 9999;
+}
+
+.back-button-logo{
+  background: #06141B;
+  padding: 1em;
+  border-radius: 60px;
+  transition: 0.4s;
+  opacity: 0.75;
+}
+
+.back-button-logo:hover{
+  background: #06141B;
+  opacity: 1;
+}

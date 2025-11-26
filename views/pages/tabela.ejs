@@ -1,77 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <%- include("../partials/head"); %>
+
   <body>
     <%- include("../partials/menu"); %>
 
-    <main class="solu-main">
-      <h1>Campanhas</h1>
+    <main class="page-campanhas solu-main">
 
-      <table class="solu-table" id="tabela-campanhas" cellpadding="5" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Nome da Campanha</th>
-            <th>Data de Início</th>
-            <th>Data de Término</th>
-            <th>Status</th>
-            <th>Tempo Restante</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if (campanhas.length > 0) { %>
-            <% campanhas.forEach(c => { %>
-              <tr>
-                <td><%= c.nome %></td>
-                <td><%= c.data_inicio %></td>
-                <td><%= c.data_fim %></td>
-                <td><%= c.ativa ? 'Ativa' : 'Encerrada' %></td>
-                <td>
-                  <span class="timer" data-fim="<%= c.data_fim %>"></span>
-                </td>
-                <td>
-                  <form action="/campanhas/<%= c.id %>" method="GET" style="display:inline;">
-                    <button <%= c.ativa ? '' : 'disabled' %>>Ver mais</button>
-                  </form>
-
-                  <button onclick="window.location.href='/realizardoacaocamp?id_campanha=<%= c.id %>'" <%= c.ativa ? '' : 'disabled' %>>
-                    Doar
-                  </button>
-                </td>
-              </tr>
-            <% }) %>
-          <% } else { %>
-            <tr><td colspan="6">Nenhuma campanha cadastrada 😕</td></tr>
-          <% } %>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="table-campanhas" id="table-campanhas" cellpadding="0" cellspacing="0" role="table">
+          <div class="page-header">
+            <h1 class="page-title">Campanhas</h1>
+          </div>
+          
+          <thead>
+            <tr>
+              <th scope="col">Nome da Campanha</th>
+              <th scope="col">Data de Início</th>
+              <th scope="col">Data de Término</th>
+              <th scope="col">Status</th>
+              <th scope="col">Tempo Restante</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (campanhas.length > 0) { %>
+              <% campanhas.forEach(c => { %>
+                <tr class="campanha-row <%= c.ativa ? 'campanha-ativa' : 'campanha-encerrada' %>">
+                  <td class="cell-name"><%= c.nome %></td>
+                  <td class="cell-start"><%= c.data_inicio %></td>
+                  <td class="cell-end"><%= c.data_fim %></td>
+                  <td class="cell-status">
+                    <span class="campanha-status <%= c.ativa ? 'status-ativa' : 'status-encerrada' %>">
+                      <%= c.ativa ? 'Ativa' : 'Encerrada' %>
+                    </span>
+                  </td>
+                  <td class="cell-timer">
+                    <span class="campanha-timer" data-fim="<%= c.data_fim %>"></span>
+                  </td>
+                  <td class="cell-actions">
+                    <form action="/campanhas/<%= c.id %>" method="GET" class="action-form">
+                      <button class="btn btn-primary btn-view" <%= c.ativa ? '' : 'disabled' %>>Ver mais</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr><td colspan="6" class="empty">Nenhuma campanha cadastrada 😕</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
     </main>
 
     <script>
-      // Timer dinâmico para cada campanha
-      const timers = document.querySelectorAll('.timer');
+      (function () {
+        const timers = document.querySelectorAll('.campanha-timer');
 
-      function atualizarTimers() {
-        const agora = new Date();
-        timers.forEach(timerEl => {
-          const fim = new Date(timerEl.dataset.fim);
-          let diff = fim - agora;
+        function atualizarTimers() {
+          const agora = new Date();
+          timers.forEach(timerEl => {
+            const fim = new Date(timerEl.dataset.fim);
+            let diff = fim - agora;
 
-          if (diff <= 0) {
-            timerEl.innerText = "0d 0h 0m";
-            return;
-          }
+            if (isNaN(fim) || diff <= 0) {
+              timerEl.textContent = '0d 0h 0m';
+              return;
+            }
 
-          const dias = Math.floor(diff / (1000*60*60*24));
-          const horas = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-          const minutos = Math.floor((diff % (1000*60*60)) / (1000*60));
+            const dias = Math.floor(diff / (1000*60*60*24));
+            const horas = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+            const minutos = Math.floor((diff % (1000*60*60)) / (1000*60));
 
-          timerEl.innerText = `${dias}d ${horas}h ${minutos}m`;
-        });
-      }
+            timerEl.textContent = `${dias}d ${horas}h ${minutos}m`;
+          });
+        }
 
-      atualizarTimers();
-      setInterval(atualizarTimers, 60000); // atualiza a cada minuto
+        atualizarTimers();
+        setInterval(atualizarTimers, 60000);
+      })();
     </script>
   </body>
 </html>

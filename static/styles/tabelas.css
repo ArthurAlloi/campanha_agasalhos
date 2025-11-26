@@ -1,70 +1,196 @@
-.tabela-container{
-    width: 85%;
-    margin: 100px auto;
-    margin-bottom: 60px;
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #076164;
+:root{
+  --bg-100: #06141B;
+  --bg-200: #0d2630;
+  --card: linear-gradient(180deg, rgba(37,55,69,1) 0%, rgba(25,45,58,1) 100%);
+  --glass: rgba(255,255,255,0.03);
+
+  --accent: #F2B705;         /* amarelo vibrante */
+  --accent-2: #FF7AA2;       /* rosa suave */
+  --accent-3: #7FACBB;       /* teal claro */
+
+  --text-primary: #E6F0F2;
+  --text-secondary: #AAB9BB;
+  --muted: rgba(255,255,255,0.12);
+
+  --radius-lg: 14px;
+  --radius-md: 8px;
+  --shadow-soft: 0 8px 30px rgba(2,6,23,0.6);
+  --glass-border: 1px solid rgba(255,255,255,0.04);
+
+  --gap: 12px;
+  --transition: 200ms cubic-bezier(.2,.8,.2,1);
 }
 
-.tabela-container h1 {
-    text-align: center;
-    color: #78fecf;
-    text-shadow: 0 0 10px #00d0ff;
-    font-size: 3rem;
-    margin-bottom: 25px;
+/*   CONTAINER PRINCIPAL */
+.solu-main, .page-campanha, .page-campanhas, .page-doacao-registrar {
+  max-width: 1100px;
+  margin: 34px auto;
+  padding: 28px;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: var(--glass-border);
 }
 
-.tabela-doacoes{
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
+/*   CABEÇALHOS / TIPOGRAFIA */
+.page-header { 
+  margin-bottom: 18px; 
+  display:flex; 
+  align-items:center; 
+  justify-content: center; 
+  gap: 12px; 
+}
+.page-title { 
+  font-size: 1.9rem; 
+  color: var(--accent); 
+  margin: 0; 
+  letter-spacing: -0.02em; 
+}
+.page-lead { 
+  color: var(--text-secondary); 
+  margin: 0; 
 }
 
-.tabela-doacoes th,
-.tabela-doacoes td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #444;
+/*   ALERTS */
+.alert { 
+   padding: 10px 14px;
+   border-radius: 8px;
+   margin: 12px 0;
+   font-weight:600;
+ }
+.alert-success {
+   background: rgba(0,255,150,0.08);
+   color: #7fffcc;
+   border: 1px solid rgba(0,255,150,0.12);
+ }
+.alert-error { 
+   background: rgba(255,80,80,0.06);
+   color: #ffb3b3;
+   border: 1px solid rgba(255,80,80,0.12);
+ }
+
+/*   FORMULÁRIOS - PADRÃO */
+.form-campanha {
+   display: flex;
+   flex-direction: column;
+   gap: var(--gap);
+ }
+ 
+.form-label { 
+   color: var(--text-secondary);
+   font-weight:600;
+   margin-bottom:6px;
+   display:block;
+   font-size:0.95rem;
+ }
+.input, .select, .textarea {
+  background: rgba(255,255,255,0.02);
+  color: var(--text-primary);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+  font-size: 0.95rem;
+}
+.input:focus, .select:focus, .textarea:focus {
+  outline: none;
+  box-shadow: 0 6px 20px rgba(242,183,5,0.12);
+  border-color: rgba(242,183,5,0.9);
+  transform: translateY(-1px);
 }
 
-.tabela-doacoes th {
-    background-color: #2a2a2a;
-    color: #00d0ff;
-    font-weight: bold;
+/* layout de colunas simples */
+.form-row { display:flex; gap: var(--gap); align-items:flex-end; }
+.form-col { flex: 1; min-width: 180px; }
+
+/* separador estilizado */
+.sep { border: none; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(242,183,5,0.06)); margin: 12px 0; }
+
+/* subheading */
+.subheading { margin: 6px 0 6px; color: var(--accent-3); font-weight:700; }
+
+/*   ITENS (mini-table) - criação de campanha */
+.items-container { display:flex; flex-direction:column; gap:10px; padding:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); border-radius:10px; border: 1px solid rgba(255,255,255,0.03); }
+.item-row { display:flex; gap:10px; align-items:center; padding:8px; border-radius:8px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); transition: transform var(--transition), box-shadow var(--transition); }
+.item-row:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(2,6,23,0.45); }
+.item-input { min-width: 120px; }
+
+/*   BOTOES PADRÃO */
+.btn { border: none; cursor: pointer; border-radius: 10px; padding: 10px 14px; font-weight:700; letter-spacing: 0.2px; transition: transform var(--transition), box-shadow var(--transition); }
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #07121A;
+  box-shadow: 0 8px 22px rgba(242,183,5,0.14);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,122,162,0.16); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(242,183,5,0.15);
+}
+.btn-secondary:hover { background: rgba(242,183,5,0.06); }
+
+/* botão de remover (pequeno e chamativo) */
+.btn-remove { background: linear-gradient(90deg,#ff6b6b,#ff3b3b); color: #fff; padding: 6px 10px; border-radius: 8px; font-weight:700; }
+
+/*   GRID DE AÇÕES (DOAÇÕES) */
+.actions-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:18px; margin-top: 14px; }
+.action-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); padding: 18px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; border: 1px solid rgba(255,255,255,0.03); transition: transform var(--transition), box-shadow var(--transition); }
+.action-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(122, 200, 230, 0.06); }
+.action-img { width: 100%; max-width: 160px; height: auto; border-radius:8px; object-fit:cover; }
+.action-title { color: var(--text-primary); margin: 0; font-size:1rem; }
+
+/*   TABELA - LISTAGEM DE CAMPANHAS */
+.table-wrap { overflow-x: auto; margin-top: 14px; border-radius: 12px; }
+.table-campanhas { width: 100%; border-collapse: collapse; min-width: 780px; background: transparent; }
+.table-campanhas th, .table-campanhas td {
+  padding: 14px 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+.table-campanhas thead th {
+  position: sticky; top: 0;
+  background: linear-gradient(90deg, rgba(2,18,26,0.95), rgba(10,30,40,0.95));
+  color: var(--accent);
+  font-weight:700;
+  letter-spacing:0.6px;
 }
 
-.tabela-doacoes tr:nth-child(even) {
-    background-color: #2e2e2e;
+.table-campanhas tbody tr {
+  transition: background var(--transition), transform var(--transition);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+}
+.table-campanhas tbody tr:hover {
+  background: linear-gradient(90deg, rgba(242,183,5,0.03), rgba(255,122,162,0.02));
+  transform: translateY(-2px);
 }
 
-.tabela-doacoes tr:nth-child(odd) {
-    background-color: #1c1c1c;
+/* status badges */
+.campanha-status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight:700;
+  font-size:0.85rem;
+  display:inline-block;
 }
+.status-ativa { background: linear-gradient(90deg,#00ff99,#1fe0b2); color: #021217; border: none; }
+.status-encerrada { background: linear-gradient(90deg,#ff9b9b,#ff6b6b); color: #210909; }
 
-.tabela-doacoes td {
-    color: #f0f0f0;
-}
+/* linha com borda lateral sutil para identificação */
+.campanha-ativa td { border-left: 4px solid rgba(0,255,153,0.12); }
+.campanha-encerrada td { border-left: 4px solid rgba(255,100,100,0.12); }
 
-.paginacao{
-    margin-top: 10px;
-    text-align: center;
-    font-size: 18px;
-    color: #f4fdaf;
-    font-weight: bolder;
-}
+/* células especiais */
+.cell-name { text-align: left; padding-left: 18px; font-weight:700; color: var(--text-primary); }
+.cell-timer { font-weight:700; color: var(--text-secondary); }
 
-.paginacao-btn{
-    color: #09fcfc;
-    transition: 1s;
-}
+/* botão dentro da tabela */
+.cell-actions .btn { padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; }
 
-.paginacao-btn:hover{
-    text-decoration: underline;
-}
-
-#turma{
-    cursor: pointer;
-    margin-bottom: 20px;
-}
+/* vazio */
+.empty { text-align:center; padding: 28px; color: var(--text-secondary); }

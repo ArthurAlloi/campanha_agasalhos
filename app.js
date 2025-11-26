@@ -161,15 +161,17 @@ app.get("/campanhas/:id", (req, res) => {
           });
         });
 
-        res.render("pages/verCampanha", {
-          campanha: { id: idCampanha },
-          turmasDoacoes,
-          req
+       res.render("pages/verCampanha", {
+  título: `Campanha ${idCampanha}`,
+  campanha: { id: idCampanha },
+  turmasDoacoes,
+  req
+});
         });
       });
     });
   });
-});
+
 
 
 
@@ -214,26 +216,21 @@ app.post("/login", (req, res) => {
     if (row.ativo === 0) return res.render("pages/login", { título: "Login", req, erro: "Usuário desativado!" });
 
     req.session.user = { id: row.id, cpf: row.cpf, adm: row.adm };
-    return row.adm === 1 ? res.redirect("/doacoes_doar") : res.redirect("/doacoes_doaruser");
+    return row.adm === 1 ? res.redirect("/") : res.redirect("/doacoes_doaruser");
   });
 });
 
 // ─────────────────────── Logout ───────────────────────
 app.get("/logout", (req, res) => req.session.destroy(() => res.redirect("/")));
 
-// ─────────────────────── Dashboard ───────────────────────
-app.get("/dashboard", (req, res) => {
-  if (!req.session.user) return res.redirect("/login");
-  res.render("pages/dashboard", { título: "Dashboard", req, user: req.session.user });
-});
 
 // ─────────────────────── CRUD Usuários ───────────────────────
-app.get("/usuariosadm", (req, res) => {
+app.get("/usuariosadm",apenasadm, (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   dbUsers.all("SELECT * FROM users", (err, users) => res.render("pages/usuariosadm", { título: "Usuários", req, users }));
 });
 
-app.post("/usuariosadm/criar", (req, res) => {
+app.post("/usuariosadm/criar",apenasadm, (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   const { cpf, email, password, adm, ativo } = req.body;
   dbUsers.run(
@@ -243,7 +240,7 @@ app.post("/usuariosadm/criar", (req, res) => {
   );
 });
 
-app.post("/usuariosadm/editar/:id", (req, res) => {
+app.post("/usuariosadm/editar/:id",apenasadm, (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   const { cpf, email, password, adm, ativo } = req.body;
   dbUsers.run(
@@ -253,14 +250,10 @@ app.post("/usuariosadm/editar/:id", (req, res) => {
   );
 });
 
-app.post("/usuariosadm/deletar/:id", (req, res) => {
+app.post("/usuariosadm/deletar/:id",apenasadm, (req, res) => {
   if (!req.session.user || req.session.user.adm !== 1) return res.redirect("/login");
   dbUsers.run("DELETE FROM users WHERE id = ?", [req.params.id], () => res.redirect("/usuariosadm"));
 });
-
-// ─────────────────────── Páginas Doações ───────────────────────
-app.get("/doacoes_doar", (req, res) => res.render("pages/doacoes_doar", { título: "Doações", req, erro: null }));
-app.get("/doacoes_doaruser", (req, res) => res.render("pages/doacoes_doaruser", { título: "Doações Usuário", req, erro: null }));
 
 
 // ─────────────────────── realizar a doacao em alguma campanha ───────────────────────
@@ -278,7 +271,7 @@ app.get('/realizardoacaocamp', (req, res) => {
       dbCampanhas.all('SELECT * FROM itens', (err, roupas) => {
         if (err) return res.status(500).send('Erro ao carregar itens');
 
-        res.render('pages/realizardoacaocamp', { campanhas, turmas, roupas, idCampanhaSelecionada });
+        res.render('pages/realizardoacaocamp', { campanhas, turmas, roupas, idCampanhaSelecionada, título: "Realizar Doação", req, erro: null, sucesso: null});
       });
     });
   });
@@ -298,11 +291,31 @@ app.post('/realizardoacao', (req, res) => {
       [id_turma, id_roupa, quantidade, pontosTotais],
       err => {
         if (err) return res.status(500).send('Erro ao salvar doação');
-        res.redirect('/tabela'); // volta pra tabela de campanhas
+        res.redirect('/tabela'); 
       }
     );
   });
 });
+
+//________________________________função para apenas adm acessar a pagina___________________________
+function apenasadm (req, res, next) {
+  if (req.session.user && req.session.user.adm === 1) {
+    next();
+  } else {
+    res.redirect("/login"); 
+  }
+}
+
+app.get("/criarcampanha", apenasadm, (req, res) => {
+  res.render("pages/criarcampanha", { título: "Criar Campanha", req, erro: null, sucesso: null });
+});
+
+
+
+
+
+
+
 
 // ─────────────────────── Criar Campanhas ───────────────────────
 app.get("/criarcampanha", (req, res) =>

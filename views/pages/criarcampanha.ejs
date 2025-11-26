@@ -5,58 +5,87 @@
   <body>
     <%- include("../partials/menu"); %>
 
-    <main class="solu-main">
-      <h1 style="text-align: center;">Criar Nova Campanha</h1>
+    <main class="page-campanha">
 
       <% if (sucesso) { %>
-        <div style="color: green; text-align:center; margin-bottom:10px;"><%= sucesso %></div>
+        <div class="alert alert-success"><%= sucesso %></div>
       <% } %>
       <% if (erro) { %>
-        <div style="color: red; text-align:center; margin-bottom:10px;"><%= erro %></div>
+        <div class="alert alert-error"><%= erro %></div>
       <% } %>
 
-      <form action="/criarcampanha" method="POST" class="solu-form">
-        <label><b>Nome da Campanha:</b></label>
-        <input type="text" name="nome" required>
+      <form id="form-campanha" class="form-campanha" action="/criarcampanha" method="POST" novalidate>
+        <div class="page-header">
+          <h1 class="page-title">Criar Nova Campanha</h1>
+        </div>
+        
+        <label for="campanha-nome" class="form-label">Nome da Campanha</label>
+        <input id="campanha-nome" class="input" type="text" name="nome" required>
 
-        <label><b>Descrição:</b></label>
-        <textarea name="descricao" rows="3"></textarea>
+        <label for="campanha-descricao" class="form-label">Descrição</label>
+        <textarea id="campanha-descricao" class="input textarea" name="descricao" rows="3"></textarea>
 
-        <label><b>Data de Início:</b></label>
-        <input type="date" name="data_inicio" required>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="campanha-inicio" class="form-label">Data de Início</label>
+            <input id="campanha-inicio" class="input" type="date" name="data_inicio" required>
+          </div>
 
-        <label><b>Data de Término:</b></label>
-        <input type="date" name="data_fim" required>
-
-        <hr>
-        <h3>Itens da Campanha</h3>
-        <div id="itens-container">
-          <div class="item" style="display:flex; gap:10px; margin-bottom:5px;">
-            <input type="text" name="nome_item[]" placeholder="Nome do item" required>
-            <input type="number" name="pontos[]" placeholder="Pontos" required>
+          <div class="form-col">
+            <label for="campanha-fim" class="form-label">Data de Término</label>
+            <input id="campanha-fim" class="input" type="date" name="data_fim" required>
           </div>
         </div>
 
-        <button type="button" onclick="adicionarItem()">+ Adicionar Item</button>
-        <button type="submit">Criar Campanha</button>
+        <hr class="sep">
+
+        <h2 class="subheading">Itens da Campanha</h2>
+
+        <div id="campanha-items" class="items-container" aria-live="polite">
+          <div class="item-row">
+            <input class="input item-input" type="text" name="nome_item[]" placeholder="Nome do item" required>
+            <input class="input item-input" type="number" name="pontos[]" placeholder="Pontos" required>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="btn-add-item" class="btn btn-secondary">+ Adicionar Item</button>
+          <button type="submit" id="btn-submit-campanha" class="btn btn-primary">Criar Campanha</button>
+        </div>
       </form>
     </main>
 
     <script>
-      function adicionarItem() {
-        const container = document.getElementById('itens-container');
-        const novoItem = document.createElement('div');
-        novoItem.classList.add('item');
-        novoItem.style.display = "flex";
-        novoItem.style.gap = "10px";
-        novoItem.style.marginBottom = "5px";
-        novoItem.innerHTML = `
-          <input type="text" name="nome_item[]" placeholder="Nome do item" required>
-          <input type="number" name="pontos[]" placeholder="Pontos" required>
-          <button type="button" onclick="this.parentElement.remove()">Remover</button>
-        `;
-        container.appendChild(novoItem);
-      }
+      (function () {
+        const container = document.getElementById('campanha-items');
+        const btnAdd = document.getElementById('btn-add-item');
+
+        function criarItemRow() {
+          const row = document.createElement('div');
+          row.className = 'item-row';
+          row.innerHTML = `
+            <input class="input item-input" type="text" name="nome_item[]" placeholder="Nome do item" required>
+            <input class="input item-input" type="number" name="pontos[]" placeholder="Pontos" required>
+            <button type="button" class="btn btn-remove" aria-label="Remover item">Remover</button>
+          `;
+          // delega evento de remoção
+          row.querySelector('.btn-remove').addEventListener('click', () => row.remove());
+          return row;
+        }
+
+        btnAdd.addEventListener('click', () => {
+          container.appendChild(criarItemRow());
+          container.lastElementChild.querySelector('.item-input').focus();
+        });
+
+        // acessibilidade: permitir adicionar item com Enter quando foco estiver no último campo
+        container.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && e.target.matches('.item-input')) {
+            e.preventDefault();
+            btnAdd.click();
+          }
+        });
+      })();
     </script>
   </body>
 </html>
