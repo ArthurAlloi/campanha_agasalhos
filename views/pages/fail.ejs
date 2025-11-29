@@ -5,24 +5,20 @@
 
 <body>
 
+  <%- include("../partials/menu"); %>
+
   <video controls autoplay muted loop id="bg-video">
-    <source src="https://media.tenor.com/NeFb4g41aUgAAAPo/playstation-playstation2.mp4" type="video/mp4"> 
+    <source src="https://cdn.pixabay.com/video/2025/06/03/283533_medium.mp4" type="video/mp4"> 
     Seu navegador não suporta vídeo.
   </video>
-  
 
-    <%- include("../partials/menu"); %>
-
-    <main class="content">
+    <main class="container_fail_404">
     
-        <section class="sobre">
-          <h6>HTTP ERROR 404<span class="letra"> - </span>PAGE NOT FOUND</h6W>
-        </section>
-    
-        <article>
-            <img src="https://s3-cdn.cmlabs.co/page/2023/01/24/panduan-dan-cara-mengatasi-error-404-dengan-efektif-205111.png" id="img-f">
-        </article>
-        
+    <section class="fail_404">
+      <span class="letra">404</span>
+      <h6>A página que você tentou acessar não pode ser encontrada</h6>
+    </section>
+          
     </main>
 
 </body>

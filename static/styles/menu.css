@@ -1,148 +1,207 @@
-header{
+@charset "UTF-8";
+@import "https://use.typekit.net/zei5man.css";
+
+/* ===== VARIÁVEIS ===== */
+:root {
+  --header-height: 80px;
+  --container-padding: 30px;
+  --gutter: 20px;
+  --icon-size: 60px;
+  --primary-color: #FFD93D;
+  --text-color: #F2F5FA;
+  --hover-color: #fcd04d;
+  --transition-fast: 0.3s ease;
+}
+
+/* ===== HEADER ===== */
+header {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--container-padding);
+  z-index: 52;
   width: 100%;
-  height: 70px;
-  z-index: 1000;
-
-  background: rgba(0, 0, 0, 0.80); 
-  backdrop-filter: blur(10px); 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-  
-.navbar{
+
+#header {
+  position: fixed;
+  left: 0;
+  z-index: 52;
   width: 100%;
-  height: 100%;
+  padding: 0 var(--container-padding);
+  padding: var(--base-padding-y) var(--base-padding-x);
+  font-size: clamp(1rem,1vw,1.5rem);
+  transition: color .25s;
+}
+
+/* ===== ESPAÇO PARA HEADER ===== */
+#header-space {
+  height: var(--header-height);
+}
+
+/* ===== CONTAINER ===== */
+.components-menu {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--gutter);
+}
+
+/* ===== LOGO ===== */
+.logo-sol {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  cursor: pointer;
+  transition: transform 0.5s ease;
 }
 
-/* Container principal */
-.components-menu{
+#logoimg {
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  height: 100%;
+  filter: drop-shadow(0 0 10px rgba(255, 212, 92, 0.5));
+  transition: transform 0.7s ease;
+}
+
+#logoimg:hover {
+  transform: scale(1.6) rotate(270deg);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  flex: 1;
+  gap: 40px; /* aumenta o espaçamento entre logo, links e lado direito */
+  padding: 0;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px;
+  border-radius: 10px;
 }
 
-/* Logo com Título */
-.components-menu-logo{
+/* ===== LINKS CENTRAIS ===== */
+.components-menu-center {
+  list-style: none;
   display: flex;
-  align-items: center;
+  gap: 35px; /* aumenta o espaçamento entre os links */
 }
 
-#logoimg{
-  height: 60px;
-  width: auto;
-}
-
-.titulo-container{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.tit{
-  font-size: 2.3rem;
-  font-weight: bold;
-  letter-spacing: 5px;
-  background: linear-gradient(270deg, #f6427e, #ffcc00);
-  background-size: 800% 800%;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
-
-  animation: gradientFlow 5s ease infinite;
-}
-
-.nav-links li, a{
-  cursor: pointer;
+.nav-links a {
+  color: var(--text-color);
   text-decoration: none;
-  list-style: none;
-}
-/* LINKS CENTRAIS */
-.components-menu-center .nav-links{
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  list-style: none;
-}
-
-.nav-links li a{
-  font-size: 15px;
   font-weight: 500;
-  color: #d0d0d0ad;
-  text-decoration: none;
-  transition: 0.3s;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color var(--transition-fast);
 }
 
-.nav-links li a:hover{
-  color: #ffffff;
-  text-shadow: 0 0 4px #fff;
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 2px;
+  width: 0%;
+  background: var(--hover-color);
+  border-radius: 2px;
+  transition: width var(--transition-fast);
 }
 
-/* LOGIN/LOGOUT (direita) */
+.nav-links a:hover {
+  color: var(--hover-color);
+}
 
-.components-menu-right .login-links{
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ===== LADO DIREITO (LOGIN / CADASTRO / LOGOUT) ===== */
+.components-menu-right {
   display: flex;
   align-items: center;
-  gap: 15px;
-  list-style: none;
+  gap: 20px; /* aumenta espaço entre botões e menu toggle */
 }
 
-.components-menu-right a{
-  font-size: 12px;
-  font-weight: bold;
-  padding: 8px 16px;
-  color: #00fbff;
-  transition: 0.3s;
-}
-
-.components-menu-right a:hover{
+#btn-menu-login,
+#btn-menu-cadastro,
+#btn-menu-logout {
   color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
 }
 
-/* HAMBURGER */
-/* ARRUMAR EMMMM NÃO ESQUECEEEE*/
-.components-menu-toggle{
+#btn-menu-login {
+  border: 1px solid var(--hover-color);
+}
+
+#btn-menu-login:hover {
+  background: var(--hover-color);
+  color: #000;
+}
+
+#btn-menu-cadastro {
+  background: var(--hover-color);
+  color: #000;
+}
+
+#btn-menu-cadastro:hover {
+  scale: calc(0.95);
+  background: #ffde7c;
+}
+
+#btn-menu-logout {
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+}
+
+#btn-menu-logout:hover {
+  background: #ff6b6b;
+  color: #000;
+  scale: calc(0.95);
+}
+
+/* ===== BOTÃO MOBILE (HAMBÚRGUER) ===== */
+.components-menu-toggle {
   display: none;
   flex-direction: column;
   cursor: pointer;
-  gap: 5px;
+  gap: 6px;
 }
 
-.components-menu-toggle .bar{
-  width: 28px;
-  height: 3px;
+.bar {
+  width: 30px;
+  height: 4px;
   background: #fff;
   border-radius: 3px;
-  transition: 0.3s;
+  transition: all var(--transition-fast);
 }
 
-.titulo-container:hover #logoimg{
-  animation: gira 0.65s linear both;
+
+/* Espaço dinâmico para compensar o header fixo */
+#header-space {
+  height: 70px; /* mesma altura do header */
 }
 
-@keyframes gira{
-  0% {
-    transform: scale(1) rotateZ(0);
-  }
-  50% {
-    transform: scale(2) rotateZ(180deg);
-  }
-  100%{ 
-    transform: scale(1) rotateZ(360deg);
-  }
+/* Quando o header muda de tamanho (scroll, responsivo, etc.) */
+header.scrolled + #header-space {
+  height: 60px;
 }
 
-/* Animação do movimento do gradiente */
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Corrige o deslocamento ao clicar em âncoras (#sobre, #campanhas...) */
+section {
+  scroll-margin-top: 90px;
 }

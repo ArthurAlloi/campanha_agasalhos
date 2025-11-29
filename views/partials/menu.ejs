@@ -1,58 +1,107 @@
-<header>
-  <nav class="navbar"> 
-    <div class="components-menu">
+<header id="header">
+  <div class="components-menu">
       
-      <div class="components-menu-logo">
-        <a href="/">
-          <div class="titulo-container">
-            <img src="../static/Img/Logo_two.png" alt="Logo Da Campanha" id="logoimg" />
-            <div class="tit">SOL</div>
-          </div>
-        </a>
-      </div>
+    <!-- LOGO -->      
+    <a id="menu-logo-sol" href="/">
+      <div class="logo-sol">
+        <svg id="logoimg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradiente dourado do centro -->
+    <radialGradient id="sunCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF59D" />
+      <stop offset="60%" stop-color="#FFD54F" />
+      <stop offset="100%" stop-color="#F9A825" />
+    </radialGradient>
 
-      <div class="components-menu-center">
-        <ul class="nav-links">
-          <li><a href="/" value="Home">HOME</a></li>
-          <li><a href="/sobre" value="Sobre">SOBRE</a></li>
-          <li><a href="/localizacao" value="Localização">LOCALIZAÇÃO</a></li>
-          <li>
-            <a href="/doacoes_doaruser"
-              <% if (!req.session.user) { %>
-                value="Doações"
-              <% } else { %>
-                value="Doações/Doar"
-              <% } %>
-              >
-             CAMPANHAS
-              </a>
-          </li>
-          <% if (req.session.user && req.session.user.adm === 1) { %>
-            <li><a href="/usuariosadm" value="Usuários">USUÁRIOS</a></li>
-                 <li><a href="/doacoes_doar" value="Criar">CriarCampanha</a></li>
-          <% } %>
-        </ul>
-      </div>
+    <!-- Gradiente dos raios -->
+    <linearGradient id="sunRays" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD54F" />
+      <stop offset="100%" stop-color="#F57F17" />
+    </linearGradient>
+  </defs>
 
-      <div class="components-menu-right">
-        <ul class="login-links">
-          <% if (!req.session.user) { %>
-            <li><a href="/cadastro" value="Cadastro">CADASTRO</a></li>
-            <li><a href="/login" value="Login">LOGIN</a></li>
-        <% } else { %>
-          <li><a href="/logout" value="Logout">LOGOUT</a></li>
+  <!-- Círculo central -->
+  <circle cx="50" cy="50" r="22" fill="url(#sunCore)" />
+
+  <!-- Raios flamejantes revisados -->
+  <g fill="url(#sunRays)">
+    <g id="rays">
+      <!-- Raio principal curvo -->
+      <path d="M48 0 C30 30, 49 8, 50 5 Z" />
+    </g>
+
+    <!-- Duplicação com rotação -->
+    <use href="#rays" transform="rotate(0 50 50)" />
+    <use href="#rays" transform="rotate(22.5 50 50)" />
+    <use href="#rays" transform="rotate(45 50 50)" />
+    <use href="#rays" transform="rotate(67.5 50 50)" />
+    <use href="#rays" transform="rotate(90 50 50)" />
+    <use href="#rays" transform="rotate(112.5 50 50)" />
+    <use href="#rays" transform="rotate(135 50 50)" />
+    <use href="#rays" transform="rotate(157.5 50 50)" />
+    <use href="#rays" transform="rotate(180 50 50)" />
+    <use href="#rays" transform="rotate(202.5 50 50)" />
+    <use href="#rays" transform="rotate(225 50 50)" />
+    <use href="#rays" transform="rotate(247.5 50 50)" />
+    <use href="#rays" transform="rotate(270 50 50)" />
+    <use href="#rays" transform="rotate(292.5 50 50)" />
+    <use href="#rays" transform="rotate(315 50 50)" />
+    <use href="#rays" transform="rotate(337.5 50 50)" />
+  </g>
+</svg>
+
+
+        <!--<img src="../static/Img/Logo_two.png" alt="Logo da Campanha" id="logoimg" />-->
+      </div>
+    </a>
+
+    <nav class="navbar">
+
+      <!-- LINKS Iniciais -->
+      <ul class="components-menu-center">
+        <li class="nav-links"><a href="/">HOME</a></li>
+        <li class="nav-links"><a href="#campanhas">SOBRE</a></li>
+        <li class="nav-links"><a href="#">FAQ</a></li>
+        
+        <!-- CAMPANHAS PARA TODOS -->
+        <li class="nav-links"><a href="/tabela">CAMPANHAS</a></li>
+
+        <!-- LINKS EXCLUSIVOS PARA ADMIN -->
+        <% if (req.session.user && req.session.user.adm === 1) { %>
+          <li class="nav-links"><a href="/criarcampanha">CRIAR CAMPANHAS</a></li>
+          <li class="nav-links"><a href="/usuariosadm">USUÁRIOS</a></li>
+          <li class="nav-links"><a href="/realizardoacaocamp">DOAR</a></li>
         <% } %>
-        </ul>
+
+        <!-- LINKS PARA MINI ADMIN -->
+        <% if (req.session.user && req.session.user.adm === 2) { %>
+          <li class="nav-links"><a href="/realizardoacaocamp">REALIZAR DOAÇÃO</a></li>
+        <% } %>
+      </ul>
+
+      <!-- LOGIN / LOGOUT -->
+      <div class="components-menu-right">
+          <% if (!req.session.user) { %>
+            <a id="btn-menu-login" href="/login">LOGIN</a>
+            <a id="btn-menu-cadastro" href="/cadastro">CADASTRO</a>
+
+          <% } else { %>
+            <a id="btn-menu-logout" href="/logout">LOGOUT</a>
+          <% } %>
+      
+        <!-- BOTÃO MOBILE -->
+        <div class="components-menu-toggle" onclick="toggleMenu()">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+
       </div>
 
+    </nav>
 
-      <!-- Botão do menu hamburguer (mobile) -->
-      <div class="components-menu-toggle" onclick="toggleMenu()">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </div>
-
-    </div>   
-  </nav>
+  </div>   
 </header>
+
+<!-- Espaço automático que impede sobreposição -->
+<div id="header-space"></div>

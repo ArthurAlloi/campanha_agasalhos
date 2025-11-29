@@ -3,29 +3,87 @@
 
 <%- include("../partials/head"); %>
 
-<body>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-  <%- include("../partials/menu"); %>
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    overflow:hidden;
+    width: 100%;
+}
+
+</style>
+
+<div class="sol-loader" style="opacity: 0; visibility: hidden;">
+    <div class="sol-loader-box" style="opacity: 0; visibility: hidden;">
+      <img src="https://www.fiap.com.br/wp-content/themes/fiap2016/images/loader.gif" class="sol-loader-image">
+
+        <div class="sol-loader-text">100%</div>
+
+        <svg class="sol-loader-svg" viewBox="0 0 268 268" style="transform: translate3d(0px, 0px, 0px) rotate(75.24deg);">
+            <path class="sol-loader-path" fill="none" stroke-width="2" d="M267,134c0,73.5-59.5,133-133,133S1,207.5,1,134 S60.5,1,134,1S267,60.5,267,134z" style="stroke-dasharray: 835.861, 835.861; stroke-dashoffset: 0;"></path>
+        </svg>
+    </div>
+</div>
+
+<body id="page-sollogin-index">
+
+  <div id="vanta"></div>
 
   <main>
 
-    <div class="caixa-login" id="caixa-login">
+    <div class="back-button">
+    <a href="/">
+      <div class="back-button-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        fill="none" viewBox="0 0 24 24" style="display: inline-block; position: relative;">
+            <path fill="#fff" fill-rule="evenodd"
+            d="M12 22a1 1 0 0 1-1-1V5.857l-6.223 6.224a1 1 0 0 1-1.415-1.415l7.9-7.9a1 1 0 0 1 1.414 0v.001l7.9 7.9a1 1 0 0 1-1.414 1.414L13 5.919V21a1 1 0 0 1-1 1Z"
+            clip-rule="evenodd">
+            </path>
+        </svg>
+      </div>
+    </a>
+  </div>
 
-      <img src="/static/img/Log.jpg" alt="Usuário" class="avatar" /><!--COLOCAR A LOGO DO SITE EMM
-      NÃO PODE ESQUECER-->
+    <div class="login-box">
+      <form id="login" action="/login" method="POST" class="form-cadastro">
+
+      <div class="login-logo-sol">
+
+        <svg xmlns="https://svgcollections.com/wp-content/uploads/2024/07/abstract_bear_design_Ctpw6.png" viewBox="0 0 141.8 20.6">
+            <path fill="#254441"
+                d="M21.8,0.1h1.5v20.5h-1.5V0.1z M5.7,11.3h7.4V9.9H5.7V11.3z M0,0.1v20.5h1.5v-9.3h0V9.9h0V1.5h15.8V0.1H0z M69.1,0.1H57v20.5h1.5v-7.6h0v-1.4h0v-10H69c3.7,0,6.2,1.7,6.2,4.9v0.1c0,3-2.6,5-6.4,5H64v1.4h4.7c4.3,0,8-2.2,8-6.5V6.3 C76.7,2.4,73.6,0.1,69.1,0.1 M46.4,11.5l-6.1-9.9l-11.8,19h-1.6L39.6,0H41l7.1,11.5H46.4z M53.8,20.6h-1.7l-3.3-5.3h1.7L53.8,20.6z M112.6,18H86.3V2.2h26.2c-3.6,1-6,4.1-6,7.9v0C106.4,13.9,108.9,17.1,112.6,18 M114.9,15c-2.8,0-4.8-2.3-4.8-5v0 c0-2.7,1.9-4.9,4.8-4.9s4.8,2.3,4.8,5v0C119.6,12.8,117.7,15,114.9,15 M117.3,2.2h8V18H117c3.7-0.9,6.2-4.1,6.2-7.9v0 C123.3,6.3,120.9,3.2,117.3,2.2 M136.1,11.9l-7.4-9.7h7.4V11.9z M128.8,7.9l7.7,10.1h-7.7V7.9z M141.8,18h-2.3V2.2h2.3V18z">
+            </path>
+        </svg>
+
+      </div>
+
+        <div class="login-columns">
+                
+          <div class="login-column">
+              <label for="username" class="login-label">Usuário</label>
+              <input type="text" id="cpf" name="cpf" class="input-form-login" required maxlength="11" />
+          </div>
+
+          <div class="login-column">
+              <label for="password" class="login-label">Senha</label>
+              <input type="password" id="password" name="password" class="input-form-login" required />
+              <span toggle="#password" class="fa fa-fw fa-eye toggle-password"></span>
+          </div>
       
-      <h2>LOGIN</h2>
+      </div>
 
-      <form action="/login" method="POST">
-
-        <!--<label for="username">Nome</label>-->
-        <input type="text" id="cpf" name="cpf" placeholder="CPF" class="input-form-login" required maxlength="11" />
-
-        <!--<label for="password">Senha</label-->
-        <input type="password" id="password" name="password" placeholder="Senha" class="input-form-login" required />
-
-        <div>
-          <button type="submit" class="">Entrar</button>
+        <div class="login-footer">
+          <input type="submit" id="login-btn" class="login-btn" value="Conectar">
         </div>
 
         <div class="login-link-Cadastro">
@@ -34,21 +92,34 @@
         
       </form>
 
-      <% if (erro) { %>
-        <p class="error" style="color: red; margin-top: 10px;"><%= erro %></p>
-      <% } %>
+      <div>
+        <% if (erro) { %>
+          <p class="error" style="color: red; margin-top: 10px;"><%= erro %> </p>
+        <% } %>
+      </div>
 
     </div>
 
   </main>
-  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.clouds.min.js"></script>
+  <script>
+    VANTA.CLOUDS({
+      el: "#vanta",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      speed: 2
+    })
+  </script>
 
   <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script> $('#cpf').mask('000.000.000-00', {reverse: true});</script>
-
-  <%- include("../partials/footer"); %>
+  <script> $('#cpf').mask('000.000.000-00', {reverse: true});</script>
 
 </body>
 
