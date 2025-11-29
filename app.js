@@ -11,6 +11,7 @@ const PORT = 8000;
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'banguela', resave: false, saveUninitialized: true }));
 app.use("/static", express.static(path.join(__dirname, "static")));
+app.use(express.static(path.join(__dirname, "public"))); 
 app.set('view engine', 'ejs');
 
 // ─────────────────────── Banco de Usuários ───────────────────────
