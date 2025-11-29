@@ -46,7 +46,7 @@
 
           <div class="form-col">
             <label for="input-quantidade" class="form-label">Quantidade</label>
-            <input id="input-quantidade" class="input" type="number" name="quantidade" min="1" required>
+            <input id="input-quantidade" class="input" type="number" name="quantidade" min="1" max="100" required>
           </div>
         </div>
 
@@ -55,5 +55,17 @@
         </div>
       </form>
     </main>
+
+    <script>
+      const inputQuantidade = document.getElementById('input-quantidade');
+
+      inputQuantidade.addEventListener('input', () => {
+        if (Number(inputQuantidade.value) > 100) {
+          inputQuantidade.value = 100;
+        } else if (Number(inputQuantidade.value) < 1) {
+          inputQuantidade.value = 1;
+        }
+      });
+    </script>
   </body>
 </html>
