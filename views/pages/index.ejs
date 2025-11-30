@@ -4,181 +4,217 @@
 <%- include("../partials/head"); %>
 
   <style>
-    :root {
-      --color-error: #e90000;
-      --color-off-white: #f0f1fa;
-      --color-white: #fff;
-      --color-dark-white: #e4e6ef;
-      --color-off-white-semi: rgba(240, 241, 250, .7);
-      --color-black: #000000;
-      --color-green: #c1ff00;
-      --color-blue: #2b40f8;
-      --color-red: #ff4c41;
-      --color-grey-blue: #2b2e3a;
-      --color-dark-blue: #1e31dd;
-      --color-purple: #8832f7;
-      --color-project-details-logo-color: #f0f;
-      --grid-space: calc((100% - 11 * var(--grid-gap)) / 12);
-      --grid-gap: 2vw;
-      --global-border-radius: 20px;
-      --base-padding-x: max(5vw, 40px);
-      --base-padding-y: clamp(30px, 4vw, 50px);
-      --header-color: #1e31dd7b;
-      --header-text-color: #000000;
-      --project-details-bg: #000;
-      --project-details-highlight: #000;
-      --project-details-btn-bg: #000;
-      --project-details-btn-text: #000;
-      --project-details-icon-bg: #000;
-      --project-details-icon-color: #000;
-      --project-details-text: #000;
-      --project-details-btn-bg-hover: #000;
-      --project-details-btn-text-hover: #fff;
-      --header-size: clamp(1rem, 1vw, 2rem);
-      --cross-size: clamp(.875rem, 1vw, 2rem)
-    }
+  /* Variáveis e Configurações Globais (Mantidas) */
+  :root {
+    --color-error: #e90000;
+    --color-off-white: #f0f1fa;
+    --color-white: #fff;
+    --color-dark-white: #e4e6ef;
+    --color-off-white-semi: rgba(240, 241, 250, .7);
+    --color-black: #000000;
+    --color-green: #c1ff00;
+    --color-blue: #2b40f8;
+    --color-red: #ff4c41;
+    --color-grey-blue: #2b2e3a;
+    --color-dark-blue: #1e31dd;
+    --color-purple: #8832f7;
+    --color-project-details-logo-color: #f0f;
+    --grid-space: calc((100% - 11 * var(--grid-gap)) / 12);
+    --grid-gap: 2vw;
+    --global-border-radius: 20px;
+    --base-padding-x: max(5vw, 40px);
+    --base-padding-y: clamp(30px, 4vw, 50px);
+    --header-color: #1e31dd7b;
+    --header-text-color: #000000;
+    --project-details-bg: #000;
+    --project-details-highlight: #000;
+    --project-details-btn-bg: #000;
+    --project-details-btn-text: #000;
+    --project-details-icon-bg: #000;
+    --project-details-icon-color: #000;
+    --project-details-text: #000;
+    --project-details-btn-bg-hover: #000;
+    --project-details-btn-text-hover: #fff;
+    --header-size: clamp(1rem, 1vw, 2rem);
+    --cross-size: clamp(.875rem, 1vw, 2rem)
+  }
 
-    /* GLOBAL BODY */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: var(--color-blue);
-      color: var(--color-white);
-      box-sizing: border-box;
-    }
+  /* Reset Básico e Layout */
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
 
-    /* PAGE CONTAINER */
-    #page-container {
-      padding-left: var(--base-padding-x);
-      padding-right: var(--base-padding-x);
-      padding-top: var(--base-padding-y);
-      padding-bottom: var(--base-padding-y);
-    }
+  #page-container {
+    margin: 0;
+    padding: 0;
+  }
 
-    /* HEADER */
-    header {
-      padding-left: var(--base-padding-x);
-      padding-right: var(--base-padding-x);
-      padding-top: var(--base-padding-y);
-      padding-bottom: var(--base-padding-y);
-      background-color: var(--header-color);
-      color: var(--header-text-color);
-    }
+  .section {
+    margin: 0 auto;
+    padding: var(--base-padding-y) var(--base-padding-x); /* Uso de variáveis para padding base */
+    max-width: 1200px;
+  }
 
-    /* HOME HERO */
-    #home-hero {
-      margin-top: var(--base-padding-y);
-    }
+  /* Estilos Comuns das Novas Seções (Agrupamento e Otimização) */
+  #campanhas, #localizacao, #doacao {
+    padding-block: clamp(40px, 8vw, 80px); /* Padding vertical responsivo */
+    padding-inline: var(--base-padding-x);
+    margin: 0 auto;
+    max-width: 1200px;
+  }
 
-    #home-hero-title {
-      margin-left: 0;
-      margin-right: 0;
-      max-width: 100%;
-    }
+  #campanhas h2, #localizacao h2, #doacao h2 {
+    text-align: center;
+    margin-block-end: 30px; /* Uso de margin-block-end */
+    font-size: 2rem;
+    color: var(--color-dark-blue);
+  }
 
-    #home-hero-title .line {
-      margin-bottom: 0.5em;
-    }
+  /* Estilos de Campanhas */
+  .campanhas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-block: 30px;
+    list-style: none; /* Adicionado para a lista não ter marcadores */
+    padding: 0; /* Remove padding padrão do ul */
+  }
 
-    /* HOME REEL */
-    #home-reel {
-      margin-top: var(--base-padding-y);
-    }
+  .card {
+    background: var(--color-white);
+    border-radius: var(--global-border-radius);
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid var(--color-dark-white);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-    #home-reel-title,
-    #home-reel-desc {
-      margin-left: 0;
-      margin-right: 0;
-      max-width: 100%;
-    }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
 
-    /* CTA BUTTON HOME REEL */
-    #home-reel-cta {
-      display: inline-flex;
-      align-items: center;
-      margin-top: 1.5em;
-      padding: 0.75em 1.5em;
-      border-radius: var(--global-border-radius);
-      background-color: var(--color-dark-blue);
-      color: var(--color-white);
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
+  .card h3 {
+    color: var(--color-dark-blue);
+    margin-block-end: 15px;
+    font-size: 1.3rem;
+  }
 
-    #home-reel-cta:hover {
-      background-color: var(--color-blue);
-    }
+  .card p {
+    color: var(--color-grey-blue);
+    line-height: 1.6;
+  }
 
-    /* CAMPANHAS */
-    #campanhas {
-      margin-top: var(--base-padding-y);
-      margin-left: var(--base-padding-x);
-      margin-right: var(--base-padding-x);
-    }
+  /* Estilos de Localização (Mapa) */
+  .map-container {
+    margin-block: 30px;
+    border-radius: var(--global-border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
 
-    #campanhas .campanhas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2vw;
-    }
+  .map-container iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+    display: block; /* Garante que o iframe ocupe todo o espaço */
+  }
 
-    #campanhas .card {
-      background-color: var(--color-dark-blue);
-      padding: var(--base-padding-y);
-      border-radius: var(--global-border-radius);
-      flex: 1 1 calc(33% - 2vw);
-      min-width: 250px;
-    }
+  /* Botão Padrão */
+  .btn {
+    background: var(--color-blue);
+    color: var(--color-white);
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: 2px solid var(--color-blue);
+    /* margin-top: 20px; Removido para ser aplicado no elemento específico */
+  }
 
-    /* LOCALIZAÇÃO */
-    #localizacao {
-      margin-top: var(--base-padding-y);
-      margin-left: var(--base-padding-x);
-      margin-right: var(--base-padding-x);
-    }
+  .btn:hover {
+    background: var(--color-dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(43, 64, 248, 0.3);
+  }
 
-    #localizacao .map-container {
-      margin-top: 1em;
-      border-radius: var(--global-border-radius);
-      overflow: hidden;
-    }
+  /* Animação */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards paused; /* Adicionado 'paused' */
+  }
 
-    /* DOAÇÃO */
-    #doacao {
-      margin-top: var(--base-padding-y);
-      margin-left: var(--base-padding-x);
-      margin-right: var(--base-padding-x);
-      text-align: center;
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
 
-    #doacao .btn {
-      padding: 0.75em 1.5em;
-      border-radius: var(--global-border-radius);
-      background-color: var(--color-green);
-      color: var(--color-black);
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
+ 
 
-    #doacao .btn:hover {
-      background-color: var(--color-blue);
-      color: var(--color-white);
-    }
+  /* Correção HOME HERO */
+  #home-hero {
+    padding: 80px var(--base-padding-x);
+    text-align: center;
+  }
 
-    /* FOOTER */
-    footer {
-      width: 100%;
-      padding-top: var(--base-padding-y);
-      padding-bottom: var(--base-padding-y);
-      background-color: var(--color-dark-blue);
-      color: var(--color-white);
-      text-align: center;
-      box-sizing: border-box;
-    }
-  </style>
+  #home-hero-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    margin-block-end: 40px;
+    color: var(--color-dark-blue);
+  }
+
+  /* Correção HOME REEL */
+  #home-reel {
+    background: var(--color-off-white);
+    border-radius: var(--global-border-radius);
+    margin-block: 40px;
+    padding: 40px; /* Adicionado padding interno */
+  }
+  
+  #home-reel-title {
+    margin-block-end: 15px;
+    font-size: 1.2rem;
+    color: var(--color-dark-blue);
+  }
+
+  #home-reel-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-block-start: 30px;
+    text-decoration: none;
+    color: var(--color-blue);
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  #home-reel-cta:hover {
+    color: var(--color-dark-blue);
+  }
+
+  /* Botões específicos */
+  .card .btn {
+      margin-block-start: 15px;
+  }
+  
+  #doacao .btn {
+      margin-block-start: 20px;
+  }
+  
+  /* Estilo do link de login na seção Doação */
+  #doacao p:last-child {
+      margin-block-start: 15px;
+  }
+
+</style>
 
   <body>
 
@@ -226,66 +262,78 @@
                     <div id="home-reel-thumb"></div>
                   </div>
                 </div>
-                <!-- FECHA HOME HERO -->
 
-
-                <a id="home-reel-cta" href="/about" target="_blank">
+                <!-- CORREÇÃO: Botão Sobre direcionando para página correta -->
+                <a id="home-reel-cta" href="/sobre">
                   <span id="home-reel-cta-dot"></span>
                   <span id="home-reel-cta-text">Sobre</span>
                   <span id="home-reel-cta-arrow">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-                      <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M2.343 8h11.314m0 0L8.673 3.016M13.657 8l-4.984 4.984"></path>
                     </svg>
                   </span>
                 </a>
               </div>
-            </div> <!-- FECHA HOME REEL -->
 
-            <!-- CAMPANHAS -->
-            <br>
-            <section id="campanhas" class="fade-in">
-              <h2>Campanhas Ativas</h2>
-              <div class="campanhas">
-                <div class="card">
-                  <h3>Campanha do Agasalho</h3>
-                  <p>Ajude a aquecer o inverno de famílias em situação de vulnerabilidade.</p>
+              <!-- CAMPANHAS -->
+              <section id="campanhas" class="fade-in">
+                <h2>Campanhas Ativas</h2>
+                <div class="campanhas">
+                  <div class="card">
+                    <h3>Campanha do Agasalho</h3>
+                    <p>Ajude a aquecer o inverno de famílias em situação de vulnerabilidade.</p>
+                    <!-- CORREÇÃO: Botão para ver detalhes da campanha -->
+                    <a href="/campanhas/agasalho" class="btn" style="margin-top: 15px; display: inline-block;">
+                      Ver Detalhes
+                    </a>
+                  </div>
+                  <div class="card">
+                    <h3>Doe Alimentos</h3>
+                    <p>Contribua para garantir refeições dignas para quem mais precisa.</p>
+                    <a href="/campanhas/alimentos" class="btn" style="margin-top: 15px; display: inline-block;">
+                      Ver Detalhes
+                    </a>
+                  </div>
+                  <div class="card">
+                    <h3>Brinquedos para Todos</h3>
+                    <p>Leve alegria às crianças neste Natal com sua doação.</p>
+                    <a href="/campanhas/brinquedos" class="btn" style="margin-top: 15px; display: inline-block;">
+                      Ver Detalhes
+                    </a>
+                  </div>
                 </div>
-                <div class="card">
-                  <h3>Doe Alimentos</h3>
-                  <p>Contribua para garantir refeições dignas para quem mais precisa.</p>
+              </section>
+
+              <!-- LOCALIZAÇÃO -->
+              <section id="localizacao" class="fade-in">
+                <h2>Localização</h2>
+                <p>Unidade do SENAI "Dr. Celso Charuri" – Av. Rebouças, 3965 - Jardim São Carlos, Sumaré - SP, 13170-023</p>
+                <div class="map-container">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.785284055253!2d-47.18738872468731!3d-22.892898737923467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8b15944c6e0e9%3A0x5a8e3e0b7b4c4b4f!2sAv.%20Rebou%C3%A7as%2C%203965%20-%20Jardim%20Sao%20Carlos%2C%20Sumare%20-%20SP%2C%2013170-023!5e0!3m2!1spt-BR!2sbr!4v1690000000000!5m2!1spt-BR!2sbr"
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                  </iframe>
                 </div>
-                <div class="card">
-                  <h3>Brinquedos para Todos</h3>
-                  <p>Leve alegria às crianças neste Natal com sua doação.</p>
-                </div>
-              </div>
-            </section>
+              </section>
 
-            <!-- LOCALIZAÇÃO -->
-            <section id="localizacao" class="fade-in">
-              <h2>Localização</h2>
-              <p>Unidade do SENAI “Dr. Celso Charuri” – Av. Rebouças, 3965 - Jardim São Carlos, Sumaré - SP, 13170-023
-              </p>
-              <div class="map-container">
-                <iframe
-                  src="https://www.google.com/maps?q=Av.+Rebou%C3%A7as,+3965+-+Jardim+S%C3%A3o+Carlos,+Sumar%C3%A9+-+SP,+13170-023&output=embed"
-                  loading="lazy"></iframe>
-              </div>
-            </section>
+              <!-- DOAÇÃO -->
+              <section id="doacao" class="fade-in">
+                <h2>Faça uma Doação</h2>
+                <p>Transforme pequenos gestos em grandes mudanças. Toda contribuição conta!</p>
+                <!-- CORREÇÃO: Botão direcionando para cadastro em vez de login -->
+                <a href="/cadastro" class="btn">
+                  Cadastre-se para Doar
+                </a>
+                <!-- CORREÇÃO: Adicionado link para login também -->
+                <p style="margin-top: 15px;">
+                  Já possui conta? <a href="/login" style="color: var(--color-blue);">Faça login</a>
+                </p>
+              </section>
 
-            <!-- DOAÇÃO -->
-            <section id="doacao" class="fade-in">
-              <h2>Faça uma Doação</h2>
-              <p>Transforme pequenos gestos em grandes mudanças. Toda contribuição conta!</p>
-              <a href="/login" class="btn" style="display:inline-block; text-decoration:none;">
-                Doar Agora
-              </a>
-            </section>
-
-          </div> <!-- FECHA HOME -->
-        </div> <!-- FECHA PAGE CONTAINER INNER -->
-    </div> <!-- FECHA PAGE CONTAINER -->
+            </div> <!-- FECHA HOME -->
+          </div> <!-- FECHA PAGE CONTAINER INNER -->
+        </div> <!-- FECHA PAGE CONTAINER -->
 
     <!-- FOOTER FORA DO CONTAINER -->
     <%- include("../partials/footer"); %>
@@ -293,6 +341,30 @@
       </div> <!-- FECHA UI -->
 
       <script type="module" src="/static/js/home-hero-visual.js"></script>
+
+      <script>
+        // Adiciona animação de scroll suave
+        document.addEventListener('DOMContentLoaded', function() {
+          // Animação de fade-in ao scroll
+          const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+          };
+
+          const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+              }
+            });
+          }, observerOptions);
+
+          // Observa todos os elementos com classe fade-in
+          document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+          });
+        });
+      </script>
 
   </body>
 
