@@ -15,25 +15,51 @@
         <div style="color: red; text-align:center; margin-bottom:10px;"><%= erro %></div>
       <% } %>
 
-      <form action="/criarcampanha" method="POST" class="solu-form">
+      <form action="/criarcampanha" method="POST" class="solu-form" onsubmit="return validarFormulario()">
+
+        <!-- Nome da campanha -->
         <label><b>Nome da Campanha:</b></label>
-        <input type="text" name="nome" required>
+        <input type="text"
+               name="nome"
+               id="nomeCampanha"
+               maxlength="40"
+               required
+               placeholder="Ex: Campanha do Agasalho">
 
+        <!-- Descrição -->
         <label><b>Descrição:</b></label>
-        <textarea name="descricao" rows="3"></textarea>
+        <textarea name="descricao"
+                  id="descricaoCampanha"
+                  maxlength="300"
+                  rows="3"
+                  placeholder="Descrição da campanha (até 300 caracteres)"
+        ></textarea>
 
+        <!-- Datas -->
         <label><b>Data de Início:</b></label>
-        <input type="date" name="data_inicio" required>
+        <input type="date" name="data_inicio" id="inicio" required>
 
         <label><b>Data de Término:</b></label>
-        <input type="date" name="data_fim" required>
+        <input type="date" name="data_fim" id="fim" required>
 
         <hr>
+
+        <!-- Itens -->
         <h3>Itens da Campanha</h3>
         <div id="itens-container">
           <div class="item" style="display:flex; gap:10px; margin-bottom:5px;">
-            <input type="text" name="nome_item[]" placeholder="Nome do item" required>
-            <input type="number" name="pontos[]" placeholder="Pontos" required>
+            <input type="text"
+                   name="nome_item[]"
+                   class="itemNome"
+                   maxlength="30"
+                   placeholder="Nome do item"
+                   required>
+            <input type="number"
+                   name="pontos[]"
+                   min="1"
+                   max="99"
+                   placeholder="Pontos"
+                   required>
           </div>
         </div>
 
@@ -43,6 +69,22 @@
     </main>
 
     <script>
+      // Impedir números no nome da campanha
+      document.getElementById("nomeCampanha").addEventListener("input", function () {
+        this.value = this.value.replace(/[0-9]/g, "");
+      });
+
+      // Impedir números nos nomes dos itens
+      function bloquearNumerosItens() {
+        document.querySelectorAll(".itemNome").forEach(campo => {
+          campo.addEventListener("input", function () {
+            this.value = this.value.replace(/[0-9]/g, "");
+          });
+        });
+      }
+      bloquearNumerosItens();
+
+      // Adicionar item
       function adicionarItem() {
         const container = document.getElementById('itens-container');
         const novoItem = document.createElement('div');
@@ -51,11 +93,38 @@
         novoItem.style.gap = "10px";
         novoItem.style.marginBottom = "5px";
         novoItem.innerHTML = `
-          <input type="text" name="nome_item[]" placeholder="Nome do item" required>
-          <input type="number" name="pontos[]" placeholder="Pontos" required>
+          <input type="text"
+                 name="nome_item[]"
+                 class="itemNome"
+                 maxlength="30"
+                 placeholder="Nome do item"
+                 required>
+
+          <input type="number"
+                 name="pontos[]"
+                 min="1"
+                 max="99"
+                 placeholder="Pontos"
+                 required>
+
           <button type="button" onclick="this.parentElement.remove()">Remover</button>
         `;
+
         container.appendChild(novoItem);
+        bloquearNumerosItens();
+      }
+
+      // Validação de datas
+      function validarFormulario() {
+        const inicio = document.getElementById("inicio").value;
+        const fim = document.getElementById("fim").value;
+
+        if (fim < inicio) {
+          alert("A data de término não pode ser ANTES da data de início.");
+          return false;
+        }
+
+        return true;
       }
     </script>
   </body>

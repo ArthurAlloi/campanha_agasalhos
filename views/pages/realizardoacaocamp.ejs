@@ -7,7 +7,8 @@
 <body>
   <h1>Registrar Doação</h1>
 
-  <form action="/realizardoacao" method="POST">
+  <form action="/realizardoacao" method="POST" onsubmit="return validarQuantidade()">
+
     <!-- CAMPANHA -->
     <label for="campanha">Campanha:</label>
     <select id="campanha" name="id_campanha" required>
@@ -30,7 +31,7 @@
     </select>
     <br><br>
 
-    <!-- ITEM / ROUPA -->
+    <!-- ITEM -->
     <label for="roupa">Item:</label>
     <select id="roupa" name="id_roupa" required>
       <option value="">— selecione um item —</option>
@@ -44,13 +45,19 @@
 
     <!-- QUANTIDADE -->
     <label for="quantidade">Quantidade:</label>
-    <input type="number" id="quantidade" name="quantidade" min="1" required>
+    <input type="number"
+           id="quantidade"
+           name="quantidade"
+           min="1"
+           max="99"
+           required
+           placeholder="1 a 99">
     <br><br>
 
     <button type="submit">Salvar Doação</button>
   </form>
 
-  <!-- Script para filtrar itens de acordo com a campanha selecionada -->
+  <!-- Script para filtrar itens -->
   <script>
     const campanhaSelect = document.getElementById('campanha');
     const roupaSelect = document.getElementById('roupa');
@@ -58,11 +65,8 @@
 
     campanhaSelect.addEventListener('change', () => {
       const selectedCampanha = campanhaSelect.value;
-
-      // Limpa o dropdown de itens
       roupaSelect.innerHTML = '<option value="">— selecione um item —</option>';
 
-      // Adiciona apenas os itens da campanha selecionada
       allOptions.forEach(opt => {
         if (opt.dataset.campanha === selectedCampanha) {
           roupaSelect.appendChild(opt);
@@ -70,10 +74,33 @@
       });
     });
 
-    // Dispara o filtro caso já venha com campanha selecionada
     if (campanhaSelect.value) {
       campanhaSelect.dispatchEvent(new Event('change'));
     }
+
+    // --------------------------
+    // ❗ LIMITAR QUANTIDADE 1–99
+    // --------------------------
+    const qty = document.getElementById("quantidade");
+
+    qty.addEventListener("input", () => {
+      let v = Number(qty.value);
+
+      if (v > 99) qty.value = 99;
+      if (v < 1) qty.value = 1;
+    });
+
+    // Validação final do form
+    function validarQuantidade() {
+      const v = Number(qty.value);
+
+      if (isNaN(v) || v < 1 || v > 99) {
+        alert("A quantidade precisa ser entre 1 e 99.");
+        return false;
+      }
+      return true;
+    }
   </script>
+
 </body>
 </html>
