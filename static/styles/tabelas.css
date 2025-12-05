@@ -25,14 +25,6 @@
 }
 
 /* ===========================
-   RESET LEVE
-   =========================== */
-* { box-sizing: border-box; }
-html,body { height: 100%; margin: 0; font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial; background: linear-gradient(160deg, #07121A 0%, #07141A 100%); color: var(--text-primary); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-
-/* ===========================
    CONTAINER PRINCIPAL
    =========================== */
 .solu-main, .page-campanha, .page-campanhas, .page-doacao-registrar, .page-usuarios, .page-campanha-view {
