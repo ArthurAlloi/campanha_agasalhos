@@ -163,8 +163,7 @@
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
 }
 .table-campanhas tbody tr:hover, .table-users tbody tr:hover {
-  background: linear-gradient(90deg, rgba(242,183,5,0.03), rgba(255,122,162,0.02));
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
 
 /* status badges */
@@ -182,7 +181,7 @@
 .campanha-alerta { background: rgba(255,190,120,0.12) !important; }
 
 /* linha com borda lateral sutil para identificação */
-.campanha-ativa td { border-left: 4px solid rgba(0,255,153,0.12); }
+.campanha-ativa td { border-left: 3px solid rgba(0,255,153,0.12); }
 .campanha-encerrada td { border-left: 4px solid rgba(255,100,100,0.12); }
 
 /* células especiais */
