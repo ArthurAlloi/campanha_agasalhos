@@ -1,126 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<%- include("../partials/head"); %>
+  <%- include("../partials/head"); %>
   <%- include("../partials/menu"); %>
 
+  <body>
+    <main class="page-doacao-registrar solu-main">
 
-    <body>
-      <main class="page-doacao-registrar solu-main">
-
-        <form id="form-doacao" class="form-campanha" action="/realizardoacao" method="POST"
-          onsubmit="return validarQuantidade()">
-
-          <div>
-            <h1 class="page-title">Registrar Doação</h1>
+      <form id="form-doacao" class="form-campanha" action="/realizardoacao" method="POST" novalidate>
+        <h1 class="page-title">Registrar Doação</h1>
+        <div class="form-row">
+          <!-- CAMPANHA -->
+          <div class="form-col">
+            <label for="select-campanha" class="form-label">Campanha</label>
+            <select id="select-campanha" name="id_campanha" class="select" required>
+              <option value="">— selecione uma campanha —</option>
+              <% campanhas.forEach(c => { %>
+                <option value="<%= c.id %>" <%= (Number(idCampanhaSelecionada) === c.id) ? 'selected' : '' %>><%= c.nome %></option>
+              <% }) %>
+            </select>
           </div>
 
-          <div class="form-row">
-            <!-- CAMPANHA -->
-            <div class="form-col">
-              <label for="campanha" class="form-label">Campanha:</label>
-              <select id="campanha" name="id_campanha" class="select" required>
-                <option value="">— selecione uma campanha —</option>
-                <% campanhas.forEach(c=> { %>
-                  <option value="<%= c.id %>" <%=(Number(idCampanhaSelecionada)===c.id) ? 'selected' : '' %>>
-                    <%= c.nome %>
-                  </option>
-                  <% }) %>
-              </select>
-            </div>
-
-            <!-- TURMA -->
-            <div class="form-col">
-              <label for="turma" class="form-label">Turma:</label>
-              <select id="turma" name="id_turma" class="select" required>
-                <option value="">— selecione uma turma —</option>
-                <% turmas.forEach(t=> { %>
-                  <option value="<%= t.id %>">
-                    <%= t.sigla || t.nome %>
-                  </option>
-                  <% }) %>
-              </select>
-            </div>
+          <!-- TURMA -->
+          <div class="form-col">
+            <label for="select-turma" class="form-label">Turma</label>
+            <select id="select-turma" name="id_turma" class="select" required>
+              <option value="">— selecione uma turma —</option>
+              <% turmas.forEach(t => { %>
+                <option value="<%= t.id %>"><%= t.sigla || t.nome %></option>
+              <% }) %>
+            </select>
           </div>
+        </div>
 
+        <div class="form-row">
           <!-- ITEM -->
-          <div class="form-row">
-            <div class="form-col">
-              <label for="roupa" class="form-label">Item:</label>
-              <select id="roupa" name="id_roupa" class="select" required>
-                <option value="">— selecione um item —</option>
-                <% roupas.forEach(r=> { %>
-                  <option value="<%= r.id %>" data-campanha="<%= r.id_campanha %>">
-                    <%= r.nome_item || r.nome %> — <%= r.pontos %> pts
-                  </option>
-                  <% }) %>
-              </select>
-            </div>
-
-            <!-- QUANTIDADE -->
-            <div class="form-col">
-              <label for="quantidade" class="form-label">Quantidade:</label>
-              <input 
-              type="number" 
-              id="quantidade" 
-              name="quantidade" 
-              min="1" max="99" 
-              required 
-              class="input"
-              placeholder="1 a 99">
-            </div>
+          <div class="form-col">
+            <label for="select-roupa" class="form-label">Item</label>
+            <select id="select-roupa" name="id_roupa" class="select" required>
+              <option value="">— selecione um item —</option>
+              <% roupas.forEach(r => { %>
+                <option value="<%= r.id %>" data-campanha="<%= r.id_campanha %>"><%= r.nome_item || r.nome %> — <%= r.pontos %> pts</option>
+              <% }) %>
+            </select>
           </div>
 
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Salvar Doação</button>
+          <!-- QUANTIDADE -->
+          <div class="form-col">
+            <label for="input-quantidade" class="form-label">Quantidade</label>
+            <input id="input-quantidade" class="input" type="number" name="quantidade" min="1" max="99" required placeholder="1 a 99">
           </div>
-        </form>
-      </main>
+        </div>
 
-      <!-- Script para filtrar itens -->
-      <script>
-        const campanhaSelect = document.getElementById('campanha');
-        const roupaSelect = document.getElementById('roupa');
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Salvar Doação</button>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      (function () {
+        const campanhaSelect = document.getElementById('select-campanha');
+        const roupaSelect = document.getElementById('select-roupa');
         const allOptions = Array.from(roupaSelect.querySelectorAll('option[data-campanha]'));
+        const qty = document.getElementById('input-quantidade');
 
-        campanhaSelect.addEventListener('change', () => {
-          const selectedCampanha = campanhaSelect.value;
+        function filtrarItensPorCampanha() {
+          const selected = campanhaSelect.value;
           roupaSelect.innerHTML = '<option value="">— selecione um item —</option>';
-
-          allOptions.forEach(opt => {
-            if (opt.dataset.campanha === selectedCampanha) {
-              roupaSelect.appendChild(opt);
-            }
-          });
-        });
-
-        if (campanhaSelect.value) {
-          campanhaSelect.dispatchEvent(new Event('change'));
+          // Temporariamente desabilita para UX
+          roupaSelect.disabled = true;
+          setTimeout(() => {
+            allOptions.forEach(opt => {
+              if (!selected || String(opt.dataset.campanha) === String(selected)) {
+                roupaSelect.appendChild(opt);
+              }
+            });
+            roupaSelect.disabled = false;
+          }, 180);
         }
 
-        // --------------------------
-        // ❗ LIMITAR QUANTIDADE 1–99
-        // --------------------------
-        const qty = document.getElementById("quantidade");
+        campanhaSelect.addEventListener('change', filtrarItensPorCampanha);
 
-        qty.addEventListener("input", () => {
-          let v = Number(qty.value);
+        // inicializa filtragem caso haja campanha selecionada de servidor
+        if (campanhaSelect.value) filtrarItensPorCampanha();
 
+        // limitar quantidade 1-99 em tempo real
+        qty.addEventListener('input', () => {
+          const v = Number(qty.value);
           if (v > 99) qty.value = 99;
           if (v < 1) qty.value = 1;
         });
 
-        // Validação final do form
-        function validarQuantidade() {
+        // validação final
+        document.getElementById('form-doacao').addEventListener('submit', function (e) {
           const v = Number(qty.value);
-
-          if (isNaN(v) || v < 1 || v > 99) {
-            alert("A quantidade precisa ser entre 1 e 99.");
+          if (!Number.isFinite(v) || v < 1 || v > 99) {
+            e.preventDefault();
+            alert('A quantidade precisa ser entre 1 e 99.');
             return false;
           }
-          return true;
-        }
-      </script>
-
-    </body>
-
+        });
+      })();
+    </script>
+  </body>
 </html>

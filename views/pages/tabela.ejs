@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <%- include("../partials/head"); %>
-
   <body>
     <%- include("../partials/menu"); %>
 
@@ -9,10 +8,7 @@
 
       <div class="table-wrap">
         <table class="table-campanhas" id="table-campanhas" cellpadding="0" cellspacing="0" role="table">
-          <div class="page-header">
-            <h1 class="page-title">Campanhas</h1>
-          </div>
-          
+          <h1 class="page-title">Campanhas</h1>
           <thead>
             <tr>
               <th scope="col">Nome da Campanha</th>
@@ -61,10 +57,18 @@
           const agora = new Date();
           timers.forEach(timerEl => {
             const fim = new Date(timerEl.dataset.fim);
+            const tr = timerEl.closest('tr');
+
+            if (isNaN(fim)) {
+              timerEl.textContent = '—';
+              return;
+            }
+
             let diff = fim - agora;
 
-            if (isNaN(fim) || diff <= 0) {
+            if (diff <= 0) {
               timerEl.textContent = '0d 0h 0m';
+              tr.classList.remove('campanha-alerta');
               return;
             }
 
@@ -73,6 +77,13 @@
             const minutos = Math.floor((diff % (1000*60*60)) / (1000*60));
 
             timerEl.textContent = `${dias}d ${horas}h ${minutos}m`;
+
+            // destaque para menos de 3 dias
+            if (dias <= 3) {
+              tr.classList.add('campanha-alerta');
+            } else {
+              tr.classList.remove('campanha-alerta');
+            }
           });
         }
 

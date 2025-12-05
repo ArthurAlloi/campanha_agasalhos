@@ -9,10 +9,8 @@
 
       <!-- FORMULÁRIO DE CRIAÇÃO -->
       <form id="form-usuario-criar" class="form-admin form-card" action="/usuariosadm/criar" method="POST" novalidate>
-        <div class="page-header">
-          <h1 class="page-title">Gerenciamento de Usuários</h1>
-        </div>
-        
+        <h1 class="page-title">Gerenciamento de Usuários</h1>
+
         <h2 class="form-heading">Criar novo usuário</h2>
 
         <div class="form-row">
@@ -45,8 +43,7 @@
 
         <div class="form-row" style="align-items:center;">
           <label class="form-label" for="checkbox-ativo-new">
-            <input id="checkbox-ativo-new" type="checkbox" name="ativo" value="1" checked>
-            Ativo
+            <input id="checkbox-ativo-new" type="checkbox" name="ativo" value="1" checked> Ativo
           </label>
 
           <div style="margin-left:auto;">
@@ -127,20 +124,19 @@
 
     <script>
       (function () {
-        // aplica máscara a todos os inputs com classe .cpf-input
         document.addEventListener('DOMContentLoaded', function () {
+          // aplica máscara a todos os inputs com classe .cpf-input
           if (window.jQuery && jQuery.fn.mask) {
             jQuery('.cpf-input').mask('000.000.000-00', {reverse: true});
           } else {
-            // fallback simples caso jQuery não carregue (não bloqueante)
             console.warn('jQuery ou plugin de máscara não carregados — máscara de CPF não aplicada.');
           }
 
-          // confirmar exclusão
+          // confirmar exclusão (listener)
           document.querySelectorAll('.form-user-delete').forEach(form => {
             form.addEventListener('submit', function (e) {
-              const confirmDelete = confirm('Tem certeza que deseja excluir este usuário?');
-              if (!confirmDelete) e.preventDefault();
+              const ok = confirm('Tem certeza que deseja excluir este usuário?');
+              if (!ok) e.preventDefault();
             });
           });
         });

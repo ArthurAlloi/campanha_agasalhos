@@ -5,7 +5,7 @@
   <body>
     <%- include("../partials/menu"); %>
 
-    <main class="page-campanha">
+    <main class="page-campanha solu-main">
 
       <% if (sucesso) { %>
         <div class="alert alert-success"><%= sucesso %></div>
@@ -13,138 +13,140 @@
       <% if (erro) { %>
         <div class="alert alert-error"><%= erro %></div>
       <% } %>
-      <form action="/criarcampanha" id="form-campanha" method="POST" class="form-campanha" onsubmit="return validarFormulario()">
-      
-      	<div class="page-header">
-          <h1 class="page-title">Criar Nova Campanha</h1>
-        </div>
-      
-      	<!-- Nome da campanha -->
-        <label for="campanha-nome" class="form-label">Nome da Campanha:</label>
-        <input type="text"
-               name="nome"
-               id="nomeCampanha"  id="campanha-nome" class="input"
-               maxlength="40"
-               required
-               placeholder="Ex: Campanha do Agasalho">
-      
+
+      <form id="form-campanha" class="form-campanha" action="/criarcampanha" method="POST" novalidate>
+        <h1 class="page-title">Criar Nova Campanha</h1>
+        <!-- Nome da campanha -->
+        <label for="campanha-nome" class="form-label">Nome da Campanha</label>
+        <input id="campanha-nome" class="input" type="text" name="nome" maxlength="40" required placeholder="Ex: Campanha do Agasalho">
+
         <!-- Descrição -->
-        <label for="campanha-descricao" class="form-label">Descrição:</label>
-        <textarea name="descricao"
-                  id="descricaoCampanha"   id="campanha-descricao" class="input textarea"
-                  maxlength="300"
-                  rows="3"
-                  placeholder="Descrição da campanha (até 300 caracteres)">
-        </textarea>
-      
+        <label for="campanha-descricao" class="form-label">Descrição</label>
+        <textarea id="campanha-descricao" class="textarea" name="descricao" maxlength="300" rows="3" placeholder="Descrição da campanha (até 300 caracteres)"></textarea>
+
         <!-- Datas -->
-      	<div class="form-row">
-      		<div class="form-col">
-              	<label for="campanha-inicio" class="form-label">Data de Início:</label>
-              	<input type="date" name="data_inicio" id="inicio" required> <!--<input id="campanha-inicio" class="input"-->
-      		</div>
-      		<div class="form-col">
-              	<label for="campanha-fim" class="form-label">Data de Término:</label>
-              	<input type="date" name="data_fim" id="fim" required> <!--id="campanha-fim" class="input"-->
-          
-              <hr>
-          
-              <!-- Itens -->
-              <h3>Itens da Campanha</h3>
-              <div id="itens-container">
-                <div class="item" style="display:flex; gap:10px; margin-bottom:5px;">
-                  <input type="text"
-                         name="nome_item[]"
-                         class="itemNome"
-                         maxlength="30"
-                         placeholder="Nome do item"
-                         required>
-                  <input type="number"
-                         name="pontos[]"
-                         min="1"
-                         max="99"
-                         placeholder="Pontos"
-                         required>
-                
-                </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="campanha-inicio" class="form-label">Data de Início</label>
+            <input id="campanha-inicio" class="input" type="date" name="data_inicio" required>
+          </div>
+
+          <div class="form-col">
+            <label for="campanha-fim" class="form-label">Data de Término</label>
+            <input id="campanha-fim" class="input" type="date" name="data_fim" required>
+          </div>
+        </div>
+
+        <hr class="sep">
+
+        <!-- Itens -->
+        <h2 class="subheading">Itens da Campanha</h2>
+
+        <div class="preview-and-items">
+          <div class="items-col">
+            <div id="itens-container" class="items-container" aria-live="polite">
+              <div class="item-row">
+                <input class="input item-input item-nome" type="text" name="nome_item[]" maxlength="30" placeholder="Nome do item" required>
+                <input class="input item-input item-pontos" type="number" name="pontos[]" min="1" max="99" placeholder="Pontos" required>
+                <button type="button" class="btn btn-remove" aria-label="Remover item" hidden>Remover</button>
               </div>
-            
-              <hr class="sep">
-            
-              <h2 class="subheading">Itens da Campanha</h2>
-            
-              <div id="campanha-items" class="items-container" aria-live="polite">
-                <div class="item-row">
-                  <input class="input item-input" type="text" name="nome_item[]" placeholder="Nome do item" required>
-                  <input class="input item-input" type="number" name="pontos[]" placeholder="Pontos" required>
-                </div>
-              </div>
-            
-              <div class="form-actions">
-                <button type="button" id="btn-add-item" class="btn btn-secondary">+ Adicionar Item</button>
-                <button type="submit" id="btn-submit-campanha" class="btn btn-primary">Criar Campanha</button>
-              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="btn-add-item" class="btn btn-secondary">+ Adicionar Item</button>
+              <button type="submit" id="btn-submit-campanha" class="btn btn-primary">Criar Campanha</button>
+            </div>
+          </div>
+        </div>
       </form>
     </main>
 
     <script>
-      // Impedir números no nome da campanha
-      document.getElementById("nomeCampanha").addEventListener("input", function () {
-        this.value = this.value.replace(/[0-9]/g, "");
-      });
+      (function () {
+        // referências
+        const form = document.getElementById('form-campanha');
+        const nomeInput = document.getElementById('campanha-nome');
+        const descInput = document.getElementById('campanha-descricao');
+        const inicio = document.getElementById('campanha-inicio');
+        const fim = document.getElementById('campanha-fim');
+        const itensContainer = document.getElementById('itens-container');
+        const btnAdd = document.getElementById('btn-add-item');
 
-      // Impedir números nos nomes dos itens
-      function bloquearNumerosItens() {
-        document.querySelectorAll(".itemNome").forEach(campo => {
-          campo.addEventListener("input", function () {
-            this.value = this.value.replace(/[0-9]/g, "");
-          });
+        // definir min da data inicial para hoje
+        const hoje = new Date().toISOString().split('T')[0];
+        inicio.min = hoje;
+        fim.min = hoje;
+
+        // impedir números no nome da campanha (UX)
+        nomeInput.addEventListener('input', () => {
+          nomeInput.value = nomeInput.value.replace(/[0-9]/g, '');
         });
-      }
-      bloquearNumerosItens();
 
-      // Adicionar item
-      function adicionarItem() {
-        const container = document.getElementById('itens-container');
-        const novoItem = document.createElement('div');
-        novoItem.classList.add('item');
-        novoItem.style.display = "flex";
-        novoItem.style.gap = "10px";
-        novoItem.style.marginBottom = "5px";
-        novoItem.innerHTML = `
-          <input type="text"
-                 name="nome_item[]"
-                 class="itemNome"
-                 maxlength="30"
-                 placeholder="Nome do item"
-                 required>
-
-          <input type="number"
-                 name="pontos[]"
-                 min="1"
-                 max="99"
-                 placeholder="Pontos"
-                 required>
-
-          <button type="button" onclick="this.parentElement.remove()">Remover</button>
-        `;
-
-        container.appendChild(novoItem);
-        bloquearNumerosItens();
-      }
-
-      // Validação de datas
-      function validarFormulario() {
-        const inicio = document.getElementById("inicio").value;
-        const fim = document.getElementById("fim").value;
-
-        if (fim < inicio) {
-          alert("A data de término não pode ser ANTES da data de início.");
-          return false;
+        // função para bloquear números em campos .item-nome e ligar remoção
+        function attachItemBehaviors(container) {
+          container.querySelectorAll('.item-nome').forEach(el => {
+            el.addEventListener('input', () => el.value = el.value.replace(/[0-9]/g, ''));
+          });
+          container.querySelectorAll('.btn-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => btn.closest('.item-row').remove());
+          });
         }
 
-        return true;
-      }
+        // criar novo item em JS (com animação)
+        function criarItemRow() {
+          const row = document.createElement('div');
+          row.className = 'item-row';
+          row.innerHTML = `
+            <input class="input item-input item-nome" type="text" name="nome_item[]" maxlength="30" placeholder="Nome do item" required>
+            <input class="input item-input item-pontos" type="number" name="pontos[]" min="1" max="99" placeholder="Pontos" required>
+            <button type="button" class="btn btn-remove">Remover</button>
+          `;
+          attachItemBehaviors(row);
+          return row;
+        }
+
+        // adicionar item
+        btnAdd.addEventListener('click', () => {
+          const row = criarItemRow();
+          itensContainer.appendChild(row);
+          // mostrar botão remover nas linhas (exceto primeira)
+          itensContainer.querySelectorAll('.btn-remove').forEach(btn => btn.hidden = false);
+          // foco no nome do novo item
+          row.querySelector('.item-nome').focus();
+        });
+
+        // inicializar comportamentos na primeira linha
+        attachItemBehaviors(itensContainer);
+
+        // validar datas ao submeter
+        form.addEventListener('submit', function (e) {
+          const vInicio = inicio.value;
+          const vFim = fim.value;
+          if (vInicio && vFim && vFim < vInicio) {
+            e.preventDefault();
+            alert('A data de término não pode ser ANTES da data de início.');
+            return false;
+          }
+          // validação final quantidade/pontos
+          const pontos = Array.from(form.querySelectorAll('.item-pontos')).map(i => Number(i.value));
+          for (let p of pontos) {
+            if (!Number.isFinite(p) || p < 1 || p > 99) {
+              e.preventDefault();
+              alert('Cada item deve ter pontos entre 1 e 99.');
+              return false;
+            }
+          }
+          return true;
+        });
+
+        // permitir adicionar item com Enter quando estiver num campo item-nome
+        itensContainer.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && e.target.matches('.item-nome')) {
+            e.preventDefault();
+            btnAdd.click();
+          }
+        });
+      })();
     </script>
   </body>
 </html>
