@@ -171,7 +171,7 @@ app.post("/login", (req, res) => {
 
     req.session.user = { id: row.id, cpf: row.cpf, adm: row.adm };
 
-    if (row.adm === 1) res.redirect("/dashboard");
+    if (row.adm === 1) res.redirect("/realizardoacaocamp");
     else res.redirect("/");
   });
 });
@@ -223,15 +223,6 @@ app.post("/cadastro", (req, res) => {
     }
   );
 });
-
-// ─────────────── DASHBOARD ───────────────
-app.get("/dashboard", apenasadm, (req, res) =>
-  res.render("pages/dashboard", {
-    título: "Dashboard",
-    req,
-    user: req.session.user,
-  })
-);
 
 // ─────────────── USUÁRIOS (ADMIN) ───────────────
 app.get("/usuariosadm", apenasadm, (req, res) => {
