@@ -1,5 +1,5 @@
 // Particles.
-var colors = ['#5914edff', '#FFF']
+var colors = ['#003459', '#FFF']
 
 var Particle = function (x, y) {
     this.alive = true

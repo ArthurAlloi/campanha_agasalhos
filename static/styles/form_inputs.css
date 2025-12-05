@@ -3,7 +3,7 @@
     
     font: 14px "Gotham HTF Book";
     background: #1D1E2C;
-    background: linear-gradient(45deg,rgba(29, 30, 44, 1) 0%, rgba(172, 159, 187, 1) 100%);
+    background: linear-gradient(45deg, #2A3D4B, #D9D9D1);
     background-position: center no-repeat;
     background-size: cover;
 }
@@ -96,7 +96,7 @@
   
 
 .login-btn {
-    background: #bfa4ff !important;
+    background: #daf8fd !important;
     border: none;
     color: #000000;
     cursor: pointer;
@@ -113,8 +113,8 @@
 }
 
 .login-btn:hover {
-    background: #310597 !important;
-    color: #a4dcff !important;
+    background: #27cfec !important;
+    color: rgb(117, 117, 117) !important;
     opacity: 1;
 }
 
@@ -170,7 +170,7 @@ form#login {
 }
 
 .login-link-Cadastro a {
-  color: #776ef1;
+  color: #f1e46e;
   font-size: 1.2rem;
   text-decoration: none;
   opacity: 0.8;

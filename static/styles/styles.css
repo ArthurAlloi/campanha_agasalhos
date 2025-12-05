@@ -31,6 +31,41 @@ html {
 }
 
 /*PADRONIZAÇÃO DE CORES*/
+
+:root {
+    --color-error: #e90000;
+    --color-off-white: #f0f1fa;
+    --color-white: #fff;
+    --color-dark-white: #e4e6ef;
+    --color-off-white-semi: rgba(240, 241, 250, .7);
+    --color-black: #000000;
+    --color-green: #c1ff00;
+    --color-blue: #1a2ffb;
+    --color-red: #ff4c41;
+    --color-grey-blue: #2b2e3a;
+    --color-dark-blue: #071bdf;
+    --color-purple: #8832f7;
+    --color-project-details-logo-color: #f0f;
+    --grid-space: calc((100% - 11 * var(--grid-gap)) / 12);
+    --grid-gap: 2vw;
+    --global-border-radius: 20px;
+    --base-padding-x: max(5vw, 40px);
+    --base-padding-y: clamp(30px, 4vw, 50px);
+    --header-color: #0016ec;
+    --header-text-color: #000000;
+    --project-details-bg: #000;
+    --project-details-highlight: #000;
+    --project-details-btn-bg: #000;
+    --project-details-btn-text: #000;
+    --project-details-icon-bg: #000;
+    --project-details-icon-color: #000;
+    --project-details-text: #000;
+    --project-details-btn-bg-hover: #000;
+    --project-details-btn-text-hover: #fff;
+    --header-size: clamp(1rem, 1vw, 2rem);
+    --cross-size: clamp(.875rem, 1vw, 2rem);
+  }
+
 :root {
       --color-bg-dark: #06141B;
       --color-bg-medium: #11212D;
@@ -44,6 +79,12 @@ html {
       --color-4: #f0f7f4;
       --color-5: #9BA8AB;
       --color-6: #CCD0CF;
+
+      --primary-color: #1D242E;
+      --secundary-color: #2A3D4B;
+      --terciary-color: #02AAC4;
+      --quatery-color: #2A555E;
+      --quintary-color: #D9D9D1;
 
     }
   
@@ -97,10 +138,6 @@ main h4{
   object-fit: cover;
   z-index: -1;
   filter: brightness(0.3);
-}
-
-#index-logo{
-  width: 50%;
 }
 
 .article_doacoes_doar{
