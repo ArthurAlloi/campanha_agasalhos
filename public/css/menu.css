@@ -12,20 +12,6 @@
   --transition-fast: 0.3s ease;
 }
 
-/* ===== ESPAÇO PARA HEADER ===== */
-#header-space {
-  height: var(--header-height);
-}
-
-/* ===== CONTAINER ===== */
-#header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  overflow: hidden;
-  padding-bottom: .1em;
-}
-
 /* ===== LOGO ===== */
 .logo-sol {
   display: flex;
@@ -48,19 +34,6 @@
   transform: scale(1.6) rotate(270deg);
 }
 
-/* ===== LINKS CENTRAIS ===== */
-.header-center {
-  list-style: none;
-  display: flex;
-  gap: 35px; /* aumenta o espaçamento entre os links */
-}
-
-/* ===== LADO DIREITO (LOGIN / CADASTRO / LOGOUT) ===== */
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* aumenta espaço entre botões e menu toggle */
-}
 
 #btn-menu-login,
 #btn-menu-cadastro,
@@ -106,12 +79,22 @@
 }
 
 
-/* Corrige o deslocamento ao clicar em âncoras (#sobre, #campanhas...) */
-section {
-  scroll-margin-top: 90px;
-}
+
+
 
 /*NOVO TEST HEADER*/
+
+html,body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: var(--color-1);
+  color: var(--color-6);
+  /*overflow: hidden;
+  overscroll-behavior: none;*/
+  /*Dark Theme*/
+  /*Light Theme*/
+}
 
 a {
     text-decoration: none
@@ -133,6 +116,7 @@ a,a:active,a:hover,a:visited {
   transition: color .25s;
   pointer-events: none;
 }
+
 
 #header p {
   margin: 0
@@ -206,7 +190,7 @@ a,a:active,a:hover,a:visited {
 }
 
 #header-right-talk-btn {
-  position: absolute;
+  position: relative;
   left: 4.5em;
   background: var(--color-grey-blue);
   transition: color .4s,background-color .4s;
@@ -215,7 +199,7 @@ a,a:active,a:hover,a:visited {
 }
 
 #header-right-talk-btn a {
-  position: absolute;
+  position: relative;
   inset: 0;
   z-index: 1
 }

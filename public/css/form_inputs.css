@@ -1,11 +1,6 @@
 #page-sollogin-index{
-    /*background: #000 url('/static/img/sunset-7133867_1920.jpg') center no-repeat;*/
-    
-    font: 14px "Gotham HTF Book";
-    background: #1D1E2C;
     background: linear-gradient(45deg, #2A3D4B, #D9D9D1);
-    background-position: center no-repeat;
-    background-size: cover;
+    
 }
 
 /*Animação Vanta*/

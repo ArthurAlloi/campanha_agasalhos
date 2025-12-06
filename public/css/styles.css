@@ -7,11 +7,6 @@
   scrollbar-color: #e70074 #272626;*/
 }
 
-html {
-  height: 100%;
-  width: 100%;
-}
-
 /*Scroll-bar*/
 ::-webkit-scrollbar {
   width: 4px;
@@ -87,21 +82,6 @@ html {
       --quintary-color: #D9D9D1;
 
     }
-  
-body{
-  /*Dark Theme*/
-  /*Light Theme*/
-  background: var(--color-1);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-
-  font-family: "Poppins", sans-serif;
-  /*background: linear-gradient(180deg, var(--color-6), var(--color-3));*/
-  color: var(--color-6);
-  overflow-x: hidden;
-}
 
 main{
   position: relative;

@@ -106,9 +106,7 @@ dbTurmas.serialize(() => {
             [sigla, docente, 1]
           );
           console.log("Inserido:", sigla);
-        } else {
-          console.log("Já existe:", sigla);
-        }
+        } 
       }
     );
   });
