@@ -59,14 +59,60 @@ dbUsers.serialize(() => {
 
 // ─────────────── TURMAS ───────────────
 const dbTurmas = new sqlite3.Database("turmas.db");
-dbTurmas.run(`
-  CREATE TABLE IF NOT EXISTS turmas (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    sigla TEXT UNIQUE,
-    docente TEXT,
-    ativo INTEGER DEFAULT 1
-  )
-`);
+
+dbTurmas.serialize(() => {
+
+  dbTurmas.run(`
+    CREATE TABLE IF NOT EXISTS turmas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      sigla TEXT UNIQUE,
+      docente TEXT,
+      ativo INTEGER DEFAULT 1
+    )
+  `);
+
+
+  const turmas = [
+    ["1IFA", "Alcindo Facioli; Alex de Oliveira Penteado; Sérgio Ricardo Stivanin"],
+    ["I1HS", "Ana Caroline Farias Tomaz"],
+    ["M2I", "Bruna Gonzaga; Gabriela Viana; Marilia Aparecida Bertoni Cabral"],
+    ["M4AA", "Bruno de Campos; William Marques Nascimento"],
+    ["N1IA", "Carlos José Campacci; Nelcimar Henrique Teixeira"],
+    ["M4B", "Denis Roberto Quibao; Epaminondas Aparecido da Silva"],
+    ["T2B", "Denis Roberto Quibao; Epaminondas Aparecido da Silva; Gabriela Viana"],
+    ["T3FC", "Evandro Aparecido Padilha; Fabio Camarinha Martorano"],
+    ["T4F", "Fernando Antonio Bosco Biondo; Renato Luiz Cruz"],
+    ["I1HSBDS", "Izaias Maia Vieira; Maycon Espricio da Silva"],
+    ["I2E", "João Flávio Diniz"],
+    ["T2I", "Lucas Augusto Pereira"],
+    ["T2A", "Luciano Aparecido Pedrosa; Vitor Cleiton Santarosa"],
+    ["I2HNA", "Marcio Denadai; Matheus Luiz Oliveira de Camargo"],
+    ["N2I", "Marilia Aparecida Bertoni Cabral"],
+    ["T2IA", "Marilia Aparecida Bertoni Cabral"],
+    ["I1HNB", "Ricardo Corrêa dos Santos"],
+    ["M2C", "Rogerio Ricardo Poleto"],
+    ["M4D", "Waldemar Gomes Neto"],
+  ];
+
+  // insere cada turma somente se não existir
+  turmas.forEach(([sigla, docente]) => {
+    dbTurmas.get(
+      "SELECT * FROM turmas WHERE sigla = ?",
+      [sigla],
+      (err, row) => {
+        if (!row) {
+          dbTurmas.run(
+            "INSERT INTO turmas (sigla, docente, ativo) VALUES (?, ?, ?)",
+            [sigla, docente, 1]
+          );
+          console.log("Inserido:", sigla);
+        } else {
+          console.log("Já existe:", sigla);
+        }
+      }
+    );
+  });
+});
 
 // ─────────────── CAMPANHAS ───────────────
 const dbCampanhas = new sqlite3.Database("campanhas.db");
