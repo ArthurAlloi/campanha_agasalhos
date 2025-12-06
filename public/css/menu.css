@@ -1,17 +1,5 @@
 @charset "UTF-8";
 
-/* ===== VARIÁVEIS ===== */
-:root {
-  --header-height: 80px;
-  --container-padding: 30px;
-  --gutter: 20px;
-  --icon-size: 60px;
-  --primary-color: #D9D9D1;
-  --text-color: #F2F5FA;
-  --hover-color: #02AAC4;
-  --transition-fast: 0.3s ease;
-}
-
 /* ===== LOGO ===== */
 .logo-sol {
   display: flex;
@@ -88,8 +76,7 @@ html,body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background-color: var(--color-1);
-  color: var(--color-6);
+  background-color: var(--color-6);
   /*overflow: hidden;
   overscroll-behavior: none;*/
   /*Dark Theme*/
@@ -515,11 +502,4 @@ button.header-menu-link {
   position: absolute;
   left: -1.25em;
   top: 0
-}
-
-.header-menu-link-icon-mobile {
-  position: absolute;
-  left: 6.875em;
-  top: 0;
-  display: none
 }

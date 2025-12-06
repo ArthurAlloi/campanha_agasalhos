@@ -101,14 +101,6 @@ main h4{
   padding: 10px;
 }
 
-.background-gradient {
-  background-image: url(/static/img/gradiente.webp);
-  background-position: top;
-  background-repeat: repeat-y;
-  background-size: contain;
-  position: relative;
-}
-
 #bg-video{
   position: fixed;
   right: 0;
@@ -174,30 +166,4 @@ main h4{
 .fail_404{
   background: transparent;
   border: 0;
-}
-
-/* ========== RESPONSIVIDADE ========== */
-
-
-.back-button{
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: start;
-  font-size: 1em;
-  margin: 60px;
-  z-index: 9999;
-}
-
-.back-button-logo{
-  background: #06141B;
-  padding: 1em;
-  border-radius: 60px;
-  transition: 0.4s;
-  opacity: 0.75;
-}
-
-.back-button-logo:hover{
-  background: #06141B;
-  opacity: 1;
 }
