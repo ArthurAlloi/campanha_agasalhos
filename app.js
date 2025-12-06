@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({ secret: "banguela", resave: false, saveUninitialized: true })
 );
-app.use("/static", express.static(path.join(__dirname, "static")));
+app.use("/static", express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 
 app.set("view engine", "ejs");
