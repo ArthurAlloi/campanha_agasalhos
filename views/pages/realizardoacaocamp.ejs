@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <%- include("../partials/head"); %>
-  <%- include("../partials/menu"); %>
-
+  
   <body>
+    <%- include("../partials/loader") %>
+    <%- include("../partials/menu"); %>
+    
     <main class="page-doacao-registrar solu-main">
 
       <form id="form-doacao" class="form-campanha" action="/realizardoacao" method="POST" novalidate>

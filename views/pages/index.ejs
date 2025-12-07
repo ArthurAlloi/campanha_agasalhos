@@ -56,7 +56,7 @@
     grid-column: 1 / span 12;
     margin-top: calc(var(--base-padding-y) * 3 / 5);
     cursor: pointer;
-    background-color: red;
+    background-color: var(--header-color);
   }
 
   #home-reel {
@@ -126,6 +126,8 @@
 </style>
 
 <body>
+
+  <%- include("../partials/loader") %>
 
   <div id="ui">
 
@@ -385,5 +387,28 @@
 
   </div>
 
+<script>
+  (function(){
+    const loader = document.getElementById("loader");
+    if (!loader) return;
+
+    function hideLoader() {
+      loader.classList.add("hide");
+    }
+
+    // 1) Se o DOM carregar, já esconde
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(hideLoader, 200);
+    });
+
+    // 2) Se a página carregar, esconde também
+    window.addEventListener("load", hideLoader);
+
+    // 3) Tempo máximo ABSOLUTO, mesmo com erros JS
+    setTimeout(hideLoader, 2000);
+  })();
+</script>
+
 </body>
+
 </html>

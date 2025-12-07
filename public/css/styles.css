@@ -57,7 +57,7 @@
     --project-details-text: #000;
     --project-details-btn-bg-hover: #000;
     --project-details-btn-text-hover: #fff;
-    --header-size: clamp(1rem, 1vw, 2rem);
+    --header-size: clamp(1.3rem, 1vw, 2rem);
     --cross-size: clamp(.875rem, 1vw, 2rem);
   }
 

@@ -19,7 +19,7 @@ app.set("view engine", "ejs");
 
 // ─────────────────────── Banco de Usuários ───────────────────────
 const dbUsers = new sqlite3.Database("adm.db");
-dbUsers.serialize(() => {
+dbUsers.serialize(() => { /*NÃO PRECISA DO NOME TEXT */
   dbUsers.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -215,7 +215,7 @@ app.post("/login", (req, res) => {
 
     req.session.user = { id: row.id, cpf: row.cpf, adm: row.adm };
 
-    if (row.adm === 1) res.redirect("/realizardoacaocamp");
+    if (row.adm === 1) res.redirect("/criarcampanha");
     else res.redirect("/");
   });
 });
