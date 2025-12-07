@@ -1,91 +1,135 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. REGISTRAR PLUGINS
+    gsap.registerPlugin(ScrollTrigger);
 
-  gsap.registerPlugin(ScrollTrigger);
+    // 2. INICIAR SMOOTH SCROLL (LENIS)
+    // Isso faz o scroll ficar "amanteigado", essencial para esse tipo de site.
+    let lenis = null;
+    if (window.Lenis) {
+      lenis = new window.Lenis({
+        // Aumente a duração para dar a sensação de "peso" (1.2 é padrão, 2.5 é bem suave)
+        duration: 2.2, 
+        
+        // Easing exponencial para parar suavemente
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+        
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1, // Sensibilidade do mouse (1 = normal)
+        smoothTouch: false, // Desative em mobile para performance nativa (melhor UX)
+        touchMultiplier: 2,
+      });
 
-  // -----------------------------
-  // SPLITTYPE: transformar tudo
-  // -----------------------------
-  const heroTitle = new SplitType("#home-hero-title", { types: "words" });
-  const reelTitle = new SplitType("#home-reel-title", { types: "words" });
-  const reelDesc = new SplitType("#home-reel-desc", { types: "words" });
+      function raf(time) {
+        lenis.raf(time);
+        ScrollTrigger.update(); 
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
 
-  // -----------------------------
-  // HERO TITLE – entrada inicial
-  // -----------------------------
-  gsap.from(heroTitle.words, {
-    y: 60,
-    rotate: 12,
-    opacity: 0,
-    stagger: 0.06,
-    duration: 0.9,
-    delay: 0.3,
-    ease: "cubic-bezier(.4,0,.1,1)"
-  });
 
-  // -----------------------------
-  // LOGO – entrada própria
-  // -----------------------------
-  gsap.from("#index-logo", {
-    opacity: 0,
-    scale: 0.7,
-    y: 40,
-    duration: 1.2,
-    ease: "cubic-bezier(.17, .84, .43, 1.2)",
-  });
+    // =========================================================
+    // FUNÇÃO AUXILIAR: PREPARAR O TEXTO
+    // =========================================================
+    // Se o elemento já tem .word (seu HTML manual), usa eles.
+    // Se não tem, usa SplitType para criar.
+    const getTargets = (element) => {
+        let targets = element.querySelectorAll('.word');
+        
+        if (targets.length === 0) {
+            // Se não houver divisão manual, divide agora:
+            const split = new SplitType(element, { types: 'lines, words', tagName: 'span' });
+            targets = split.words;
+        }
+        return targets;
+    };
 
-  // -----------------------------
-  // REEL TITLE – scroll suave
-  // -----------------------------
-  gsap.from(reelTitle.words, {
-    scrollTrigger: {
-      trigger: "#home-reel-title",
-      start: "top 85%",
-    },
-    y: 45,
-    opacity: 0,
-    duration: 0.9,
-    stagger: 0.05,
-    ease: "cubic-bezier(.4,0,.1,1)",
-  });
 
-  // -----------------------------
-  // REEL DESCRIPTION – scroll
-  // -----------------------------
-  gsap.from(reelDesc.words, {
-    scrollTrigger: {
-      trigger: "#home-reel-content",
-      start: "top 80%",
-    },
-    y: 35,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.02,
-    ease: "cubic-bezier(.4,0,.1,1)",
-  });
+    // =========================================================
+    // 3. ANIMAÇÃO DO HERO (Entrada Imediata)
+    // =========================================================
+    const heroTitle = document.querySelector('#home-hero-title');
+    if (heroTitle) {
+        const words = getTargets(heroTitle);
+        
+        // Define estado inicial
+        gsap.set(words, { y: 100, rotate: 5, opacity: 0 });
 
-  // -----------------------------
-  // LOCALIZAÇÃO SECTION
-  // -----------------------------
-  gsap.from("#home-local .word", {
-    scrollTrigger: {
-      trigger: "#home-local",
-      start: "top 85%"
-    },
-    y: 30,
-    opacity: 0,
-    stagger: 0.05,
-    duration: 0.8,
-    ease: "cubic-bezier(.4,0,.1,1)"
-  });
+        // Animação de entrada
+        gsap.to(words, {
+            y: 0,
+            rotate: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.04, // Efeito cascata entre as palavras
+            ease: "power4.out",
+            delay: 0.2
+        });
+    }
 
-  gsap.from("#home-camp-subtitle", {
-    scrollTrigger: {
-      trigger: "#home-local",
-      start: "top 80%"
-    },
-    opacity: 0,
-    y: 25,
-    duration: 1,
-  });
+
+    // =========================================================
+    // 4. ANIMAÇÃO DE SCROLL (Text Reveal Generico)
+    // =========================================================
+    // Seleciona títulos e parágrafos de TODAS as seções (exceto o título do hero que já foi)
+    const scrollElements = document.querySelectorAll(
+        '.section:not(#home-hero) h1, ' +
+        '.section:not(#home-hero) h2, ' +
+        '.section:not(#home-hero) h4, ' +
+        '#home-reel-desc' // Garante que a descrição do reel entre
+    );
+
+    scrollElements.forEach(el => {
+        const words = getTargets(el);
+
+        // Estado inicial (escondido para baixo)
+        gsap.set(words, { y: "110%", opacity: 0, rotate: 3 });
+
+        // Gatilho de Scroll
+        ScrollTrigger.create({
+            trigger: el,
+            start: "top 85%", // Começa quando o topo do texto está em 85% da tela
+            onEnter: () => {
+                gsap.to(words, {
+                    y: "0%",
+                    opacity: 1,
+                    rotate: 0,
+                    duration: 0.8,
+                    stagger: 0.02,
+                    ease: "power3.out",
+                    overwrite: true
+                });
+            }
+        });
+    });
+
+
+    // =========================================================
+    // 5. ANIMAÇÃO DE COMPONENTES (Mapas, Vídeos, Botões)
+    // =========================================================
+    // Faz elementos não-textuais subirem suavemente
+    const visualElements = document.querySelectorAll(
+        '.map-container, .video-container, #home-reel-cta, #home-reel-thumb-wrapper'
+    );
+
+    visualElements.forEach(el => {
+        gsap.set(el, { y: 50, opacity: 0 });
+
+        ScrollTrigger.create({
+            trigger: el,
+            start: "top 90%",
+            onEnter: () => {
+                gsap.to(el, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            }
+        });
+    });
 
 });

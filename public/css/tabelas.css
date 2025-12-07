@@ -1,13 +1,13 @@
-/* ===================================================================================================================================
+/*
    PALETA E VARIÁVEIS (CLEAN CYANO-ESCURO)
-   =================================================================================================================================== */
+ */
 :root {
     /* Cores do Usuário */
     --primary-color: #1D242E;
     --secundary-color: #2A3D4B;
-    --terciary-color: #02AAC4; /* Accent Principal (Cyan) */
-    --quatery-color: #2A555E; /* Accent Muted / Texto Secundário */
-    --quintary-color: #D9D9D1; /* Texto Principal (Off-White) */
+    --terciary-color: #02AAC4; 
+    --quatery-color: #2A555E; 
+    --quintary-color: #D9D9D1; 
 
     /* Mapeamento de Funções para a nova paleta */
     --bg-100: var(--primary-color);
@@ -16,7 +16,7 @@
     --glass: rgba(255, 255, 255, 0.03);
 
     --accent: var(--terciary-color);
-    --accent-2: #028C9F; /* Tom ligeiramente mais escuro que o terciary para gradientes */
+    --accent-2: #028C9F; 
     --accent-3: var(--quatery-color);
 
     --text-primary: var(--quintary-color);
@@ -32,9 +32,10 @@
     --transition: 200ms cubic-bezier(.2, .8, .2, 1);
 }
 
-/* ===================================================================================================================================
+/*
    CONTAINER PRINCIPAL
-   =================================================================================================================================== */
+ */
+
 .solu-main,
 .page-campanha,
 .page-campanhas,
@@ -51,9 +52,9 @@
 }
 
 
-/* ===================================================================================================================================
-   CABEÇALHOS / TIPOGRAFIA
-   =================================================================================================================================== */
+/*
+   CABEÇALHOS
+ */
 .page-title {
     font-size: 1.9rem;
     color: var(--accent);
@@ -65,9 +66,9 @@
     margin: 0;
 }
 
-/* ===================================================================================================================================
+/*
    ALERTS
-   =================================================================================================================================== */
+ */
 .alert {
     padding: 10px 14px;
     border-radius: 8px;
@@ -75,7 +76,6 @@
     font-weight: 600;
 }
 
-/* Cores de status de alerta mantidas em convenções (verde/vermelho) mas harmonizadas com o tema escuro */
 .alert-success {
     background: rgba(0, 255, 150, 0.08);
     color: #7fffcc;
@@ -87,9 +87,9 @@
     border: 1px solid rgba(255, 80, 80, 0.12);
 }
 
-/* ===================================================================================================================================
+/*
    FORMULÁRIOS - PADRÃO
-   =================================================================================================================================== */
+ */
 .form-campanha,
 .form-admin {
     display: flex;
@@ -119,13 +119,11 @@
 .select:focus,
 .textarea:focus {
     outline: none;
-    /* Usa o novo Accent Principal para foco */
     box-shadow: 0 6px 20px rgba(2, 170, 196, 0.2);
     border-color: var(--accent);
     transform: translateY(-1px);
 }
 
-/* layout de colunas simples */
 .form-row {
     display: flex;
     gap: var(--gap);
@@ -137,7 +135,6 @@
     min-width: 180px;
 }
 
-/* separador estilizado */
 .sep {
     border: none;
     height: 1px;
@@ -146,7 +143,7 @@
     margin: 12px 0;
 }
 
-/* subheading */
+
 .subheading {
     margin: 6px 0 6px;
     /* Usa o Accent Muted (Quatery) */
@@ -154,9 +151,7 @@
     font-weight: 700;
 }
 
-/* ===================================================================================================================================
-   PREVIEW + ITENS
-   =================================================================================================================================== */
+
 .preview-and-items {
     display: flex;
     gap: 18px;
@@ -208,9 +203,6 @@
     }
 }
 
-/* ===================================================================================================================================
-   BOTOES PADRÃO
-   =================================================================================================================================== */
 .btn {
     border: none;
     cursor: pointer;
@@ -225,9 +217,7 @@
 }
 
 .btn-primary {
-    /* Usa o novo Accent Principal (Cyan) */
     background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    /* Cor do texto para contraste: Primary Dark */
     color: var(--primary-color);
     box-shadow: 0 8px 22px rgba(2, 170, 196, 0.18);
 }
@@ -258,9 +248,9 @@
     font-size: 0.85rem;
 }
 
-/* ===================================================================================================================================
+/*
    GRID DE AÇÕES (DOAÇÕES)
-   =================================================================================================================================== */
+ */
 .actions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -281,7 +271,6 @@
 }
 .action-card:hover {
     transform: translateY(-6px);
-    /* Sombra suave com o tom do Accent Principal */
     box-shadow: 0 12px 40px rgba(2, 170, 196, 0.08);
 }
 .action-img {
@@ -297,9 +286,9 @@
     font-size: 1rem;
 }
 
-/* ===================================================================================================================================
+/*
    TABELA - LISTAGEM DE CAMPANHAS / USERS
-   =================================================================================================================================== */
+ */
 .table-wrap {
     overflow-x: auto;
     margin-top: 14px;
@@ -325,7 +314,6 @@
 .table-campanhas thead th,
 .table-users thead th {
     position: sticky; top: 0;
-    /* Fundo da tabela usa as cores Primária e Secundária */
     background: linear-gradient(90deg, rgba(29, 36, 46, 0.95), rgba(42, 61, 75, 0.95));
     color: var(--accent);
     font-weight: 700;
@@ -341,7 +329,6 @@
     transform: translateY(-2px);
 }
 
-/* status badges */
 .campanha-status {
     padding: 6px 10px;
     border-radius: 999px;
@@ -372,7 +359,6 @@
     border-left: 4px solid rgba(255, 100, 100, 0.2);
 }
 
-/* células especiais */
 .cell-name {
     text-align: left;
     padding-left: 18px;
@@ -392,9 +378,9 @@
     color: var(--text-secondary);
 }
 
-/* ===================================================================================================================================
+/*
    VER CAMPANHA: tabela simples
-   =================================================================================================================================== */
+ */
 .table-simple th,
 .table-simple td {
     text-align: left;
@@ -412,9 +398,9 @@
     opacity: 0.6;
 }
 
-/* ===================================================================================================================================
-   EDIT INLINE (USUÁRIOS)
-   =================================================================================================================================== */
+/*
+   EDIT (USUÁRIOS)
+ */
 .edit-row {
     display: flex;
     gap: 8px;
@@ -422,7 +408,6 @@
     flex-wrap: wrap;
 }
 .edit-row:focus-within {
-    /* Usa a cor Muted (Quatery) para foco suave */
     background: rgba(42, 85, 94, 0.2);
     border-radius: 6px;
     padding: 4px;

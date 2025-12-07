@@ -57,21 +57,22 @@
   --color-bg-medium: #11212D;
   --color-bg-light: #;
   
-  --color-text: ;
-  --color-text-secondary: ;
-  --color-accent: ;
+  --color-text: #E2EDF3;
+  --color-text-secondary: #f0f7f4;
+  --color-accent: #00171f;
+  --color-accent--2: #a75c2b;
   --primary-color: #1D242E;
   --secundary-color: #2A3D4B;
   --terciary-color: #02AAC4;
   --quatery-color: #2A555E;
   --quintary-color: #D9D9D1;
+
 }
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;
 }
 
 html,body {
@@ -80,8 +81,28 @@ html,body {
   margin: 0;
   background-color: var(--quintary-color);
   color: var(--primary-color);
-  /*overflow: hidden;
-  overscroll-behavior: none;*/
+  /*overflow: hidden;*/
+  overscroll-behavior: none;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 main{
@@ -101,25 +122,6 @@ main h4{
   color: var(--color-accent);
   padding: 10px;
 }
-
-/* MAPA */
-.map-container {
-  width: 100%;
-  max-width: 700px;
-  height: 400px;
-  margin: 2rem auto;
-  border-radius: 15px;
-  overflow: visible;
-  box-shadow: 0 0 20px rgba(242, 183, 5, 0.3);
-}
-
-.map-container iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-
 
 /*Página ERRO 404*/
 .container_fail_404{
@@ -185,7 +187,7 @@ main h4{
 #home-hero {
   height: calc(var(--vh, 1vh) * 100);
   align-content: flex-start;
-  grid-template-rows: auto 1fr
+  grid-template-rows: auto 1fr;
 }
 .section {
   position: relative;
@@ -328,7 +330,7 @@ main h4{
   letter-spacing: -.02em;
   grid-column: 1 / span 12;
   margin-top: 1em;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   line-height: 1;
   will-change: transform
 }
@@ -358,7 +360,66 @@ main h4{
   font-size: 1em;
   margin: 0
 }
+
 #home-reel-thumb-wrapper {
-  grid-column: 1;
-  margin-top: -18rem;
+  grid-column: 1 / 7;
+  margin-top: -19rem;
+}
+
+#home-reel-thumb-wrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+#home-tutorial {
+  height: calc(var(--vh, 1vh) * 100);
+  align-content: flex-start;
+  grid-template-rows: auto 1fr;
+}
+
+.video-container{
+  grid-column: 1 / span 12; 
+  height: 400px; 
+  width: 100%;
+  background: var(--quatery-color);
+}
+
+/* CONTAINER PRINCIPAL DA SEÇÃO (OK) */
+#home-local{
+  height: calc(var(--vh, 1vh) * 100);
+  align-content: flex-start;
+  grid-template-rows: auto 1fr;
+}
+
+/* TÍTULO PRINCIPAL DA SEÇÃO (OK - Ocupa 12 colunas) */
+#home-reel-title {
+   /* ... suas regras de home-reel-title ... */
+   grid-column: 1 / span 12; 
+   margin-bottom: 3rem; /* Diminuído para aproximar do subtítulo */
+}
+
+/* SUBTÍTULO: OCUPA 12 COLUNAS E FICA LOGO ACIMA DO MAPA */
+#home-camp-subtitle{
+  /* NOVO: Faz o subtítulo ocupar todas as 12 colunas */
+  grid-column: 1 / span 12;
+  /* Margens para separar o título principal e o mapa */
+  margin-top: 1rem; 
+  margin-bottom: 1.5rem; 
+  text-align: center; /* Centraliza o texto se quiser alinhá-lo com um mapa que ocupa a tela toda */
+  font-size: clamp(1.2rem, 1.8vw, 2.5rem); 
+  font-weight: 600;
+}
+
+/* CONTAINER DO MAPA: OCUPA 12 COLUNAS */
+.map-container{
+  /* NOVO: Faz o mapa ocupar todas as 12 colunas */
+  grid-column: 1 / span 12; 
+  /* Altura Fixa, essencial para iframes */
+  height: 400px; 
+  width: 100%;
+}
+
+.map-container iframe{
+  height: 100%; 
+  width: 100%;
 }

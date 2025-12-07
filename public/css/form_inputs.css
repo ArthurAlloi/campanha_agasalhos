@@ -36,16 +36,16 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Fica atrás do conteúdo */
+    z-index: 1; 
 }
 
 .login-canvas-particles {
-    position: absolute; /* ou relative se o main tiver position: relative */
+    position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* fica atrás do formulário */
+    z-index: 1; 
     opacity: 0.6;
 }
 
@@ -64,8 +64,7 @@
 }
 
 .login-logo-sol > svg {
-    height: 50px;
-    width: 200px;
+    height: 55px;
     fill: #fff;
 }
 
@@ -92,13 +91,13 @@
     text-transform: uppercase;
 }
 
-/* Inputs minimalistas */
+/* Inputs */
 .input-form-login{
   width: 100%;
   border-radius: 5px;
   margin: 8px 0;
   border: none;
-  border-bottom: 2px solid #001261;
+  border-bottom: 2px solid var(--quatery-color);
   background: transparent;
   outline: none;
   font-size: 1rem;
@@ -117,7 +116,7 @@
   
 
 .login-btn {
-    background: #daf8fd !important;
+    background: var(-quintary-color);
     border: none;
     color: #000000;
     cursor: pointer;
@@ -134,8 +133,8 @@
 }
 
 .login-btn:hover {
-    background: #27cfec !important;
-    color: rgb(117, 117, 117) !important;
+    background: var(--terciary-color);
+    color: var(--color-accent);
     opacity: 1;
 }
 
@@ -175,23 +174,13 @@ form#login {
     width: 320px;
 }
 
-.toggle-password {
-    float: right;
-    margin-right: 10px;
-    margin-top: -32px;
-    position: relative;
-    z-index: 2;
-    color: #ED145B;
-    font-size: 20px !important;
-}
-
 /* Link para Cadastro */
 .login-link-Cadastro {
   margin-top: 20px;
 }
 
 .login-link-Cadastro a {
-  color: #f1e46e;
+  color: var(--terciary-color);
   font-size: 1.2rem;
   text-decoration: none;
   opacity: 0.8;

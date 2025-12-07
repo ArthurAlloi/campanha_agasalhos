@@ -431,7 +431,7 @@ button.header-menu-link {
 }
 
 .header-auth-btn.danger {
-  background: #d93434;
+  background: var(--color-accent--2);
   color: white;
 }
 
