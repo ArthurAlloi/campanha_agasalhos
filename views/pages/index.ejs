@@ -3,199 +3,65 @@
 
 <%- include("../partials/head"); %>
 
-<style>
-
-  #ui {
-    width: 100%;
-    color: var(--primaty-color);
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent
- }
-
-  #ui:focus {
-    outline: none
-  }
-
-  #home-hero {
-    height: calc(var(--vh, 1vh) * 100);
-    align-content: flex-start;
-    grid-template-rows: auto 1fr
-  }
-
-  .section {
-    position: relative;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(12,minmax(0,1fr));
-    column-gap: var(--grid-gap);
-    padding: var(--base-padding-y) var(--base-padding-x)
- }
-
-  #home-hero-title {
-    position: relative;
-    grid-column: 4 / span 5;
-    height: fit-content;
-    line-height: 1.1;
-    font-size: 2.5vw;
-    will-change: transform;
-    margin: 0
-  }
-
-  #home-hero-title .word {
-    position: relative;
-    top: -.1em;
-    transform: translate3d(0,1.5em,0) rotate(15deg)
-  }
-
-  #home-hero-visual-container {
-    grid-column: 1 / span 12;
-    margin-top: calc(var(--base-padding-y) * 3 / 5);
-    cursor: pointer;
-    background-color: var(--header-color);
-  }
-
-  #home-reel {
-    font-size: clamp(.875rem,1vw,2rem)
-  }
-
-  #home-reel-container {
-    grid-column: 1 / 13;
-    padding-bottom: calc(var(--vh, vh) * 100);
-    margin-bottom: calc(var(--vh, vh) * 10)
-  }
-
-  #home-reel-title {
-    position: relative;
-    font-size: 6vw;
-    left: -.03em;
-    letter-spacing: -.02em;
-    grid-column: 1 / span 12;
-    margin-top: 1em;
-    margin-bottom: 5rem;
-    line-height: 1;
-    will-change: transform
-  }
-
-  #home-reel-title .word {
-    position: relative;
-    bottom: .1em
-  }
-
-  #home-reel-title-inner {
-    display: inline-block;
-    position: relative
-  }
-
-  #home-reel-title-inner>div {
-    overflow: visible
-  }
-
-  #home-reel-title-line-1 {
-    padding-left: calc(var(--grid-space) * 2 + var(--grid-gap) * 2)
-  }
-
-
-
-  #home-reel-content {
-    line-height: 1.4;
-    grid-column: 7 / span 6;
-    height: fit-content;
-    font-size: clamp(1rem,1.5vw,3rem)
-  }
-
-  #home-reel-desc {
-    will-change: transform;
-    font-size: 1em;
-    margin: 0
-  }
-
-
-
-  #home-reel-thumb-wrapper {
-    grid-column: 1;
-    margin-top: -18rem;
-  }
-
-  
-
-</style>
-
 <body>
+  <canvas id="canvas"></canvas>
 
   <%- include("../partials/loader") %>
+  <script src="/js/loader.js" defer></script>
 
   <div id="ui">
 
   <%- include("../partials/menu"); %>
 
-  <div id="page-container" style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
+  <div id="page-container">
     <div id="page-container-inner">
       <div id="home" class="page">
         <div id="home-hero" class="section">
 
         <h1 id="home-hero-title">
-            <div class="line"
-            style="display: block; text-align: start; width: 100%; position: relative; overflow: hidden;">
+            <div class="line">
             
-              <div class="word" style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                   Nos
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                   ajudamos
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                   a
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                   criar
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                   campanhas
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                   digitais
               </div>
             </div>
 
-            <div class="line"
-            style="display: block; text-align: start; width: 100%; position: relative; overflow: hidden;">
+            <div class="line">
                 
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                 que
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                 se
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                 conectam
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                 com
               </div>
             </div>
 
-            <div class="line"
-            style="display: block; text-align: start; width: 100%; position: relative; overflow: hidden;">
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+            <div class="line">
+              <div class="word">
                 a
               </div>
-              <div class="word"
-              style="display: inline-block; transform: translate3d(0px, 0em, 0px) rotate(0deg);">
+              <div class="word">
                 sociedade
               </div>
             </div>
@@ -209,20 +75,16 @@
         <div id="home-reel" class="section">
         
           <h4 id="home-reel-title">
-            <div id="home-reel-title-inner" style="transform: translateZ(0px);">
+            <div id="home-reel-title-inner">
                 
-                <div id="home-reel-title-line-1" style="display: inline-block; position: relative;">                 
-                  <div class="word"
-                  style="display: inline-block; transform: translate3d(0px, 100%, 0px);">Solidariedade</div>
-                  <div class="word"
-                  style="display: inline-block; transform: translate3d(0px, 100%, 0px);">Online</div>           
+                <div id="home-reel-title-line-1">                 
+                  <div class="word">Solidariedade</div>
+                  <div class="word">Online</div>           
                 </div>
 
-                <div id="home-reel-title-line-2" style="display: inline-block; position: relative;">
-                    <div class="word"
-                    style="display: inline-block; transform: translate3d(0px, 100%, 0px);">Ajudando</div>
-                    <div class="word"
-                    style="display: inline-block; transform: translate3d(0px, 100%, 0px);">Pessoas</div>
+                <div id="home-reel-title-line-2">
+                    <div class="word">Ajudando</div>
+                    <div class="word">Pessoas</div>
                 </div>
 
             </div>
@@ -230,94 +92,50 @@
 
           <div id="home-reel-content">
             <h2 id="home-reel-desc">
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">Solidariedade</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">Online</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">é</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">uma</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">plataforma</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">100%</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">digital</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">dedicada</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">à</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">criação</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">e</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">divulgação</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">de</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">campanhas</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">solidárias,</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">conectando</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">pessoas</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">de</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">todo</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">o</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">Brasil</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">em</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">prol</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">de</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">causas</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">que</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">transformam</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">vidas.</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">Aqui,</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">qualquer</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">pessoa</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">pode</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">apoiar,</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">compartilhar</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">ou</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">iniciar</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">uma</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">iniciativa</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">que</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">fará</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">a</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">diferença</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">no</div>
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px); opacity: 1;">país</div>
+                <div class="word">Solidariedade</div>
+                <div class="word">Online</div>
+                <div class="word">é</div>
+                <div class="word">uma</div>
+                <div class="word">plataforma</div>
+                <div class="word">100%</div>
+                <div class="word">digital</div>
+                <div class="word">dedicada</div>
+                <div class="word">à</div>
+                <div class="word">criação</div>
+                <div class="word">e</div>
+                <div class="word">divulgação</div>
+                <div class="word">de</div>
+                <div class="word">campanhas</div>
+                <div class="word">solidárias,</div>
+                <div class="word">conectando</div>
+                <div class="word">pessoas</div>
+                <div class="word">de</div>
+                <div class="word">todo</div>
+                <div class="word">o</div>
+                <div class="word">Brasil</div>
+                <div class="word">em</div>
+                <div class="word">prol</div>
+                <div class="word">de</div>
+                <div class="word">causas</div>
+                <div class="word">que</div>
+                <div class="word">transformam</div>
+                <div class="word">vidas.</div>
+                <div class="word">Aqui,</div>
+                <div class="word">qualquer</div>
+                <div class="word">pessoa</div>
+                <div class="word">pode</div>
+                <div class="word">apoiar,</div>
+                <div class="word">compartilhar</div>
+                <div class="word">ou</div>
+                <div class="word">iniciar</div>
+                <div class="word">uma</div>
+                <div class="word">iniciativa</div>
+                <div class="word">que</div>
+                <div class="word">fará</div>
+                <div class="word">a</div>
+                <div class="word">diferença</div>
+                <div class="word">no</div>
+                <div class="word">país</div>
             </h2>                 
             <a id="home-reel-cta" href="/about" target="_blank">
               <span id="home-reel-cta-dot"></span>
@@ -363,15 +181,14 @@
       <!-- LOCALIZAÇÃO -->
       <div id="home-local" class="fade-in">
         <h4 id="home-reel-title">
-          <div id="home-reel-title-inner" style="transform: translateZ(0px);">
-              <div id="home-reel-title-line-1" style="display: inline-block; position: relative;">                 
-                <div class="word"
-                style="display: inline-block; transform: translate3d(0px, 100%, 0px);">Localização</div>         
+          <div id="home-reel-title-inner">
+              <div id="home-reel-title-line-1">                 
+                <div class="word">Localização</div>         
               </div>
           </div>
         </h4>
 
-        <h2 id="home-camp-subtitle">Unidade do SENAI “Dr. Celso Charuri” – Av. Rebouças, 3965 - Jardim São Carlos, Sumaré - SP, 13170-023</h2>
+        <h2 id="home-camp-subtitle">Unidade do SENAI “Dr. Celso Charuri” – Sumaré - SP</h2>
         <div class="map-container">
           <iframe src="https://www.google.com/maps?q=Av.+Rebou%C3%A7as,+3965+-+Jardim+S%C3%A3o+Carlos,+Sumar%C3%A9+-+SP,+13170-023&output=embed" loading="lazy"></iframe>
         </div>
@@ -387,27 +204,7 @@
 
   </div>
 
-<script>
-  (function(){
-    const loader = document.getElementById("loader");
-    if (!loader) return;
-
-    function hideLoader() {
-      loader.classList.add("hide");
-    }
-
-    // 1) Se o DOM carregar, já esconde
-    document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(hideLoader, 200);
-    });
-
-    // 2) Se a página carregar, esconde também
-    window.addEventListener("load", hideLoader);
-
-    // 3) Tempo máximo ABSOLUTO, mesmo com erros JS
-    setTimeout(hideLoader, 2000);
-  })();
-</script>
+  <script src="/static/js/animations.js"></script>
 
 </body>
 

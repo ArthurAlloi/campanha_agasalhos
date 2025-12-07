@@ -1,7 +1,7 @@
 #page-sollogin-index{
-    background: linear-gradient(45deg, #2A3D4B, #D9D9D1);
-    width: 100%;
-    height: 100%;
+  background: linear-gradient(45deg, #2A3D4B, #D9D9D1);
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 .back-button{
@@ -30,7 +30,7 @@
 
 /*Animação Vanta*/
 #vanta{
-    filter: brightness(90%);
+    filter: brightness(60%);
     position: fixed;
     top: 0;
     left: 0;

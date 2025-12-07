@@ -2,18 +2,6 @@
 
 /*NOVO TEST HEADER*/
 
-html,body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  background-color: var(--color-6);
-  color: var(--color-1);
-  /*overflow: hidden;
-  overscroll-behavior: none;*/
-  /*Dark Theme*/
-  /*Light Theme*/
-}
-
 a {
     text-decoration: none
 }
@@ -302,7 +290,6 @@ a,a:active,a:hover,a:visited {
   overflow: hidden;
   width: 100%;
   padding: 1em 1.625em;
-  line-height: 1;
   cursor: pointer;
   pointer-events: none;
   color: var(--color-black)
@@ -465,3 +452,8 @@ button.header-menu-link {
   align-items: center;
 }
 
+#header-space {
+  height: clamp(100px, 10vh, 150px);
+  width: 100%;
+  display: block; 
+}

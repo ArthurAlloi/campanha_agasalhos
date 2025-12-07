@@ -3,7 +3,10 @@
   <%- include("../partials/head"); %>
   <body>
     <%- include("../partials/loader") %>
+      <script src="/js/loader.js" defer></script>
     <%- include("../partials/menu"); %>
+
+    <div id="header-space"></div>
 
     <main class="page-campanha-view solu-main">
 
@@ -39,6 +42,8 @@
         <button class="btn btn-secondary" onclick="window.location.href='/tabela'">Voltar</button>
       </div>
     </main>
+
+    <div id="header-space"></div>
 
     <script>
       // Collapse simples por turma (toggle)

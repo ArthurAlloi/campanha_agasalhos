@@ -3,18 +3,9 @@
 
 <%- include("../partials/head"); %>
 
-<style>
-
-
-body {
-  display: flex;
-  overflow-x: hidden;
-}
-
-</style>
-
 <body id="page-sollogin-index">
   <%- include("../partials/loader") %>
+  <script src="/js/loader.js" defer></script>
 
   <div id="vanta"></div>
 
@@ -60,7 +51,6 @@ body {
           <div class="login-column">
               <label for="password" class="login-label">Senha</label>
               <input type="password" id="password" name="password" class="input-form-login" required />
-              <span toggle="#password" class="fa fa-fw fa-eye toggle-password"></span>
           </div>
       
       </div>

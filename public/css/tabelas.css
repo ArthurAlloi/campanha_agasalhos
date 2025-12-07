@@ -1,207 +1,429 @@
-/* ===========================
-   PALETA E VARIÁVEIS (CRIATIVO)
-   =========================== */
-:root{
-  --bg-100: #06141B;
-  --bg-200: #0d2630;
-  --card: linear-gradient(180deg, rgba(37,55,69,1) 0%, rgba(25,45,58,1) 100%);
-  --glass: rgba(255,255,255,0.03);
+/* ===================================================================================================================================
+   PALETA E VARIÁVEIS (CLEAN CYANO-ESCURO)
+   =================================================================================================================================== */
+:root {
+    /* Cores do Usuário */
+    --primary-color: #1D242E;
+    --secundary-color: #2A3D4B;
+    --terciary-color: #02AAC4; /* Accent Principal (Cyan) */
+    --quatery-color: #2A555E; /* Accent Muted / Texto Secundário */
+    --quintary-color: #D9D9D1; /* Texto Principal (Off-White) */
 
-  --accent: #F2B705;
-  --accent-2: #FF7AA2;
-  --accent-3: #7FACBB;
+    /* Mapeamento de Funções para a nova paleta */
+    --bg-100: var(--primary-color);
+    --bg-200: var(--secundary-color);
+    --card: linear-gradient(180deg, var(--secundary-color) 0%, var(--primary-color) 100%);
+    --glass: rgba(255, 255, 255, 0.03);
 
-  --text-primary: #E6F0F2;
-  --text-secondary: #AAB9BB;
-  --muted: rgba(255,255,255,0.12);
+    --accent: var(--terciary-color);
+    --accent-2: #028C9F; /* Tom ligeiramente mais escuro que o terciary para gradientes */
+    --accent-3: var(--quatery-color);
 
-  --radius-lg: 14px;
-  --radius-md: 8px;
-  --shadow-soft: 0 8px 30px rgba(2,6,23,0.6);
-  --glass-border: 1px solid rgba(255,255,255,0.04);
+    --text-primary: var(--quintary-color);
+    --text-secondary: var(--quatery-color);
+    --muted: rgba(255, 255, 255, 0.12);
 
-  --gap: 12px;
-  --transition: 200ms cubic-bezier(.2,.8,.2,1);
+    --radius-lg: 14px;
+    --radius-md: 8px;
+    --shadow-soft: 0 8px 30px rgba(2, 6, 23, 0.6);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.04);
+
+    --gap: 12px;
+    --transition: 200ms cubic-bezier(.2, .8, .2, 1);
 }
 
-/* ===========================
+/* ===================================================================================================================================
    CONTAINER PRINCIPAL
-   =========================== */
-.solu-main, .page-campanha, .page-campanhas, .page-doacao-registrar, .page-usuarios, .page-campanha-view {
-  max-width: 1100px;
-  margin: 34px auto;
-  padding: 28px;
-  background: var(--card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-  border: var(--glass-border);
+   =================================================================================================================================== */
+.solu-main,
+.page-campanha,
+.page-campanhas,
+.page-doacao-registrar,
+.page-usuarios,
+.page-campanha-view {
+    max-width: 1100px;
+    margin: 34px auto;
+    padding: 28px;
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    border: var(--glass-border);
 }
 
-/* ===========================
+
+/* ===================================================================================================================================
    CABEÇALHOS / TIPOGRAFIA
-   =========================== */
-.page-title { font-size: 1.9rem; color: var(--accent); margin: 0; letter-spacing: -0.02em; }
-.page-lead { color: var(--text-secondary); margin: 0; }
-
-/* ===========================
-   ALERTS
-   =========================== */
-.alert { padding: 10px 14px; border-radius: 8px; margin: 12px 0; font-weight:600; }
-.alert-success { background: rgba(0,255,150,0.08); color: #7fffcc; border: 1px solid rgba(0,255,150,0.12); }
-.alert-error { background: rgba(255,80,80,0.06); color: #ffb3b3; border: 1px solid rgba(255,80,80,0.12); }
-
-/* ===========================
-   FORMULÁRIOS - PADRÃO
-   =========================== */
-.form-campanha, .form-admin { display: flex; flex-direction: column; gap: var(--gap); }
-.form-label { color: var(--text-secondary); font-weight:600; margin-bottom:6px; display:block; font-size:0.95rem; }
-.input, .select, .textarea {
-  background: rgba(255,255,255,0.02);
-  color: var(--text-primary);
-  border: 1px solid rgba(255,255,255,0.04);
-  padding: 10px 12px;
-  border-radius: var(--radius-md);
-  transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
-  font-size: 0.95rem;
-  width: 100%;
+   =================================================================================================================================== */
+.page-title {
+    font-size: 1.9rem;
+    color: var(--accent);
+    margin: 0;
+    letter-spacing: -0.02em;
 }
-.input:focus, .select:focus, .textarea:focus {
-  outline: none;
-  box-shadow: 0 6px 20px rgba(242,183,5,0.12);
-  border-color: rgba(242,183,5,0.9);
-  transform: translateY(-1px);
+.page-lead {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ===================================================================================================================================
+   ALERTS
+   =================================================================================================================================== */
+.alert {
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin: 12px 0;
+    font-weight: 600;
+}
+
+/* Cores de status de alerta mantidas em convenções (verde/vermelho) mas harmonizadas com o tema escuro */
+.alert-success {
+    background: rgba(0, 255, 150, 0.08);
+    color: #7fffcc;
+    border: 1px solid rgba(0, 255, 150, 0.12);
+}
+.alert-error {
+    background: rgba(255, 80, 80, 0.06);
+    color: #ffb3b3;
+    border: 1px solid rgba(255, 80, 80, 0.12);
+}
+
+/* ===================================================================================================================================
+   FORMULÁRIOS - PADRÃO
+   =================================================================================================================================== */
+.form-campanha,
+.form-admin {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+.form-label {
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+    font-size: 0.95rem;
+}
+.input,
+.select,
+.textarea {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+    font-size: 0.95rem;
+    width: 100%;
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    /* Usa o novo Accent Principal para foco */
+    box-shadow: 0 6px 20px rgba(2, 170, 196, 0.2);
+    border-color: var(--accent);
+    transform: translateY(-1px);
 }
 
 /* layout de colunas simples */
-.form-row { display:flex; gap: var(--gap); align-items:flex-end; flex-wrap:wrap; }
-.form-col { flex: 1; min-width: 180px; }
+.form-row {
+    display: flex;
+    gap: var(--gap);
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+.form-col {
+    flex: 1;
+    min-width: 180px;
+}
 
 /* separador estilizado */
-.sep { border: none; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(242,183,5,0.06)); margin: 12px 0; }
+.sep {
+    border: none;
+    height: 1px;
+    /* Usa o novo Accent Principal (Cyan) */
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.03), rgba(2, 170, 196, 0.06));
+    margin: 12px 0;
+}
 
 /* subheading */
-.subheading { margin: 6px 0 6px; color: var(--accent-3); font-weight:700; }
+.subheading {
+    margin: 6px 0 6px;
+    /* Usa o Accent Muted (Quatery) */
+    color: var(--accent-3);
+    font-weight: 700;
+}
 
-/* ===========================
+/* ===================================================================================================================================
    PREVIEW + ITENS
-   =========================== */
-.preview-and-items { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
-.items-col { flex:1; min-width:280px; }
+   =================================================================================================================================== */
+.preview-and-items {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.items-col {
+    flex: 1;
+    min-width: 280px;
+}
 
 
 /* ITENS (mini-table) */
-.items-container { display:flex; flex-direction:column; gap:10px; padding:10px; border-radius:10px; border: 1px solid rgba(255,255,255,0.03); }
-.item-row { display:flex; gap:10px; align-items:center; padding:8px; border-radius:8px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); transition: transform var(--transition), box-shadow var(--transition), opacity .2s; animation: fadeIn .25s ease-in-out; }
-.item-row:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(2,6,23,0.45); }
-.item-input { min-width: 120px; }
+.items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.item-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.02));
+    transition: transform var(--transition), box-shadow var(--transition), opacity .2s;
+    animation: fadeIn .25s ease-in-out;
+}
+.item-row:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45);
+}
+.item-input {
+    min-width: 120px;
+}
 
 /* animation */
-@keyframes fadeIn { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform: translateY(0); } }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-/* ===========================
+/* ===================================================================================================================================
    BOTOES PADRÃO
-   =========================== */
-.btn { border: none; cursor: pointer; border-radius: 10px; padding: 10px 14px; font-weight:700; letter-spacing: 0.2px; transition: transform var(--transition), box-shadow var(--transition); }
-.btn:active { transform: translateY(1px); }
+   =================================================================================================================================== */
+.btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+.btn:active {
+    transform: translateY(1px);
+}
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color: #07121A;
-  box-shadow: 0 8px 22px rgba(242,183,5,0.14);
+    /* Usa o novo Accent Principal (Cyan) */
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    /* Cor do texto para contraste: Primary Dark */
+    color: var(--primary-color);
+    box-shadow: 0 8px 22px rgba(2, 170, 196, 0.18);
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,122,162,0.16); }
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(2, 170, 196, 0.25);
+}
 
 .btn-secondary {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid rgba(242,183,5,0.15);
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid rgba(2, 170, 196, 0.15);
 }
-.btn-secondary:hover { background: rgba(242,183,5,0.06); }
+.btn-secondary:hover {
+    background: rgba(2, 170, 196, 0.06);
+}
 
-.btn-remove { background: linear-gradient(90deg,#ff6b6b,#ff3b3b); color: #fff; padding: 6px 10px; border-radius: 8px; font-weight:700; }
-.btn-sm { padding: 6px 8px; font-size:0.85rem; }
+/* Botão de remoção (Danger) */
+.btn-remove {
+    background: linear-gradient(90deg, #ff6b6b, #ff3b3b);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+.btn-sm {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+}
 
-/* ===========================
+/* ===================================================================================================================================
    GRID DE AÇÕES (DOAÇÕES)
-   =========================== */
-.actions-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:18px; margin-top: 14px; }
-.action-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); padding: 18px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; border: 1px solid rgba(255,255,255,0.03); transition: transform var(--transition), box-shadow var(--transition); }
-.action-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(122, 200, 230, 0.06); }
-.action-img { width: 100%; max-width: 160px; height: auto; border-radius:8px; object-fit:cover; }
-.action-title { color: var(--text-primary); margin: 0; font-size:1rem; }
+   =================================================================================================================================== */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 14px;
+}
+.action-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.02));
+    padding: 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+.action-card:hover {
+    transform: translateY(-6px);
+    /* Sombra suave com o tom do Accent Principal */
+    box-shadow: 0 12px 40px rgba(2, 170, 196, 0.08);
+}
+.action-img {
+    width: 100%;
+    max-width: 160px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.action-title {
+    color: var(--text-primary);
+    margin: 0;
+    font-size: 1rem;
+}
 
-/* ===========================
+/* ===================================================================================================================================
    TABELA - LISTAGEM DE CAMPANHAS / USERS
-   =========================== */
-.table-wrap { overflow-x: auto; margin-top: 14px; border-radius: 12px; }
-.table-campanhas, .table-users, .table-simple {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 420px;
-  background: transparent;
+   =================================================================================================================================== */
+.table-wrap {
+    overflow-x: auto;
+    margin-top: 14px;
+    border-radius: 12px;
+}
+.table-campanhas,
+.table-users,
+.table-simple {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 420px;
+    background: transparent;
 }
 .table-campanhas th, .table-campanhas td,
 .table-users th, .table-users td,
 .table-simple th, .table-simple td {
-  padding: 14px 12px;
-  text-align: center;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  font-size: 0.95rem;
-  color: var(--text-primary);
+    padding: 14px 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.95rem;
+    color: var(--text-primary);
 }
 .table-campanhas thead th,
 .table-users thead th {
-  position: sticky; top: 0;
-  background: linear-gradient(90deg, rgba(2,18,26,0.95), rgba(10,30,40,0.95));
-  color: var(--accent);
-  font-weight:700;
-  letter-spacing:0.6px;
+    position: sticky; top: 0;
+    /* Fundo da tabela usa as cores Primária e Secundária */
+    background: linear-gradient(90deg, rgba(29, 36, 46, 0.95), rgba(42, 61, 75, 0.95));
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.6px;
 }
 
 .table-campanhas tbody tr, .table-users tbody tr {
-  transition: background var(--transition), transform var(--transition);
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+    transition: background var(--transition), transform var(--transition);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
 }
 .table-campanhas tbody tr:hover, .table-users tbody tr:hover {
-  transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.025);
+    transform: translateY(-2px);
 }
 
 /* status badges */
 .campanha-status {
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-weight:700;
-  font-size:0.85rem;
-  display:inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: inline-block;
 }
-.status-ativa { background: linear-gradient(90deg,#00ff99,#1fe0b2); color: #021217; border: none; }
-.status-encerrada { background: linear-gradient(90deg,#ff9b9b,#ff6b6b); color: #210909; }
+.status-ativa {
+    background: linear-gradient(90deg, #00ff99, #1fe0b2);
+    color: #021217;
+    border: none;
+}
+.status-encerrada {
+    background: linear-gradient(90deg, #ff9b9b, #ff6b6b);
+    color: #210909;
+}
 
-/* alerta: menos de 3 dias */
-.campanha-alerta { background: rgba(255,190,120,0.12) !important; }
+/* alerta: menos de 3 dias - Laranja/Amarelo Muted */
+.campanha-alerta {
+    background: rgba(255, 190, 120, 0.12) !important;
+}
 
 /* linha com borda lateral sutil para identificação */
-.campanha-ativa td { border-left: 3px solid rgba(0,255,153,0.12); }
-.campanha-encerrada td { border-left: 4px solid rgba(255,100,100,0.12); }
+.campanha-ativa td {
+    border-left: 3px solid rgba(0, 255, 153, 0.2);
+}
+.campanha-encerrada td {
+    border-left: 4px solid rgba(255, 100, 100, 0.2);
+}
 
 /* células especiais */
-.cell-name { text-align: left; padding-left: 18px; font-weight:700; color: var(--text-primary); }
-.cell-timer { font-weight:700; color: var(--text-secondary); }
+.cell-name {
+    text-align: left;
+    padding-left: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.cell-timer {
+    font-weight: 700;
+    /* Usa o Accent Muted (Quatery) */
+    color: var(--accent-3);
+}
 
 /* vazio */
-.empty { text-align:center; padding: 28px; color: var(--text-secondary); }
+.empty {
+    text-align: center;
+    padding: 28px;
+    color: var(--text-secondary);
+}
 
-/* ===========================
+/* ===================================================================================================================================
    VER CAMPANHA: tabela simples
-   =========================== */
-.table-simple th, .table-simple td { text-align:left; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.03); }
+   =================================================================================================================================== */
+.table-simple th,
+.table-simple td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
 
 /* turma collapse style */
-.turma-title { margin: 12px 0 6px 0; color: var(--accent-3); cursor:pointer; }
-.turma-title.collapsed { opacity: 0.6; }
+.turma-title {
+    margin: 12px 0 6px 0;
+    color: var(--accent-3);
+    cursor: pointer;
+}
+.turma-title.collapsed {
+    opacity: 0.6;
+}
 
-/* ===========================
+/* ===================================================================================================================================
    EDIT INLINE (USUÁRIOS)
-   =========================== */
-.edit-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-.edit-row:focus-within { background: rgba(0, 140, 255, 0.06); border-radius: 6px; padding: 4px; }
+   =================================================================================================================================== */
+.edit-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.edit-row:focus-within {
+    /* Usa a cor Muted (Quatery) para foco suave */
+    background: rgba(42, 85, 94, 0.2);
+    border-radius: 6px;
+    padding: 4px;
+}

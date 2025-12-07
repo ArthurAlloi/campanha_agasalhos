@@ -4,7 +4,10 @@
 
   <body>
     <%- include("../partials/loader") %>
+    <script src="/js/loader.js" defer></script>
     <%- include("../partials/menu"); %>
+
+    <div id="header-space"></div>
 
     <main class="page-campanha solu-main">
 
@@ -16,7 +19,7 @@
       <% } %>
 
       <form id="form-campanha" class="form-campanha" action="/criarcampanha" method="POST" novalidate>
-        <h1 class="page-title">Criar Nova Campanha</h1>
+        <h1 class="page-title">Criar Campanha</h1>
         <!-- Nome da campanha -->
         <label for="campanha-nome" class="form-label">Nome da Campanha</label>
         <input id="campanha-nome" class="input" type="text" name="nome" maxlength="40" required placeholder="Ex: Campanha do Agasalho">
@@ -61,6 +64,8 @@
         </div>
       </form>
     </main>
+
+    <div id="header-space"></div>
 
     <script>
       (function () {
