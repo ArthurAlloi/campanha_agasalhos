@@ -47,7 +47,7 @@
 .login-box {
     left: 50%;
     position: fixed;
-    top: 50%;
+    top: 15%;
     transform: translate(-50%, -50%);
     max-width: 320px;
     z-index: 30;
@@ -148,6 +148,18 @@
     padding: 6px 10px;
     text-transform: uppercase;
     text-align: center;
+}
+
+
+.error-space {
+  height: 22px; /* Mesmo tamanho da mensagem de erro */
+  margin-bottom: 10px;
+}
+
+.error {
+  color: #e90000;
+  font-size: 14px;
+  text-align: center;
 }
 
 .login-reset-password{

@@ -83,17 +83,18 @@ body {
         </p>
       </div>
 
+      <div class="error-space">
+        <% if (erro) { %>
+          <p class="error" style="color: red; margin-top: 10px; font-weight: bolder;"><%= erro %> </p>
+        <% } %>
+
+        <% if (sucesso) { %>
+          <p class="sucesso" style="color: lightgreen; margin-top: 10px; font-weight: bolder;"><%= sucesso %></p>
+        <% } %>
+        
+      </div>
+
     </form>
-
-    <!-- Mostrar erro se o backend passar -->
-    <% if (erro) { %>
-      <p class="error" style="color: red; margin-top: 10px; font-weight: bolder;"><%= erro %></p>
-    <% } %>
-
-    <!-- Mostrar sucesso se o backend passar -->
-    <% if (sucesso) { %>
-      <p class="sucesso" style="color: lightgreen; margin-top: 10px; font-weight: bolder;"><%= sucesso %></p>
-    <% } %>
 
   </div>
 
@@ -108,8 +109,8 @@ body {
   gsap.set(".login-column", { opacity: 0, y: 20 });
   gsap.set(".login-footer", { opacity: 0, y: 15 });
   gsap.set(".login-link-Cadastro", { opacity: 0, y: 15 });
-  gsap.set(".error", { opacity: 0, y: -15 });
-  gsap.set(".sucesso", { opacity: 0, y: -25 });
+  gsap.set(".error", { opacity: 0, y: 15 });
+  gsap.set(".sucesso", { opacity: 0, y: 15 });
 
   const tl = gsap.timeline({ ease: "power3.out" });
 
@@ -129,8 +130,9 @@ body {
     .to(".login-footer", { opacity: 1, y: 0, duration: 0.30 }, "-=0.25")
     .to(".login-link-Cadastro", { opacity: 1, y: 0, duration: 0.30 }, "-=0.3")
     .to(".back-button", { opacity: 1, y: 0, duration: 0.5,  })
-    .to(".error", { opacity: 1, y: 0, duration: 0.3})
-    .to(".sucesso", { opacity: 1, y: 0, duration: 0.4});
+    .to(".error", { opacity: 1, y: 0, duration: 0.5,  })
+    .to(".sucesso", { opacity: 1, y: 0, duration: 0.5,  });
+
   });
   </script>
 

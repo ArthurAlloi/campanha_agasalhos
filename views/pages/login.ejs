@@ -12,6 +12,12 @@ body {
   width: 100%;
 }
 
+main {
+  position: relative;
+  height: 100vh;
+}
+
+
 </style>
 
 <body id="page-sollogin-index">
@@ -74,13 +80,18 @@ body {
         <div class="login-link-Cadastro">
           <a href="/cadastro">Casdastrar</a>
         </div>
-        
-        <% if (erro) { %>
-          <p class="error" style="color: red; margin-top: 10px; font-weight: bolder;"><%= erro %> </p>
-        <% } %>
+          
+    <div class="error-space">
+      <% if (erro) { %>
+        <p class="error" style="color: red; margin-top: 10px; font-weight: bolder;"><%= erro %> </p>
+      <% } %>
+    </div>
 
+      
       </form>
 
+      
+      
     </div>
 
   </main>
@@ -94,8 +105,7 @@ body {
   gsap.set(".login-column", { opacity: 0, y: 20 });
   gsap.set(".login-footer", { opacity: 0, y: 15 });
   gsap.set(".login-link-Cadastro", { opacity: 0, y: 15 });
-  gsap.set(".error", { opacity: 0, y: -15 });
-  gsap.set(".sucesso", { opacity: 0, y: -25 });
+  gsap.set(".error", { opacity: 0, y: 15 });
 
   const tl = gsap.timeline({ ease: "power3.out" });
 
@@ -115,8 +125,8 @@ body {
     .to(".login-footer", { opacity: 1, y: 0, duration: 0.30 }, "-=0.25")
     .to(".login-link-Cadastro", { opacity: 1, y: 0, duration: 0.30 }, "-=0.3")
     .to(".back-button", { opacity: 1, y: 0, duration: 0.5,  })
-    .to(".error", { opacity: 1, y: 0, duration: 0.3})
-    .to(".sucesso", { opacity: 1, y: 0, duration: 0.4});
+    .to(".error", { opacity: 1, y: 0, duration: 0.3,  });
+
   });
   </script>
 
