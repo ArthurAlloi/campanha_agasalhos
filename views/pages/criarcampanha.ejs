@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <%- include("../partials/head"); %>
 
@@ -18,8 +19,10 @@
         <div class="alert alert-error"><%= erro %></div>
       <% } %>
 
+      <!-- MANTIVE o novalidate porque você usava validação própria -->
       <form id="form-campanha" class="form-campanha" action="/criarcampanha" method="POST" novalidate>
         <h1 class="page-title">Criar Campanha</h1>
+
         <!-- Nome da campanha -->
         <label for="campanha-nome" class="form-label">Nome da Campanha</label>
         <input id="campanha-nome" class="input" type="text" name="nome" maxlength="40" required placeholder="Ex: Campanha do Agasalho">
@@ -69,7 +72,6 @@
 
     <script>
       (function () {
-        // referências
         const form = document.getElementById('form-campanha');
         const nomeInput = document.getElementById('campanha-nome');
         const descInput = document.getElementById('campanha-descricao');
@@ -83,22 +85,22 @@
         inicio.min = hoje;
         fim.min = hoje;
 
-        // impedir números no nome da campanha (UX)
+        // impedir números no nome da campanha
         nomeInput.addEventListener('input', () => {
           nomeInput.value = nomeInput.value.replace(/[0-9]/g, '');
         });
 
-        // função para bloquear números em campos .item-nome e ligar remoção
+        // função que ativa comportamentos nos itens
         function attachItemBehaviors(container) {
           container.querySelectorAll('.item-nome').forEach(el => {
             el.addEventListener('input', () => el.value = el.value.replace(/[0-9]/g, ''));
           });
           container.querySelectorAll('.btn-remove').forEach(btn => {
-            btn.addEventListener('click', (e) => btn.closest('.item-row').remove());
+            btn.addEventListener('click', () => btn.closest('.item-row').remove());
           });
         }
 
-        // criar novo item em JS (com animação)
+        // criar novo item dinamicamente
         function criarItemRow() {
           const row = document.createElement('div');
           row.className = 'item-row';
@@ -111,41 +113,48 @@
           return row;
         }
 
-        // adicionar item
         btnAdd.addEventListener('click', () => {
           const row = criarItemRow();
           itensContainer.appendChild(row);
-          // mostrar botão remover nas linhas (exceto primeira)
           itensContainer.querySelectorAll('.btn-remove').forEach(btn => btn.hidden = false);
-          // foco no nome do novo item
           row.querySelector('.item-nome').focus();
         });
 
-        // inicializar comportamentos na primeira linha
         attachItemBehaviors(itensContainer);
 
-        // validar datas ao submeter
+        // 🔥 VALIDAÇÃO COMPLETA CORRIGIDA
         form.addEventListener('submit', function (e) {
           const vInicio = inicio.value;
           const vFim = fim.value;
-          if (vInicio && vFim && vFim < vInicio) {
+
+          // 1️⃣ validar se datas estão vazias
+          if (!vInicio || !vFim) {
+            e.preventDefault();
+            alert('Preencha as duas datas antes de criar a campanha.');
+            return false;
+          }
+
+          // 2️⃣ validar ordem das datas
+          if (vFim < vInicio) {
             e.preventDefault();
             alert('A data de término não pode ser ANTES da data de início.');
             return false;
           }
-          // validação final quantidade/pontos
+
+          // 3️⃣ validar pontos dos itens
           const pontos = Array.from(form.querySelectorAll('.item-pontos')).map(i => Number(i.value));
           for (let p of pontos) {
             if (!Number.isFinite(p) || p < 1 || p > 99) {
               e.preventDefault();
-              alert('Cada item deve ter pontos entre 1 e 99.');
+              alert('Cada item deve ter entre 1 e 99 pontos.');
               return false;
             }
           }
+
           return true;
         });
 
-        // permitir adicionar item com Enter quando estiver num campo item-nome
+        // permite adicionar item com Enter no nome
         itensContainer.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' && e.target.matches('.item-nome')) {
             e.preventDefault();

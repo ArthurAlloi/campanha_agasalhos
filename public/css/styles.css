@@ -1,5 +1,6 @@
 /*Scroll-bar*/
 ::-webkit-scrollbar {
+  z-index: 9999;
   width: 4px;
 }
 
@@ -13,7 +14,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a89004; /*DEFINIR CORES*/
+  background: #04a89a; /*DEFINIR CORES*/
 }
 
 /*PADRONIZAÇÃO DE CORES*/
