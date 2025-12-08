@@ -336,7 +336,7 @@ main h4{
 #home-reel-title {
   position: relative;
   font-size: 6vw;
-  left: -.03em;
+  left: -.4em;
   letter-spacing: -.02em;
   grid-column: 1 / span 12;
   margin-top: 1em;
@@ -347,8 +347,22 @@ main h4{
 
 #home-reel-title .word {
   position: relative;
-  bottom: .1em
+  bottom: .1em;
+  left: 0.5em;
 }
+
+#home-reel-title .word-2 {
+  position: relative;
+  bottom: .1em;
+  left: -5em;
+}
+
+#home-reel-title .word-3 {
+  position: relative;
+  bottom: .1em;
+  left: -4.5em;
+}
+
 #home-reel-title-inner {
   display: inline-block;
   position: relative
@@ -382,23 +396,26 @@ main h4{
 }
 
 #home-tutorial {
-  height: calc(var(--vh, 1vh) * 100);
-  align-content: flex-start;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centraliza verticalmente */
+  align-items: center;     /* centraliza horizontalmente */
 }
 
 .video-container{
-  grid-column: 1 / span 12; 
-  height: 400px; 
-  width: 100%;
+  grid-column: 2 / span 10; 
+  height: 500px; 
+  width: 90%;
   background: var(--quatery-color);
+  margin: 0 auto;
 }
 
 /* CONTAINER PRINCIPAL DA SEÇÃO (OK) */
 #home-local{
-  height: calc(var(--vh, 1vh) * 100);
-  align-content: flex-start;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centraliza verticalmente */
+  align-items: center;     /* centraliza horizontalmente */
 }
 
 /* TÍTULO PRINCIPAL DA SEÇÃO (OK - Ocupa 12 colunas) */
@@ -420,13 +437,11 @@ main h4{
   font-weight: 600;
 }
 
-/* CONTAINER DO MAPA: OCUPA 12 COLUNAS */
 .map-container{
-  /* NOVO: Faz o mapa ocupar todas as 12 colunas */
-  grid-column: 1 / span 12; 
-  /* Altura Fixa, essencial para iframes */
+  grid-column: 2 / span 10; 
   height: 400px; 
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .map-container iframe{

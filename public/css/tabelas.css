@@ -97,7 +97,7 @@
     gap: var(--gap);
 }
 .form-label {
-    color: var(--text-secondary);
+    color: var(--accent-2);
     font-weight: 600;
     margin-bottom: 6px;
     display: block;
@@ -147,7 +147,7 @@
 .subheading {
     margin: 6px 0 6px;
     /* Usa o Accent Muted (Quatery) */
-    color: var(--accent-3);
+    color: var(--quintary-color);
     font-weight: 700;
 }
 
@@ -411,4 +411,39 @@
     background: rgba(42, 85, 94, 0.2);
     border-radius: 6px;
     padding: 4px;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+    color: rgba(217, 217, 209, 0.45);   /* cor suave da sua paleta */
+    font-style: italic;                 /* dá aquele toque elegante */
+    letter-spacing: 0.4px;              /* mais moderno */
+    transition: color .25s ease;        /* animação leve */
+}
+
+/* muda a cor quando o input recebe foco */
+.input:focus::placeholder,
+.textarea:focus::placeholder {
+    color: rgba(2, 170, 196, 0.55);     /* cyan vivo ao focar */
+}
+
+/* Placeholder visual do SELECT */
+.select:invalid {
+    color: rgba(217, 217, 209, 0.40); /* tom suave, combina com o tema */
+    font-style: italic;
+    background: var(--primary-color);
+}
+
+/* Quando selecionar algo, volta ao normal */
+.select option {
+    color: var(--text-primary);
+}
+
+/* A opção placeholder dentro da lista suspensa */
+.select option[value=""] {
+    color: rgba(217, 217, 209, 0.35);
+}
+
+.form-heading{
+    color: var(--quintary-color);
 }

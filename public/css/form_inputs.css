@@ -1,11 +1,11 @@
 #page-sollogin-index{
-  background: linear-gradient(45deg, #2A3D4B, #D9D9D1);
+  background: linear-gradient(20deg,rgba(32, 50, 54, 1) 0%, rgba(138, 157, 157, 1) 50%, rgba(217, 217, 209, 1) 100%);
   min-height: 100%;
   overflow-x: hidden;
 }
 
 #page-solcadatro-index{
-  background: linear-gradient(315deg, #2A3D4B, #D9D9D1);
+  background: linear-gradient(220deg,rgba(32, 50, 54, 1) 0%, rgba(138, 157, 157, 1) 50%, rgba(217, 217, 209, 1) 100%);
   min-height: 100%;
   overflow-x: hidden;
 }
@@ -32,17 +32,6 @@
 .back-button-logo:hover{
   background: #06141B;
   opacity: 1;
-}
-
-/*Animação Vanta*/
-#vanta{
-    filter: brightness(60%);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; 
 }
 
 .login-canvas-particles {

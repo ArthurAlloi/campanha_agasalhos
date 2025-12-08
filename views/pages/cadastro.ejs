@@ -99,6 +99,39 @@ body {
 
   </main>
 
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+  gsap.set(".login-box", { opacity: 0, y: 20 });
+  gsap.set(".back-button", { opacity: 0, y: -10 });
+  gsap.set(".login-logo-sol svg", { opacity: 0, y: 15 });
+  gsap.set(".login-column", { opacity: 0, y: 20 });
+  gsap.set(".login-footer", { opacity: 0, y: 15 });
+  gsap.set(".login-link-Cadastro", { opacity: 0, y: 15 });
+
+  const tl = gsap.timeline({ ease: "power3.out" });
+
+  tl.to(".login-box", { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
+    .to(".login-logo-sol svg", {
+      opacity: 1,
+      y: 0,
+      duration: 0.35,
+      stagger: 0.10
+    }, "-=0.3")
+    .to(".login-column", {
+      opacity: 1,
+      y: 0,
+      duration: 0.35,
+      stagger: 0.12
+    }, "-=0.2")
+    .to(".login-footer", { opacity: 1, y: 0, duration: 0.30 }, "-=0.25")
+    .to(".login-link-Cadastro", { opacity: 1, y: 0, duration: 0.30 }, "-=0.3")
+    .to(".back-button", { opacity: 1, y: 0, duration: 0.5,  });
+  });
+  </script>
+
+
+
   <script type="text/javascript" src="/static/js/script_bolas.js"></script>
   <canvas class="login-canvas-particles" max-width="100%" height="auto" 
   style="left: 0px; top: 0px; position: absolute; height: 739px; width: 799px;"></canvas>
