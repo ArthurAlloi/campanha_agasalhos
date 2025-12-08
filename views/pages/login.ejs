@@ -3,6 +3,17 @@
 
 <%- include("../partials/head"); %>
 
+<style>
+
+body {
+  height: 100%;
+  margin: 0;
+  overflow:hidden;
+  width: 100%;
+}
+
+</style>
+
 <body id="page-sollogin-index">
   <%- include("../partials/loader") %>
   <script src="/js/loader.js" defer></script>
@@ -23,7 +34,7 @@
       </a>
     </div>
 
-    <div class="login-box">
+    <div class="login-box" id="caixa-login">
       <form id="login" action="/login" method="POST" class="form-cadastro">
 
       <div class="login-logo-sol">
@@ -103,14 +114,14 @@
     }, "-=0.2")
     .to(".login-footer", { opacity: 1, y: 0, duration: 0.30 }, "-=0.25")
     .to(".login-link-Cadastro", { opacity: 1, y: 0, duration: 0.30 }, "-=0.3")
-    .to(".back-button", { opacity: 1, y: 0, duration: 0.4 });
+    .to(".back-button", { opacity: 1, y: 0, duration: 0.5,  });
   });
   </script>
 
 
   <script type="text/javascript" src="/static/js/script_bolas.js"></script>
   <canvas class="login-canvas-particles" max-width="100%" height="auto" 
-  style="left: 0px; top: 0px; position: absolute; height: 739px; width: 799px;"></canvas>
+  style="left: 0px; top: 0px; position: absolute;"></canvas>
 
   <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

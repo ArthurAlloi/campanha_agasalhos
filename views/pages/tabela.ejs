@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <%- include("../partials/head"); %>
-  
+ 
   <body>
     <%- include("../partials/loader") %>
     <script src="/js/loader.js" defer></script>
@@ -17,6 +17,7 @@
           <thead>
             <tr>
               <th scope="col">Nome da Campanha</th>
+              <th scope="col">Descrição</th> <!-- 🆕 COLUNA -->
               <th scope="col">Data de Início</th>
               <th scope="col">Data de Término</th>
               <th scope="col">Status</th>
@@ -28,30 +29,46 @@
             <% if (campanhas.length > 0) { %>
               <% campanhas.forEach(c => { %>
                 <tr class="campanha-row <%= c.ativa ? 'campanha-ativa' : 'campanha-encerrada' %>">
+
                   <td class="cell-name"><%= c.nome %></td>
+
+                  <!-- 🆕 CÉLULA DE DESCRIÇÃO -->
+                  <td class="cell-description" style="max-width: 250px; word-wrap: break-word;">
+                    <%= c.descricao && c.descricao.trim() !== ""
+                          ? c.descricao
+                          : "Sem descrição"
+                    %>
+                  </td>
+
                   <td class="cell-start"><%= c.data_inicio %></td>
                   <td class="cell-end"><%= c.data_fim %></td>
+
                   <td class="cell-status">
                     <span class="campanha-status <%= c.ativa ? 'status-ativa' : 'status-encerrada' %>">
                       <%= c.ativa ? 'Ativa' : 'Encerrada' %>
                     </span>
                   </td>
+
                   <td class="cell-timer">
                     <span class="campanha-timer" data-fim="<%= c.data_fim %>"></span>
                   </td>
+
                   <td class="cell-actions">
                     <form action="/campanhas/<%= c.id %>" method="GET" class="action-form">
                       <button class="btn btn-primary btn-view" <%= c.ativa ? '' : 'disabled' %>>Ver mais</button>
                     </form>
                   </td>
+
                 </tr>
               <% }) %>
+
             <% } else { %>
-              <tr><td colspan="6" class="empty">Nenhuma campanha cadastrada 😕</td></tr>
+              <tr><td colspan="7" class="empty">Nenhuma campanha cadastrada 😕</td></tr>
             <% } %>
           </tbody>
         </table>
       </div>
+
     </main>
 
     <div id="header-space"></div>
@@ -85,7 +102,6 @@
 
             timerEl.textContent = `${dias}d ${horas}h ${minutos}m`;
 
-            // destaque para menos de 3 dias
             if (dias <= 3) {
               tr.classList.add('campanha-alerta');
             } else {
@@ -100,6 +116,6 @@
     </script>
 
     <script src="/static/js/main.js"></script>
-    
+   
   </body>
 </html>
