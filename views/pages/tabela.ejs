@@ -11,6 +11,7 @@
         <thead>
           <tr>
             <th>Nome da Campanha</th>
+            <th>Descrição</th> <!-- NOVA COLUNA -->
             <th>Data de Início</th>
             <th>Data de Término</th>
             <th>Status</th>
@@ -18,27 +19,39 @@
             <th>Ações</th>
           </tr>
         </thead>
+
         <tbody>
           <% if (campanhas.length > 0) { %>
             <% campanhas.forEach(c => { %>
               <tr>
                 <td><%= c.nome %></td>
+
+                <!-- NOVA CELULA DA DESCRIÇÃO -->
+                <td style="max-width: 250px; word-wrap: break-word;">
+                  <%= c.descricao && c.descricao.trim() !== "" 
+                        ? c.descricao 
+                        : "Sem descrição" 
+                  %>
+                </td>
+
                 <td><%= c.data_inicio %></td>
                 <td><%= c.data_fim %></td>
                 <td><%= c.ativa ? 'Ativa' : 'Encerrada' %></td>
+
                 <td>
                   <span class="timer" data-fim="<%= c.data_fim %>"></span>
                 </td>
+
                 <td>
                   <form action="/campanhas/<%= c.id %>" method="GET" style="display:inline;">
                     <button <%= c.ativa ? '' : 'disabled' %>>Ver mais</button>
                   </form>
-                  </button>
                 </td>
               </tr>
             <% }) %>
+
           <% } else { %>
-            <tr><td colspan="6">Nenhuma campanha cadastrada 😕</td></tr>
+            <tr><td colspan="7">Nenhuma campanha cadastrada 😕</td></tr>
           <% } %>
         </tbody>
       </table>
@@ -70,5 +83,6 @@
       atualizarTimers();
       setInterval(atualizarTimers, 60000); // atualiza a cada minuto
     </script>
+
   </body>
 </html>
