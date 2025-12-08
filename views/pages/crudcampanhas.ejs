@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../partials/head") %>
+
+<body>
+<%- include("../partials/menu") %>
+
+<div id="header-space"></div>
+
+<main class="solu-main">
+    <h1><%= título %></h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Início</th>
+                <th>Fim</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% campanhas.forEach(c => { %>
+            <tr>
+                <td><%= c.id %></td>
+                <td><%= c.nome %></td>
+                <td><%= c.data_inicio %></td>
+                <td><%= c.data_fim %></td>
+
+                <td>
+                    <% if (c.ativa == 1) { %>
+                        Ativa
+                    <% } else { %>
+                        Inativa
+                    <% } %>
+                </td>
+
+                <td>
+                    <!-- Usamos data-* para evitar problemas de escapamento -->
+                    <button class="btn-abrir-editar"
+                        data-id="<%= c.id %>"
+                        data-nome="<%- String(c.nome).replace(/"/g, '&quot;') %>"
+                        data-inicio="<%- String(c.data_inicio || '') %>"
+                        data-fim="<%- String(c.data_fim || '') %>">
+                        Editar
+                    </button>
+
+                    <button class="btn-abrir-excluir"
+                        data-id="<%= c.id %>"
+                        data-nome="<%- String(c.nome).replace(/"/g, '&quot;') %>">
+                        Excluir
+                    </button>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</main>
+
+<!-- -------- MODAL EDITAR -------- -->
+<div id="modalEditar" style="display:none;">
+    <div>
+        <h2>Editar Campanha</h2>
+
+        <form id="formEditar" action="/crudcampanhas/editar" method="POST">
+            <input type="hidden" id="edit_id" name="id">
+
+            <label>Nome:</label>
+            <input type="text" id="edit_nome" name="nome" required>
+
+            <label>Data de Início:</label>
+            <input type="date" id="edit_inicio" name="data_inicio" required>
+
+            <label>Data de Fim:</label>
+            <input type="date" id="edit_fim" name="data_fim" required>
+
+            <button type="submit">Salvar</button>
+            <button type="button" onclick="fecharEditar()">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+<!-- -------- MODAL EXCLUIR -------- -->
+<div id="modalExcluir" style="display:none;">
+    <div>
+        <h2>Excluir Campanha</h2>
+
+        <p id="textoExcluir"></p>
+
+        <form id="formExcluir" action="/crudcampanhas/deletar" method="POST">
+            <input type="hidden" id="delete_id" name="id">
+
+            <button type="submit">Confirmar</button>
+            <button type="button" onclick="fecharExcluir()">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Função para abrir edição preenchendo os campos
+    function abrirEditarComDados(id, nome, inicio, fim) {
+        document.getElementById("edit_id").value = id;
+        document.getElementById("edit_nome").value = nome || '';
+        document.getElementById("edit_inicio").value = inicio || '';
+        document.getElementById("edit_fim").value = fim || '';
+
+        document.getElementById("modalEditar").style.display = "block";
+    }
+
+    function fecharEditar() {
+        document.getElementById("modalEditar").style.display = "none";
+    }
+
+    // Função para abrir exclusão
+    function abrirExcluirComDados(id, nome) {
+        document.getElementById("delete_id").value = id;
+        document.getElementById("textoExcluir").innerText =
+            "Tem certeza que deseja excluir a campanha: " + (nome || '') + "?";
+
+        document.getElementById("modalExcluir").style.display = "block";
+    }
+
+    function fecharExcluir() {
+        document.getElementById("modalExcluir").style.display = "none";
+    }
+
+    // --- Delegation: ligar eventos aos botões depois que a página carrega ---
+    document.addEventListener('DOMContentLoaded', function () {
+        // abrir editar buttons
+        document.querySelectorAll('.btn-abrir-editar').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const nome = btn.dataset.nome;
+                const inicio = btn.dataset.inicio;
+                const fim = btn.dataset.fim;
+                abrirEditarComDados(id, nome, inicio, fim);
+            });
+        });
+
+        // abrir excluir buttons
+        document.querySelectorAll('.btn-abrir-excluir').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const nome = btn.dataset.nome;
+                abrirExcluirComDados(id, nome);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
