@@ -465,72 +465,85 @@ app.post("/api/campanhas/desativar/:id", (req, res) => {
 app.get("/campanhas/:id", (req, res) => {
   const idCampanha = req.params.id;
 
-  dbCampanhas.all(
-    "SELECT * FROM itens WHERE id_campanha = ?",
+  // BUSCAR nome da campanha
+  dbCampanhas.get(
+    "SELECT nome FROM campanhas WHERE id = ?",
     [idCampanha],
-    (err, itens) => {
-      if (!itens || itens.length === 0)
-        return res.send("Nenhum item cadastrado para esta campanha.");
+    (err, campanhaInfo) => {
+      if (!campanhaInfo)
+        return res.send("Campanha não encontrada.");
 
-      const itemIds = itens.map((i) => i.id);
-      const placeholders = itemIds.map(() => "?").join(",");
+      dbCampanhas.all(
+        "SELECT * FROM itens WHERE id_campanha = ?",
+        [idCampanha],
+        (err, itens) => {
 
-      dbDoacoes.all(
-        `
-        SELECT id_turma, id_item, SUM(quantidade) AS total_itens, SUM(total_pontos) AS total_pontos
-        FROM doacoes
-        WHERE id_item IN (${placeholders})
-        GROUP BY id_turma, id_item
-      `,
-        itemIds,
-        (err, doacoes) => {
-          if (!doacoes || doacoes.length === 0)
-            return res.send("Nenhuma doação registrada ainda.");
+          if (!itens || itens.length === 0)
+            return res.send("Nenhum item cadastrado para esta campanha.");
 
-          const turmaIds = [...new Set(doacoes.map((d) => d.id_turma))];
-          const placeholdersTurmas = turmaIds.map(() => "?").join(",");
+          const itemIds = itens.map(i => i.id);
+          const placeholders = itemIds.map(() => "?").join(",");
 
-          dbTurmas.all(
-            `SELECT id, sigla FROM turmas WHERE id IN (${placeholdersTurmas})`,
-            turmaIds,
-            (err, turmas) => {
-              const siglas = {};
-              turmas.forEach((t) => (siglas[t.id] = t.sigla));
+          dbDoacoes.all(`
+            SELECT id_turma, id_item, SUM(quantidade) AS total_itens, SUM(total_pontos) AS total_pontos
+            FROM doacoes
+            WHERE id_item IN (${placeholders})
+            GROUP BY id_turma, id_item
+          `, itemIds, (err, doacoes) => {
 
-              const itemMap = {};
-              itens.forEach(
-                (i) => (itemMap[i.id] = { nome: i.nome_item, pontos: i.pontos })
-              );
+            if (!doacoes || doacoes.length === 0)
+              return res.send("Nenhuma doação registrada ainda.");
 
-              const turmasDoacoes = {};
+            const turmaIds = [...new Set(doacoes.map(d => d.id_turma))];
+            const placeholdersTurmas = turmaIds.map(() => "?").join(",");
 
-              doacoes.forEach((d) => {
-                if (!turmasDoacoes[d.id_turma])
-                  turmasDoacoes[d.id_turma] = {
-                    sigla: siglas[d.id_turma],
-                    itens: [],
-                  };
+            dbTurmas.all(
+              `SELECT id, sigla FROM turmas WHERE id IN (${placeholdersTurmas})`,
+              turmaIds,
+              (err, turmas) => {
 
-                turmasDoacoes[d.id_turma].itens.push({
-                  nome: itemMap[d.id_item].nome,
-                  quantidade: d.total_itens,
-                  pontos: d.total_pontos,
+                const siglas = {};
+                turmas.forEach(t => siglas[t.id] = t.sigla);
+
+                const itemMap = {};
+                itens.forEach(i => itemMap[i.id] = { nome: i.nome_item, pontos: i.pontos });
+
+                const turmasDoacoes = {};
+                doacoes.forEach(d => {
+                  if (!turmasDoacoes[d.id_turma])
+                    turmasDoacoes[d.id_turma] = {
+                      sigla: siglas[d.id_turma],
+                      itens: []
+                    };
+
+                  turmasDoacoes[d.id_turma].itens.push({
+                    nome: itemMap[d.id_item].nome,
+                    quantidade: d.total_itens,
+                    pontos: d.total_pontos
+                  });
                 });
-              });
 
-              res.render("pages/verCampanha", {
-                título: `Campanha ${idCampanha}`,
-                campanha: { id: idCampanha },
-                turmasDoacoes,
-                req,
-              });
-            }
-          );
+res.render("pages/verCampanha", {
+  título: campanhaInfo.nome,   // ← EXATAMENTE ASSIM (com acento)
+  campanha: {
+    id: idCampanha,
+    nome: campanhaInfo.nome
+  },
+  turmasDoacoes,
+    req: req  
+});
+
+
+
+              }
+            );
+          });
         }
       );
     }
   );
 });
+
 
 // ─────────────── 404 ───────────────
 app.use((req, res) =>

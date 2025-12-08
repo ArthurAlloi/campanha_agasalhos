@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <%- include("../partials/head"); %>
+
   <body>
     <%- include("../partials/loader") %>
-      <script src="/js/loader.js" defer></script>
+    <script src="/js/loader.js" defer></script>
     <%- include("../partials/menu"); %>
 
     <div id="header-space"></div>
 
     <main class="page-campanha-view solu-main">
 
+      <!-- Título real da campanha -->
+      <h1 class="page-title"><%= campanha.nome %></h1>
+
       <% Object.keys(turmasDoacoes).forEach(turmaId => { %>
         <section class="turma-section">
-          <h2 class="turma-title" data-toggle="collapse"><%= turmasDoacoes[turmaId].sigla %></h2>
 
+          <!-- Nome da Turma (colapsável) -->
+          <h2 class="turma-title" data-toggle="collapse">
+            <%= turmasDoacoes[turmaId].sigla %>
+          </h2>
+
+          <!-- Conteúdo colapsável -->
           <div class="turma-table-wrap">
             <table class="table-simple">
-              <h1 class="page-title">Campanha <%= campanha.id %></h1>
+
               <thead>
                 <tr>
                   <th>Item</th>
@@ -24,6 +33,7 @@
                   <th>Pontos</th>
                 </tr>
               </thead>
+
               <tbody>
                 <% turmasDoacoes[turmaId].itens.forEach(i => { %>
                   <tr>
@@ -33,37 +43,35 @@
                   </tr>
                 <% }) %>
               </tbody>
+
             </table>
           </div>
+
         </section>
       <% }) %>
 
       <div class="form-actions" style="margin-top:18px;">
         <button class="btn btn-secondary" onclick="window.location.href='/tabela'">Voltar</button>
       </div>
+
     </main>
 
     <div id="header-space"></div>
 
     <script>
-      // Collapse simples por turma (toggle)
+      // Collapse por turma
       document.querySelectorAll('.turma-title').forEach(h2 => {
         h2.style.cursor = 'pointer';
         h2.addEventListener('click', () => {
           const wrap = h2.nextElementSibling;
           if (!wrap) return;
-          if (wrap.style.display === 'none') {
-            wrap.style.display = '';
-            h2.classList.remove('collapsed');
-          } else {
-            wrap.style.display = 'none';
-            h2.classList.add('collapsed');
-          }
+
+          wrap.style.display = wrap.style.display === 'none' ? '' : 'none';
+          h2.classList.toggle('collapsed');
         });
       });
     </script>
-  
-    <script src="/static/js/main.js"></script>
 
+    <script src="/static/js/main.js"></script>
   </body>
 </html>
