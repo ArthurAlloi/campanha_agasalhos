@@ -123,26 +123,36 @@ main h4{
   padding: 10px;
 }
 
-/*Página ERRO 404*/
-.container_fail_404{
+.container_fail_404 {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-color: #000; /* opcional, ou transparente */
 }
 
-.fail_404 h6{
-  font-size: 1.5rem;
+#container_fail_404_tent{
+  align-items: center;
+  text-align: center;
 }
 
-.letra{
-  color: var(--color-accent);
+.fail_404 {
+  height: 500px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.letra {
   font-size: 8rem;
   letter-spacing: 20px;
+  color: transparent; /* destaque */
 }
 
-.fail_404{
-  background: transparent;
-  border: 0;
+#msg-fail h6{
+  font-size: 30px;
+  color: var(--quintary-color);
 }
 
 
