@@ -83,6 +83,7 @@ html,body {
   color: var(--primary-color);
   /*overflow: hidden;*/
   overscroll-behavior: none;
+  font-family: 'roboto', 'Open Sans';
 }
 
 html.lenis, html.lenis body {

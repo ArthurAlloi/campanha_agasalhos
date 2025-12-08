@@ -27,6 +27,7 @@ a,a:active,a:hover,a:visited {
 }
 
 #header-container {
+  font-family: 'roboto', 'Open Sans';
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -444,6 +445,7 @@ button.header-menu-link {
 .header-auth-container {
   position: relative;
   z-index: 3;
+  font-family: 'roboto', 'Open Sans';
 }
 
 #header-right-buttons {
