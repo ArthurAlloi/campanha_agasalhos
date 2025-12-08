@@ -4,6 +4,12 @@
   overflow-x: hidden;
 }
 
+#page-solcadatro-index{
+  background: linear-gradient(315deg, #2A3D4B, #D9D9D1);
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
 .back-button{
   display: flex;
   font-size: 1em;

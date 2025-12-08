@@ -234,7 +234,6 @@ main h4{
   grid-column: 1 / span 12;
   margin-top: calc(var(--base-padding-y) * 3 / 5);
   cursor: pointer;
-  background-color: var(--quatery-color);
   border-radius: 1.4em;
 }
 
