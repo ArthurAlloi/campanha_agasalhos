@@ -524,7 +524,7 @@ app.get("/campanhas/:id", (req, res) => {
                 });
 
 res.render("pages/verCampanha", {
-  título: campanhaInfo.nome,   // ← EXATAMENTE ASSIM (com acento)
+  título: campanhaInfo.nome,   
   campanha: {
     id: idCampanha,
     nome: campanhaInfo.nome
@@ -543,6 +543,38 @@ res.render("pages/verCampanha", {
     }
   );
 });
+//_________________Crud Campanhas____________________
+
+app.get("/crudcampanhas", apenasadm, (req, res) => {
+  dbCampanhas.all("SELECT * FROM campanhas", (err, campanhas) => {
+    res.render("pages/crudcampanhas", {
+      título: "Gerenciar Campanhas",
+      req,
+      campanhas
+    });
+  });
+});
+
+app.post("/crudcampanhas/editar", apenasadm, (req, res) => {
+  const { id, nome, data_inicio, data_fim } = req.body;
+
+  dbCampanhas.run(`
+      UPDATE campanhas
+      SET nome=?, data_inicio=?, data_fim=?
+      WHERE id=?
+  `, [nome, data_inicio, data_fim, id], () => {
+    res.redirect("/crudcampanhas");
+  });
+});
+
+app.post("/crudcampanhas/deletar", apenasadm, (req, res) => {
+  const { id } = req.body;
+
+  dbCampanhas.run("DELETE FROM campanhas WHERE id=?", [id], () => {
+    res.redirect("/crudcampanhas");
+  });
+});
+
 
 
 // ─────────────── 404 ───────────────
