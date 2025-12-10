@@ -55,12 +55,19 @@
 /*
    CABEÇALHOS
  */
-.page-title {
-    font-size: 1.9rem;
-    color: var(--accent);
-    margin: 0;
-    letter-spacing: -0.02em;
+.solu-main h1 {
+  font-size: 1.9rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 25px;
+  text-align: left;
+  letter-spacing: -0.02em;
 }
+
+ .page-title {
+}
+
 .page-lead {
     color: var(--text-secondary);
     margin: 0;
@@ -80,11 +87,13 @@
     background: rgba(0, 255, 150, 0.08);
     color: #7fffcc;
     border: 1px solid rgba(0, 255, 150, 0.12);
+    text-transform: uppercase;
 }
 .alert-error {
     background: rgba(255, 80, 80, 0.06);
     color: #ffb3b3;
     border: 1px solid rgba(255, 80, 80, 0.12);
+    text-transform: uppercase;
 }
 
 /*
@@ -122,6 +131,7 @@
     box-shadow: 0 6px 20px rgba(2, 170, 196, 0.2);
     border-color: var(--accent);
     transform: translateY(-1px);
+    background: rgb(1, 45, 58);
 }
 
 .form-row {
@@ -289,6 +299,7 @@
 /*
    TABELA - LISTAGEM DE CAMPANHAS / USERS
  */
+
 .table-wrap {
     overflow-x: auto;
     margin-top: 14px;
@@ -375,7 +386,7 @@
 .empty {
     text-align: center;
     padding: 28px;
-    color: var(--text-secondary);
+    color: var(--quintary-color);
 }
 
 /*
@@ -391,7 +402,7 @@
 /* turma collapse style */
 .turma-title {
     margin: 12px 0 6px 0;
-    color: var(--accent-3);
+    color: var(--accent-2);
     cursor: pointer;
 }
 .turma-title.collapsed {
@@ -413,37 +424,6 @@
     padding: 4px;
 }
 
-.input::placeholder,
-.textarea::placeholder {
-    color: rgba(217, 217, 209, 0.45);   /* cor suave da sua paleta */
-    font-style: italic;                 /* dá aquele toque elegante */
-    letter-spacing: 0.4px;              /* mais moderno */
-    transition: color .25s ease;        /* animação leve */
-}
-
-/* muda a cor quando o input recebe foco */
-.input:focus::placeholder,
-.textarea:focus::placeholder {
-    color: rgba(2, 170, 196, 0.55);     /* cyan vivo ao focar */
-}
-
-/* Placeholder visual do SELECT */
-.select:invalid {
-    color: rgba(217, 217, 209, 0.40); /* tom suave, combina com o tema */
-    font-style: italic;
-    background: var(--primary-color);
-}
-
-/* Quando selecionar algo, volta ao normal */
-.select option {
-    color: var(--text-primary);
-}
-
-/* A opção placeholder dentro da lista suspensa */
-.select option[value=""] {
-    color: rgba(217, 217, 209, 0.35);
-}
-
 .form-heading{
     color: var(--quintary-color);
 }
@@ -456,17 +436,7 @@
   padding: 20px;
 }
 
-.solu-main h1 {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 25px;
-  text-align: left;
-}
-
-/* ----------------------------------------------------- */
 /* TABELA */
-/* ----------------------------------------------------- */
 
 table {
   width: 100%;
@@ -487,12 +457,13 @@ thead {
 thead th {
   padding: 15px;
   font-size: 15px;
-  text-align: left;
+  text-align: center;
   font-weight: 600;
 }
 
 tbody tr {
   border-bottom: 1px solid var(--muted);
+  left: 0;
 }
 
 tbody tr:last-child {
@@ -511,9 +482,14 @@ tbody tr:hover {
   transition: var(--transition);
 }
 
-/* ----------------------------------------------------- */
 /* BOTÕES (Editar / Excluir) */
-/* ----------------------------------------------------- */
+
+.btns-crud{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+}
 
 button {
   padding: 8px 14px;
@@ -546,9 +522,7 @@ button {
   transform: translateY(-1px);
 }
 
-/* ----------------------------------------------------- */
 /* MODAIS */
-/* ----------------------------------------------------- */
 
 #modalEditar,
 #modalExcluir {
@@ -568,6 +542,7 @@ button {
 
 #modalEditar > div,
 #modalExcluir > div {
+  display: block;
   background: var(--card);
   border-radius: var(--radius-lg);
   border: var(--glass-border);
@@ -592,9 +567,7 @@ button {
   margin-bottom: 20px;
 }
 
-/* ----------------------------------------------------- */
 /* FORMULÁRIOS NOS MODAIS */
-/* ----------------------------------------------------- */
 
 #modalEditar form,
 #modalExcluir form {
@@ -640,9 +613,7 @@ button {
   transform: translateY(-2px);
 }
 
-/* ----------------------------------------------------- */
 /* ANIMAÇÕES */
-/* ----------------------------------------------------- */
 
 @keyframes fadeIn {
   from { opacity: 0; }

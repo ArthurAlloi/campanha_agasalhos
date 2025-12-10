@@ -26,39 +26,47 @@
             </thead>
 
             <tbody>
+              <% if (campanhas.length > 0) { %>
                 <% campanhas.forEach(c => { %>
-                <tr>
-                    <td><%= c.id %></td>
-                    <td><%= c.nome %></td>
-                    <td><%= c.data_inicio %></td>
-                    <td><%= c.data_fim %></td>
-
-                    <td>
-                        <% if (c.ativa == 1) { %>
-                            Ativa
-                        <% } else { %>
-                            Inativa
-                        <% } %>
-                    </td>
-
-                    <td>
-                        <!-- Usamos data-* para evitar problemas de escapamento -->
-                        <button class="btn-abrir-editar"
-                            data-id="<%= c.id %>"
-                            data-nome="<%- String(c.nome).replace(/"/g, '&quot;') %>"
-                            data-inicio="<%- String(c.data_inicio || '') %>"
-                            data-fim="<%- String(c.data_fim || '') %>">
-                            Editar
-                        </button>
-
-                        <button class="btn-abrir-excluir"
-                            data-id="<%= c.id %>"
-                            data-nome="<%- String(c.nome).replace(/"/g, '&quot;') %>">
-                            Excluir
-                        </button>
-                    </td>
-                </tr>
+                  <tr>
+                      <td><%= c.id %></td>
+                      <td><%= c.nome %></td>
+                      <td><%= c.data_inicio %></td>
+                      <td><%= c.data_fim %></td>
+  
+                      <td>
+                          <% if (c.ativa == 1) { %>
+                              Ativa
+                          <% } else { %>
+                              Inativa
+                          <% } %>
+                      </td>
+  
+                      <td>
+                        <div class="btns-crud">
+                          <!-- Usamos data-* para evitar problemas de escapamento -->
+                          <button class="btn-abrir-editar"
+                              data-id="<%= c.id %>"
+                              data-nome="<%- String(c.nome).replace(/"/g, '&quot;') %>"
+                              data-inicio="<%- String(c.data_inicio || '') %>"
+                              data-fim="<%- String(c.data_fim || '') %>">
+                              Editar
+                          </button>
+  
+                          <button class="btn-abrir-excluir"
+                              data-id="<%= c.id %>"
+                              data-nome="<%- String(c.nome).replace(/"/g, '&quot;') %>">
+                              Excluir
+                          </button>
+                        </div>
+                      </td>
+                  </tr>
                 <% }) %>
+
+              <% } else { %>
+                <tr><td colspan="7" class="empty">Nenhuma campanha cadastrada 😕</td></tr>
+              <% } %>
+
             </tbody>
         </table>
 
@@ -71,13 +79,13 @@
                 <form id="formEditar" action="/crudcampanhas/editar" method="POST">
                     <input type="hidden" id="edit_id" name="id">
 
-                    <label>Nome:</label>
+                    <label>Nome</label>
                     <input type="text" id="edit_nome" name="nome" required>
 
-                    <label>Data de Início:</label>
+                    <label>Data de Início</label>
                     <input type="date" id="edit_inicio" name="data_inicio" required>
 
-                    <label>Data de Fim:</label>
+                    <label>Data de Fim</label>
                     <input type="date" id="edit_fim" name="data_fim" required>
 
                     <button type="submit">Salvar</button>
@@ -127,7 +135,7 @@
     function abrirExcluirComDados(id, nome) {
         document.getElementById("delete_id").value = id;
         document.getElementById("textoExcluir").innerText =
-            "Tem certeza que deseja excluir a campanha: " + (nome || '') + "?";
+            "Tem certeza que deseja excluir " + (nome || '') + "?";
 
         document.getElementById("modalExcluir").style.display = "block";
     }

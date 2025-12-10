@@ -3,17 +3,6 @@
 
 <%- include("../partials/head"); %>
 
-<style>
-
-body {
-  height: 100%;
-  margin: 0;
-  overflow:hidden;
-  width: 100%;
-}
-
-</style>
-
 <body id="page-solcadatro-index">
   <%- include("../partials/loader") %>
   <script src="/js/loader.js" defer></script>
@@ -81,16 +70,17 @@ body {
         <p>
           Já possui conta? <a href="/login">Faça login</a>
         </p>
-      </div>
 
-      <div class="error-space">
-        <% if (erro) { %>
-          <p class="error" style="color: red; margin-top: 10px; font-weight: bolder;"><%= erro %> </p>
-        <% } %>
+        <div class="error-space">
+          <% if (erro) { %>
+            <p class="error" style="color: red; margin-top: 10px; font-weight: bolder;"><%= erro %> </p>
+          <% } %>
 
-        <% if (sucesso) { %>
-          <p class="sucesso" style="color: lightgreen; margin-top: 10px; font-weight: bolder;"><%= sucesso %></p>
-        <% } %>
+          <% if (sucesso) { %>
+            <p class="sucesso" style="color: lightgreen; margin-top: 10px; font-weight: bolder;"><%= sucesso %></p>
+          <% } %>
+          
+        </div>
         
       </div>
 

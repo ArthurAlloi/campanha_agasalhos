@@ -373,7 +373,7 @@ app.post("/realizardoacao", apenasadmouminiadm, (req, res) => {
       dbDoacoes.run(
         "INSERT INTO doacoes (id_turma, id_item, quantidade, total_pontos) VALUES (?, ?, ?, ?)",
         [id_turma, id_roupa, quantidade, pontosTotais],
-        () => res.redirect("/tabela")
+        () => res.redirect("/realizardoacaocamp")
       );
     }
   );
